@@ -1,4 +1,4 @@
-# helping hand 
+# ShebaXpert
 
 A platform designed to connect users with skilled low-income workers such as carpenters, plumbers, painters, pest controllers, and electricians. The project integrates map-based location tracking and automated Facebook posting for easy service accessibility.
 
