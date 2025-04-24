@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>নিবন্ধন ফর্ম</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #111;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      background-color: #4b006e;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #35004f;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>নিবন্ধন করুন</h2>
+    <form>
+      <label>জাতীয় পরিচয়পত্র (NID)/ জন্ম সনদ:</label>
+      <input type="file">
+
+      <label> নাম (NID/ জন্ম সনদ অনুযায়ী):</label>
+      <input type="text" placeholder="NID এর নাম অনুযায়ী">
+
+      <label>ফোন নম্বর:</label>
+      <input type="text">
+
+      <label>ইমেইল (ঐচ্ছিক):</label>
+      <input type="email">
+
+      <label>ছবি:</label>
+      <input type="file">
+
+      <label>apnar অবস্থান:</label>
+      <input type="text">
+
+      <label>লিঙ্গ:</label>
+      <select>
+        <option>পুরুষ</option>
+        <option>নারী</option>
+        <option>অন্যান্য</option>
+      </select>
+
+      <label>Apnar er ager kaj describe korun:</label>
+      <textarea placeholder="আপনার দোকানের বিস্তারিত লিখুন..."></textarea>
+
+      <label>পাসওয়ার্ড:</label>
+      <input type="password">
+
+      <button class="submit-btn" type="submit">নিবন্ধন করুন</button>
+    </form>
+  </div>
+</body>
+</html>
