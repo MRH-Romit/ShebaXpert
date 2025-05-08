@@ -1,21 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import Layout from './components/layout/Layout';
-import ProtectedRoute from './components/common/ProtectedRoute';
+import { AuthProvider } from './js/context/AuthContext';
+import Layout from './js/components/layout/Layout';
+import ProtectedRoute from './js/components/common/ProtectedRoute';
 
 // Pages
-import Home from './pages/Home';
-import MapPage from './pages/MapPage';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Profile from './pages/Profile';
-import Dashboard from './pages/Dashboard';
-import UserDashboard from './pages/UserDashboard';
-import ServiceProviderDashboard from './pages/ServiceProviderDashboard';
-import AdminDashboard from './pages/AdminDashboard';
-import ServiceDetails from './pages/ServiceDetails';
-import NotFound from './pages/NotFound';
+import Home from './js/pages/Home';
+import MapPage from './js/pages/MapPage';
+import Login from './js/pages/Login';
+import Register from './js/pages/Register';
+import Profile from './js/pages/Profile';
+import Dashboard from './js/pages/Dashboard';
+import UserDashboard from './js/pages/UserDashboard';
+import ServiceProviderDashboard from './js/pages/ServiceProviderDashboard';
+import AdminDashboard from './js/pages/AdminDashboard';
+import ServiceDetails from './js/pages/ServiceDetails';
+import NotFound from './js/pages/NotFound';
 
 const App = () => {
   return (
