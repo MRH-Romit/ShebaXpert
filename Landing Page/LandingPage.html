@@ -7,11 +7,37 @@
     <link rel="stylesheet" href="/ShebaXpert/Landing Page/LandingPage.css" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Smooth hover effects */
+        .btn-primary, .btn-secondary, .btn-outline {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Smooth navigation menu toggle */
+        nav {
+            transition: left 0.3s ease;
+        }
+
+        nav.active {
+            left: 0;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Header -->
     <header class="header">
+        <div class="language-toggle">
+            <label>
+                <input type="checkbox" id="languageToggle" />
+                <span>বাংলা / English</span>
+            </label>
+        </div>
         <div class="container">
             <div class="logo-container">
                 <img class="just_logo" src="/ShebaXpert/Resources/images/justlogo.png" alt="ShebaXpert Logo">
@@ -21,8 +47,8 @@
                 <ul>
                     <li><a href="#">হোম</a></li>
                     <li><a href="#">সেবাসমূহ</a></li>
-                    <li><a href="#">লগইন</a></li>
-                    <li><a href="#" class="nav-cta">সাইন আপ করুন</a></li>
+                    <li><a href="#লগইন">লগইন</a></li>
+                    <li><a href="#সাইন আপ করুন" class="nav-cta">সাইন আপ করুন</a></li>
                 </ul>
             </nav>
             <div class="mobile-menu-btn">
@@ -176,6 +202,70 @@
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
             document.querySelector('nav').classList.toggle('active');
         });
+
+        // Redirect to login and signup pages
+        document.querySelector('a[href="#লগইন"]').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '../Login/LogIn.html';
+        });
+
+        document.querySelector('a[href="#সাইন আপ করুন"]').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = '../Login/LogIn.html';
+        });
+
+        // Language toggle functionality
+        const translations = {
+            bn: {
+                home: "হোম",
+                services: "সেবাসমূহ",
+                login: "লগইন",
+                signup: "সাইন আপ করুন",
+                heroText: "সেবাXpert-এ যুক্ত হোন, যেখানে দক্ষ কর্মীদের সাথে যুক্ত হচ্ছেন হাজারো সক্রিয় গ্রাহক।",
+                signupButton: "সাইন আপ করুন",
+                coverageTitle: "ঢাকার আশেপাশে ৮টি শহরে সেবা দিচ্ছি",
+                coverageButton: "সকল শহর দেখুন",
+                servicesTitle: "আমাদের সেবাসমূহ",
+                servicesSubtitle: "পেশাদার সেবা প্রদানকারীদের দ্বারা গুণগত সেবা নিশ্চিত",
+                footerText: "&copy; 2023 সেবাXpert. সকল স্বত্ব সংরক্ষিত",
+            },
+            en: {
+                home: "Home",
+                services: "Services",
+                login: "Login",
+                signup: "Sign Up",
+                heroText: "Join ShebaXpert, where skilled professionals connect with thousands of active customers.",
+                signupButton: "Sign Up",
+                coverageTitle: "Providing services in 8 cities around Dhaka",
+                coverageButton: "View All Cities",
+                servicesTitle: "Our Services",
+                servicesSubtitle: "Ensuring quality services by professional providers",
+                footerText: "&copy; 2023 ShebaXpert. All rights reserved",
+            },
+        };
+
+        function updateLanguage(lang) {
+            document.querySelector('nav ul li:nth-child(1) a').textContent = translations[lang].home;
+            document.querySelector('nav ul li:nth-child(2) a').textContent = translations[lang].services;
+            document.querySelector('nav ul li:nth-child(3) a').textContent = translations[lang].login;
+            document.querySelector('nav ul li:nth-child(4) a').textContent = translations[lang].signup;
+            document.querySelector('.hero-text h3').textContent = translations[lang].heroText;
+            document.querySelector('.hero-text button').textContent = translations[lang].signupButton;
+            document.querySelector('.coverage-content h3').textContent = translations[lang].coverageTitle;
+            document.querySelector('.coverage-content a').textContent = translations[lang].coverageButton;
+            document.querySelector('.services .section-title').textContent = translations[lang].servicesTitle;
+            document.querySelector('.services .section-subtitle').textContent = translations[lang].servicesSubtitle;
+            document.querySelector('.footer-bottom p').innerHTML = translations[lang].footerText;
+        }
+
+        const languageToggle = document.getElementById('languageToggle');
+        languageToggle.addEventListener('change', function () {
+            const lang = languageToggle.checked ? 'en' : 'bn';
+            updateLanguage(lang);
+        });
+
+        // Set default language to Bangla
+        updateLanguage('bn');
     </script>
 </body>
 </html>
