@@ -17,43 +17,31 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 22  
 }).addTo(map);
 
-// Add sample service providers
+// Add sample service providers with custom icons
 const serviceProviders = [
-    { name: "ইলেকট্রিশিয়ান", lat: 23.8113, lng: 90.4125, category: "electrician" },
-    { name: "প্লাম্বার", lat: 23.8093, lng: 90.4135, category: "plumber" },
-    { name: "এসি সার্ভিস", lat: 23.8103, lng: 90.4115, category: "ac" },
-    { name: "কার্পেন্টার", lat: 23.8123, lng: 90.4145, category: "carpenter" },
-    { name: "পেইন্টিং সার্ভিস", lat: 23.8083, lng: 90.4155, category: "painting" },
-    { name: "গৃহস্থালি মেরামত", lat: 23.8133, lng: 90.4105, category: "repair" }
+    { name: "ইলেকট্রিশিয়ান", lat: 23.8113, lng: 90.4125, category: "electrician", icon: "bolt" },
+    { name: "প্লাম্বার", lat: 23.8093, lng: 90.4135, category: "plumber", icon: "faucet" },
+    { name: "এসি সার্ভিস", lat: 23.8103, lng: 90.4115, category: "ac", icon: "wind" },
+    { name: "কার্পেন্টার", lat: 23.8123, lng: 90.4145, category: "carpenter", icon: "people-carry" },
+    { name: "পেইন্টিং সার্ভিস", lat: 23.8083, lng: 90.4155, category: "painting", icon: "paint-roller" },
+    { name: "গৃহস্থালি মেরামত", lat: 23.8133, lng: 90.4105, category: "repair", icon: "hammer" }
 ];
 
-// Add markers to map
-serviceProviders.forEach(provider => {
-    const marker = L.marker([provider.lat, provider.lng]).addTo(map)
-        .bindPopup(`<b>${provider.name}</b><br>${provider.category}`);
-});
-
-// Dropdown functionality
-const dropdownButton = document.querySelector('.dropdown-button');
-const dropdownList = document.querySelector('.dropdown-list');
-const dropdownItems = document.querySelectorAll('.dropdown-list li');
-const dropdownText = dropdownButton.querySelector('span');
-
-dropdownButton.addEventListener('click', () => {
-    dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
-});
-
-dropdownItems.forEach(item => {
-    item.addEventListener('click', () => {
-        dropdownText.textContent = item.textContent;
-        dropdownList.style.display = 'none';
+// Create custom icons
+function createCustomIcon(iconName) {
+    return L.divIcon({
+        html: `<div class="custom-marker"><i class="fas fa-${iconName}"></i></div>`,
+        iconSize: [40, 40],
+        className: 'custom-marker-container'
     });
-});
+}
 
-document.addEventListener('click', (event) => {
-    if (!dropdownButton.contains(event.target) && !dropdownList.contains(event.target)) {
-        dropdownList.style.display = 'none';
-    }
+// Add markers to map with custom icons
+serviceProviders.forEach(provider => {
+    const marker = L.marker([provider.lat, provider.lng], {
+        icon: createCustomIcon(provider.icon)
+    }).addTo(map)
+        .bindPopup(`<b>${provider.name}</b><br>${provider.category}`);
 });
 
 // Category selection
@@ -89,7 +77,9 @@ document.querySelector('.search-button').addEventListener('click', async () => {
             map.setView([lat, lon], 16);
             
             // Add marker at the searched location
-            L.marker([lat, lon]).addTo(map)
+            L.marker([lat, lon], {
+                icon: createCustomIcon('map-marker-alt')
+            }).addTo(map)
                 .bindPopup(`📍 <b>${placeName}</b>`)
                 .openPopup();
             
@@ -101,3 +91,27 @@ document.querySelector('.search-button').addEventListener('click', async () => {
         alert("অনুসন্ধান করতে সমস্যা হচ্ছে!");
     }
 });
+
+// Add custom marker styles to the page
+const style = document.createElement('style');
+style.textContent = `
+.custom-marker-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.custom-marker {
+    background: linear-gradient(135deg, #004AAD, #00C6FF);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+}
+`;
+document.head.appendChild(style);
