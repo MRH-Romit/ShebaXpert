@@ -9,42 +9,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Sheba Expert Logo">
+                <h1>Sheba Expert</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
+                    <li><a href="#"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
+                    <li><a href="#"><i class="fas fa-headset"></i> সহায়তা</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> রেজিস্টার</button>
+                <button class="btn btn-secondary"><i class="fas fa-sign-in-alt"></i> লগইন</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
     <div class="dashboard-container">
         <!-- Sidebar -->
         <aside class="dashboard-sidebar">
-            <div class="sidebar-header">
-                <img src="/ShebaXpert/Resources/images/justlogo.png" alt="Sheba Expert Logo">
-                <h2>Sheba Expert</h2>
-            </div>
-            
             <div class="search-panel">
-                <h3>এলাকা অনুসন্ধান করুন</h3>
+                <h3><i class="fas fa-search-location"></i> এলাকা অনুসন্ধান করুন</h3>
                 <input type="text" class="input-field" placeholder="স্থানের নাম লিখুন">
-                
-                <div class="dropdown-container">
-                    <div class="dropdown-button">
-                        <span>জেলার নাম নির্বাচন করুন</span>
-                        <div>▼</div>
-                    </div>
-                    <div class="dropdown-list">
-                        <ul>
-                            <li>ঢাকা</li>
-                            <li>চট্টগ্রাম</li>
-                            <li>সিলেট</li>
-                            <li>খুলনা</li>
-                            <li>বরিশাল</li>
-                            <li>রাজশাহী</li>
-                            <li>রংপুর</li>
-                            <li>ময়মনসিংহ</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <button class="search-button">অনুসন্ধান করুন</button>
+                <button class="search-button"><i class="fas fa-search"></i> অনুসন্ধান করুন</button>
             </div>
             
             <div class="service-categories">
-                <h3>সেবার ধরণ নির্বাচন করুন</h3>
+                <h3><i class="fas fa-list-ul"></i> সেবার ধরণ নির্বাচন করুন</h3>
                 <div class="category-list">
                     <div class="category-item active">
                         <i class="fas fa-bolt"></i>
@@ -74,13 +72,47 @@
             </div>
         </aside>
         
-        <!-- Main Content -->
+        <!-- Map Area -->
         <main class="dashboard-main">
             <div class="map-container">
                 <div id="mapid"></div>
             </div>
         </main>
     </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Sheba Expert</h4>
+                <p>আপনার ঘরের সব সমস্যার একমাত্র সমাধান</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>লিংক</h4>
+                <ul>
+                    <li><a href="#">হোম</a></li>
+                    <li><a href="#">সার্ভিস সমূহ</a></li>
+                    <li><a href="#">প্রোভাইডার</a></li>
+                    <li><a href="#">যোগাযোগ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>যোগাযোগ</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ১২৩ রোড, ঢাকা, বাংলাদেশ</p>
+                <p><i class="fas fa-phone"></i> +৮৮০ ১২৩৪ ৫৬৭৮৯</p>
+                <p><i class="fas fa-envelope"></i> info@shebaexpert.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; ২০২৩ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
+        </div>
+    </footer>
     
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="script.js"></script>
