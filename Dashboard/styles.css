@@ -42,6 +42,7 @@ body {
 }
 
 .logo-container {
+    height: 80px;
     display: flex;
     align-items: center;
     gap: 1rem;
