@@ -1,163 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location Selection</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            margin: 20px;
-        }
-
-        .left-panel {
-            width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 20px;
-        }
-
-        .left-panel h2 {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            box-sizing: border-box;
-        }
-
-        .dropdown-container {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .dropdown-button {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            background-color: #f9f9f9;
-            cursor: pointer;
-            box-sizing: border-box;
-        }
-
-        .dropdown-list {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-top: none;
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 3px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-        }
-
-        .dropdown-list ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .dropdown-list li {
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .dropdown-list li:hover {
-            background-color: #eee;
-        }
-
-        .search-button {
-            background-color: #007bff; /* Example button color */
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        .map-panel {
-            flex-grow: 1;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            min-height: 300px; /* Placeholder for the map */
-            background-color: #f0f0f0; /* Placeholder background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #777;
-            font-style: italic;
-        }
-    </style>
+    <title>Sheba Expert - সার্ভিস প্রোভাইডার ড্যাশবোর্ড</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="left-panel">
-        <h2>আপনার অনুসন্ধানকৄত এলাকা নির্বাচন করুন</h2>
-        <input type="text" class="input-field" placeholder="Enter location">
-
-        <h2>আপনার গন্তব্য জোনীয় সরোবর নির্বাচন করুন</h2>
-        <div class="dropdown-container">
-            <div class="dropdown-button">
-                <span>জেলার নাম নির্বাচন করুন</span>
-                <div>▼</div>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <img src="/ShebaXpert/Resources/images/justlogo.png" alt="Sheba Expert Logo">
+                <h2>Sheba Expert</h2>
             </div>
-            <div class="dropdown-list">
-                <ul>
-                    <li>ঢাকা</li>
-                    <li>চট্টগ্রাম</li>
-                    <li>সিলেট</li>
-                    <li>খুলনা</li>
-                    <li>বরিশাল</li>
-                    <li>রাজশাহী</li>
-                    <li>রংপুর</li>
-                    <li>ময়মনসিংহ</li>
-                </ul>
+            
+            <div class="search-panel">
+                <h3>এলাকা অনুসন্ধান করুন</h3>
+                <input type="text" class="input-field" placeholder="স্থানের নাম লিখুন">
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-button">
+                        <span>জেলার নাম নির্বাচন করুন</span>
+                        <div>▼</div>
+                    </div>
+                    <div class="dropdown-list">
+                        <ul>
+                            <li>ঢাকা</li>
+                            <li>চট্টগ্রাম</li>
+                            <li>সিলেট</li>
+                            <li>খুলনা</li>
+                            <li>বরিশাল</li>
+                            <li>রাজশাহী</li>
+                            <li>রংপুর</li>
+                            <li>ময়মনসিংহ</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="search-button">অনুসন্ধান করুন</button>
             </div>
-        </div>
-
-        <button class="search-button">অনুসন্ধান করুন</button>
+            
+            <div class="service-categories">
+                <h3>সেবার ধরণ নির্বাচন করুন</h3>
+                <div class="category-list">
+                    <div class="category-item active">
+                        <i class="fas fa-bolt"></i>
+                        <span>ইলেকট্রিশিয়ান</span>
+                    </div>
+                    <div class="category-item">
+                        <i class="fas fa-faucet"></i>
+                        <span>প্লাম্বার</span>
+                    </div>
+                    <div class="category-item">
+                        <i class="fas fa-wind"></i>
+                        <span>এসি সার্ভিস</span>
+                    </div>
+                    <div class="category-item">
+                        <i class="fas fa-hammer"></i>
+                        <span>গৃহস্থালি মেরামত</span>
+                    </div>
+                    <div class="category-item">
+                        <i class="fas fa-paint-roller"></i>
+                        <span>পেইন্টিং</span>
+                    </div>
+                    <div class="category-item">
+                        <i class="fas fa-people-carry"></i>
+                        <span>কার্পেন্টার</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="map-container">
+                <div id="mapid"></div>
+            </div>
+        </main>
     </div>
-
-    <div class="map-panel">
-        <span>Map will be displayed here</span>
-    </div>
-
-    <script>
-        const dropdownButton = document.querySelector('.dropdown-button');
-        const dropdownList = document.querySelector('.dropdown-list');
-        const dropdownItems = document.querySelectorAll('.dropdown-list li');
-        const dropdownText = dropdownButton.querySelector('span');
-
-        dropdownButton.addEventListener('click', () => {
-            dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
-        });
-
-        dropdownItems.forEach(item => {
-            item.addEventListener('click', () => {
-                dropdownText.textContent = item.textContent;
-                dropdownList.style.display = 'none';
-            });
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!dropdownButton.contains(event.target) && !dropdownList.contains(event.target)) {
-                dropdownList.style.display = 'none';
-            }
-        });
-    </script>
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

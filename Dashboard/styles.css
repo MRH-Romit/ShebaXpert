@@ -1,0 +1,211 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.dashboard-sidebar {
+    background: linear-gradient(135deg, #004AAD, #00C6FF);
+    color: white;
+    padding: 30px 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-header img {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+}
+
+.sidebar-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.search-panel {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.search-panel h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+.dropdown-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.dropdown-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: none;
+}
+
+.dropdown-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-list li {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.dropdown-list li:hover {
+    background-color: #f0f7ff;
+}
+
+.search-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #004AAD, #00C6FF);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 10px;
+    transition: all 0.3s;
+    border: 1px solid white;
+}
+
+.search-button:hover {
+    background: linear-gradient(to right, #003d8f, #00a8e0);
+}
+
+.service-categories {
+    margin-top: 30px;
+}
+
+.service-categories h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.category-item {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.category-item:hover, .category-item.active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.category-item i {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+/* Main Content Styles */
+.dashboard-main {
+    padding: 20px;
+    background-color: #f8fafc;
+}
+
+.map-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    height: calc(100vh - 40px);
+}
+
+#mapid {
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-sidebar {
+        padding: 20px;
+    }
+    
+    .map-container {
+        height: 500px;
+    }
+}
