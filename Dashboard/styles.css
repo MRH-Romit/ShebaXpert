@@ -42,10 +42,11 @@ body {
 }
 
 .logo-container {
-    height: 80px;
-    display: flex;
+    width: 50px;
+    height: auto;
     align-items: center;
-    gap: 1rem;
+    margin-right: 12px;
+    transition: var(--transition);
 }
 
 .logo-container img {
