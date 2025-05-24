@@ -23,11 +23,10 @@ const translations = {
         signinSubtitle: "or use your account",
         signinButton: "Sign In",
         forgotPassword: "Forgot your password?",
-        welcomeBack: "Welcome Back!",
-        welcomeBackText: "To keep connected with us please login with your personal info",
+        welcomeBack: "Welcome Back!",        welcomeBackText: "To keep connected with us please login with your personal info",
         helloFriend: "Hello, Friend!",
         helloFriendText: "Enter your personal details and start your journey with us",
-        footerText: "Hello, I am Sadique Hossain."
+        footerText: "© 2023 ShebaXpert. All rights reserved"
     },
     bn: {
         signupTitle: "অ্যাকাউন্ট তৈরি করুন",
@@ -38,10 +37,9 @@ const translations = {
         signinButton: "সাইন ইন",
         forgotPassword: "আপনার পাসওয়ার্ড ভুলে গেছেন?",
         welcomeBack: "ফিরে আসার জন্য স্বাগতম!",
-        welcomeBackText: "সংযুক্ত থাকতে দয়া করে আপনার ব্যক্তিগত তথ্য দিয়ে লগইন করুন",
-        helloFriend: "হ্যালো, বন্ধু!",
+        welcomeBackText: "সংযুক্ত থাকতে দয়া করে আপনার ব্যক্তিগত তথ্য দিয়ে লগইন করুন",        helloFriend: "হ্যালো, বন্ধু!",
         helloFriendText: "আপনার ব্যক্তিগত বিবরণ লিখুন এবং আমাদের সাথে আপনার যাত্রা শুরু করুন",
-        footerText: "হ্যালো, আমি সাদিক হোসেন।"
+        footerText: "© ২০২৩ সেবাXpert. সকল স্বত্ব সংরক্ষিত"
     }
 };
 

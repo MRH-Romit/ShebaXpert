@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>নিবন্ধন ফর্ম</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+  <style>    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
     
     body {
       font-family: 'Hind Siliguri', sans-serif;
       margin: 0;
       padding: 0;
       background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                  url('/ShebaXpert/Resources/images/handyman_page_top.jpg');
+                  url('../Resources/images/handyman_page_top.jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -199,8 +198,22 @@
       </div>
       
       <div class="form-group">
-        <label>আপনার অবস্থান:</label>
-        <input type="text" placeholder="আপনার বর্তমান অবস্থান">
+        <label>আপনার বর্তমান অবস্থান (জেলা/উপজেলা):</label>
+        <input type="text" placeholder="আপনার বর্তমান জেলা বা উপজেলা লিখুন">
+      </div>
+      
+      <div class="form-group">
+        <label>আপনি কোন ধরনের সেবা প্রদান করেন?:</label>
+        <select>
+          <option selected disabled>সেবার ধরন নির্বাচন করুন</option>
+          <option>ইলেকট্রিশিয়ান</option>
+          <option>প্লাম্বার</option>
+          <option>এসি মেরামত</option>
+          <option>গৃহস্থালি মেরামত</option>
+          <option>পেইন্টিং</option>
+          <option>কার্পেন্টার</option>
+          <option>অন্যান্য</option>
+        </select>
       </div>
       
       <div class="form-group">
