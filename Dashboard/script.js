@@ -92,6 +92,7 @@ document.querySelector('.search-button').addEventListener('click', async () => {
     }
 });
 
+// Profile dropdown functionality
 document.addEventListener('DOMContentLoaded', function() {
     const profileBtn = document.querySelector('.profile-btn');
     const dropdown = document.querySelector('.dropdown-content');
