@@ -92,26 +92,79 @@ document.querySelector('.search-button').addEventListener('click', async () => {
     }
 });
 
-// Profile dropdown functionality
 document.addEventListener('DOMContentLoaded', function() {
     const profileBtn = document.querySelector('.profile-btn');
     const dropdown = document.querySelector('.dropdown-content');
+    let timeoutId;
     
-    // Toggle dropdown on click
+    // Click handler
     profileBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        const isDisplayed = dropdown.style.display === 'block';
-        dropdown.style.display = isDisplayed ? 'none' : 'block';
+        toggleDropdown();
     });
     
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function() {
-        dropdown.style.display = 'none';
+    // Hover handlers with delay
+    profileBtn.addEventListener('mouseenter', function() {
+        clearTimeout(timeoutId);
+        dropdown.style.display = 'block';
+        setTimeout(() => {
+            dropdown.style.opacity = '1';
+            dropdown.style.transform = 'translateY(0)';
+        }, 10);
     });
     
-    // Prevent dropdown from closing when clicking inside it
-    dropdown.addEventListener('click', function(e) {
-        e.stopPropagation();
+    profileBtn.addEventListener('mouseleave', function() {
+        startHideTimer();
+    });
+    
+    dropdown.addEventListener('mouseenter', function() {
+        clearTimeout(timeoutId);
+    });
+    
+    dropdown.addEventListener('mouseleave', function() {
+        startHideTimer();
+    });
+    
+    function startHideTimer() {
+        timeoutId = setTimeout(() => {
+            dropdown.style.opacity = '0';
+            dropdown.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                if (dropdown.style.opacity === '0') {
+                    dropdown.style.display = 'none';
+                }
+            }, 300);
+        }, 300);
+    }
+    
+    function toggleDropdown() {
+        const isVisible = dropdown.style.display === 'block' && 
+                          dropdown.style.opacity === '1';
+        
+        if (isVisible) {
+            dropdown.style.opacity = '0';
+            dropdown.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                dropdown.style.display = 'none';
+            }, 300);
+        } else {
+            dropdown.style.display = 'block';
+            setTimeout(() => {
+                dropdown.style.opacity = '1';
+                dropdown.style.transform = 'translateY(0)';
+            }, 10);
+        }
+    }
+    
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target) && e.target !== profileBtn) {
+            dropdown.style.opacity = '0';
+            dropdown.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                dropdown.style.display = 'none';
+            }, 300);
+        }
     });
 });
 
