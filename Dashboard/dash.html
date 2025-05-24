@@ -8,27 +8,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="header-container">            
-            <div >
-                <img class="logo-container" src="../Resources/images/justlogo.png" alt="Sheba Expert Logo">
-                <h1>সেবাXpert</h1>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
-                    <li><a href="#"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
-                    <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
-                    <li><a href="#"><i class="fas fa-headset"></i> সহায়তা</a></li>
-                </ul>
-            </nav>
-            <div class="user-actions">
-                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> রেজিস্টার</button>
-                <button class="btn btn-secondary"><i class="fas fa-sign-in-alt"></i> লগইন</button>
+   <!-- Header -->
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo-title">
+            <img class="logo-container" src="../Resources/images/justlogo.png" alt="Sheba Expert Logo">
+            <h1>সেবাXpert</h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
+                <li><a href="#"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
+                <li><a href="#"><i class="fas fa-headset"></i> সহায়তা</a></li>
+            </ul>
+        </nav>
+        <div class="profile-dropdown">
+            <button class="profile-btn">
+                <i class="fas fa-user-circle"></i>
+            </button>
+            <div class="dropdown-content">
+                <div class="user-info">
+                    <p class="user-name">আপনার নাম</p>
+                    <p class="user-email">your@email.com</p>
+                </div>
+                <a href="#" class="dropdown-item"><i class="fas fa-user"></i> প্রোফাইল</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <!-- Main Content -->
     <div class="dashboard-container">

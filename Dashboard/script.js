@@ -92,6 +92,29 @@ document.querySelector('.search-button').addEventListener('click', async () => {
     }
 });
 
+// Profile dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const profileBtn = document.querySelector('.profile-btn');
+    const dropdown = document.querySelector('.dropdown-content');
+    
+    // Toggle dropdown on click
+    profileBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isDisplayed = dropdown.style.display === 'block';
+        dropdown.style.display = isDisplayed ? 'none' : 'block';
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function() {
+        dropdown.style.display = 'none';
+    });
+    
+    // Prevent dropdown from closing when clicking inside it
+    dropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+});
+
 // Add custom marker styles to the page
 const style = document.createElement('style');
 style.textContent = `
