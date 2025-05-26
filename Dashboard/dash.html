@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sheba Expert - সার্ভিস প্রোভাইডার ড্যাশবোর্ড</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="header-container">            <div >
-                <img class="logo-container" src="../Resources/images/justlogo.png" alt="Sheba Expert Logo">
-                <h1>সেবাXpert</h1>
-            </div>
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo-title">
+            <img class="logo-container" src="../Resources/images/justlogo.png" alt="Sheba Expert Logo">
+            <h2>সেবাXpert</h2>
+        </div>
+
+        <div class="nav-profile-container"> <!-- New wrapper -->
             <nav class="main-nav">
                 <ul>
                     <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
@@ -23,12 +24,24 @@
                     <li><a href="#"><i class="fas fa-headset"></i> সহায়তা</a></li>
                 </ul>
             </nav>
-            <div class="user-actions">
-                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> রেজিস্টার</button>
-                <button class="btn btn-secondary"><i class="fas fa-sign-in-alt"></i> লগইন</button>
+            <div class="profile-dropdown">
+                <button class="profile-btn">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="user-info">
+                        <p class="user-name">আপনার নাম</p>
+                        <p class="user-email">your@email.com</p>
+                    </div>
+                    <a href="#" class="dropdown-item"><i class="fas fa-user"></i> প্রোফাইল</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
+                </div>
             </div>
-        </div>
-    </header>
+        </div> <!-- End nav-profile-container -->
+
+    </div>
+</header>
+
 
     <!-- Main Content -->
     <div class="dashboard-container">
