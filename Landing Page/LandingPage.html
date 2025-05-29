@@ -3,137 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShebaXpert - পেশাদার সেবা প্রদানকারী</title>
-    <link rel="stylesheet" href="LandingPage.css" />
+    <title>ShebaXpert - পেশাদার সেবা প্রদানকারী</title>    <link rel="stylesheet" href="LandingPage.css" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Enhanced animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideInRight {
-            from { transform: translateX(50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes slideInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        /* Enhanced smooth transitions */
-        .hero-to-coverage-transition {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 50%);
-            height: 100px;
-            margin-top: -100px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .btn-primary, .btn-secondary, .btn-outline {
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        
-        .service:hover {
-            animation: pulse 1.5s ease infinite;
-        }
-        
-        /* Customer Reviews Styles */
-        .reviews {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .reviews::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .reviews-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-          .review-card {
-            background: rgba(255, 255, 255, 0.1);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .review-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .review-stars {
-            color: #FFD700;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-        
-        .review-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        
-        .review-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .author-info h5 {
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        
-        .author-info span {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-    </style>
 </head>
 
 <body>
@@ -146,11 +18,10 @@
             <div class="logo-container">
                 <img class="just_logo" src="../Resources/images/justlogo.png" alt="ShebaXpert Logo">
                 <h1 class="logo">সেবাXpert</h1>
-            </div>
-            <nav>
+            </div>            <nav>
                 <ul>
                     <li><a href="#">হোম</a></li>
-                    <li><a href="#">সেবাসমূহ</a></li>
+                    <li><a href="#services">সেবাসমূহ</a></li>
                     <li><a href="#লগইন">লগইন</a></li>
                     <li><a href="#সাইন আপ করুন" class="nav-cta">সাইন আপ করুন</a></li>
                 </ul>
@@ -160,9 +31,8 @@
             </div>
         </div>
     </header>   
-    
-    <!-- Hero Section -->
-    <section class="hero" style="background-image: url('../Resources/images/handyman_page_top.jpg');">
+      <!-- Hero Section -->
+    <section class="hero">
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="hero-content">
@@ -189,10 +59,8 @@
                 <img src="../Resources/images/map.png" alt="সেবাXpert-এর ঢাকা ও আশেপাশের সেবা কাভারেজ ম্যাপ" class="coverage-map" />
             </div>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services">
+    </section>    <!-- Services Section -->
+    <section class="services" id="services">
         <div class="container">
             <h2 class="section-title">আমাদের সেবাসমূহ</h2>
             <p class="section-subtitle">পেশাদার সেবা প্রদানকারীদের দ্বারা গুণগত সেবা নিশ্চিত</p>
@@ -242,6 +110,9 @@
                 </div>
             </div>        </div>
     </section>
+
+    <!-- Services to Reviews Transition -->
+    <div class="services-to-reviews-transition"></div>
 
     <!-- Customer Reviews Section -->
     <section class="reviews">
