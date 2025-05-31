@@ -78,7 +78,7 @@
                     </div>
                     <div class="category-item">
                         <i class="fas fa-people-carry"></i>
-                        <span>কার্পেন্টার </span>
+                        <span>কার্পেন্টার</span>
                     </div>
                 </div>
             </div>
@@ -128,5 +128,44 @@
     
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="script.js"></script>
+    <script>
+// Simple authentication check and user info update
+(function() {
+    const token = localStorage.getItem('authToken');
+    const userData = localStorage.getItem('user');
+    if (!token || !userData) {
+        window.location.href = '../Login/LogIn.html';
+    } else {
+        try {
+            const user = JSON.parse(userData);
+            // Update user name and email in dashboard
+            document.addEventListener('DOMContentLoaded', function() {
+                var nameEl = document.querySelector('.user-name');
+                var emailEl = document.querySelector('.user-email');
+                if (nameEl && user.firstName && user.lastName) {
+                    nameEl.textContent = user.firstName + ' ' + user.lastName;
+                }
+                if (emailEl && user.email) {
+                    emailEl.textContent = user.email;
+                }
+                // Logout button
+                var logoutBtn = document.querySelector('.dropdown-item i.fa-sign-out-alt')?.parentElement;
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('user');
+                        window.location.href = '../Login/LogIn.html';
+                    });
+                }
+            });
+        } catch (e) {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            window.location.href = '../Login/LogIn.html';
+        }
+    }
+})();
+</script>
 </body>
 </html>

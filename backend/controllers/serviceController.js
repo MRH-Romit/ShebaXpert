@@ -4,7 +4,7 @@ const openaiSummary = require('../utils/summarizer');
 const path = require('path');
 const fs = require('fs');
 const { createObjectCsvWriter } = require('csv-writer');
-const pdf = require('html-pdf');
+// const pdf = require('html-pdf'); // Commented out to avoid module not found error
 
 // Get all service categories
 exports.getCategories = async (req, res) => {
