@@ -5,46 +5,6 @@ const container = document.getElementById('container');
 // API Base URL
 const API_BASE_URL = 'http://localhost:5000/api';
 
-// Server connectivity check
-async function checkServerConnectivity() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/health`, {
-            method: 'GET',
-            mode: 'cors'
-        });
-        
-        if (response.ok) {
-            console.log('✅ Server is connected');
-            return true;
-        }
-    } catch (error) {
-        console.log('❌ Server connection failed:', error.message);
-        showServerConnectionError();
-        return false;
-    }
-    return false;
-}
-
-// Show server connection error
-function showServerConnectionError() {
-    const errorMessage = `
-🚨 Authentication Server Not Running
-
-The authentication server is not accessible. Please:
-
-1. Double-click 'start-server.bat' in the ShebaXpert folder
-2. Or manually start the server:
-   - Open terminal in: i:\\ShebaXpert\\backend  
-   - Run: node test-auth-server.js
-3. Wait for server to start on http://localhost:5000
-4. Then refresh this page
-
-Need help? Check the console for more details.
-    `;
-    
-    alert(errorMessage);
-}
-
 // ✅ Keep sign-up/sign-in animation as is
 signUpButton.addEventListener('click', () => {
     container.classList.add("right-panel-active");
@@ -56,10 +16,6 @@ signInButton.addEventListener('click', () => {
 
 // ✅ Form submission handlers
 document.addEventListener('DOMContentLoaded', function() {
-    // Check server connectivity on page load
-    console.log('🔄 Checking authentication server connectivity...');
-    checkServerConnectivity();
-    
     // Sign Up Form Handler
     const signUpForm = document.querySelector('.sign-up-container form');
     if (signUpForm) {
@@ -76,12 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Handle Sign Up
 async function handleSignUp(e) {
     e.preventDefault();
-    
-    // Check server connectivity first
-    const isServerConnected = await checkServerConnectivity();
-    if (!isServerConnected) {
-        return;
-    }
     
     const formData = new FormData(e.target);
     const firstName = formData.get('firstName') || document.querySelector('input[placeholder="First Name"]').value;
@@ -144,12 +94,6 @@ async function handleSignUp(e) {
 // Handle Sign In
 async function handleSignIn(e) {
     e.preventDefault();
-    
-    // Check server connectivity first
-    const isServerConnected = await checkServerConnectivity();
-    if (!isServerConnected) {
-        return;
-    }
     
     const formData = new FormData(e.target);
     const email = formData.get('email') || document.querySelector('.sign-in-container input[type="email"]').value;

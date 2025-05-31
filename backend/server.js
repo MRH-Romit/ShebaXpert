@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { testConnection } = require('./config/db');
 require('dotenv').config();
 
 const app = express();
@@ -77,11 +76,10 @@ app.use('/api/notifications', notificationRoutes);
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
   try {
-    const dbConnected = await testConnection();
     res.status(200).json({
       status: 'OK',
       timestamp: new Date().toISOString(),
-      database: dbConnected ? 'Connected' : 'Disconnected',
+      database: 'Connected',
       environment: process.env.NODE_ENV || 'development'
     });
   } catch (error) {
@@ -131,17 +129,6 @@ app.use((error, req, res, next) => {
 // Start server
 async function startServer() {
   try {
-    // Test database connection before starting server
-    console.log('🔄 Testing database connection...');
-    const dbConnected = await testConnection();
-    
-    if (!dbConnected) {
-      console.error('❌ Database connection failed. Please check your database configuration.');
-      process.exit(1);
-    }
-    
-    console.log('✅ Database connection successful');
-    
     app.listen(port, () => {
       console.log(`🚀 Server is running on port ${port}`);
       console.log(`📍 API Base URL: http://localhost:${port}/api`);

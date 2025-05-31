@@ -39,3 +39,7 @@ INSERT INTO users (id, firstName, lastName, email, phone, password_hash, role_id
 -- New signup: testuser.1748706283512@example.com on 2025-05-31T15:44:43.814Z
 INSERT INTO users (id, firstName, lastName, email, phone, password_hash, role_id, status_id, email_verified, created_at, updated_at) VALUES 
 (undefined, 'New', 'User', 'testuser.1748706283512@example.com', '+8801712345999', '$2b$12$/wP57MPmaujgHEKOpUgtYe/O2kbtnA1mlOxVMYAuF0e3U9js.5gR2', 2, 1, 0, datetime('now'), datetime('now'));
+
+-- New signup: testuser20250531221753@example.com on 2025-05-31T16:17:54.113Z
+INSERT INTO users (id, firstName, lastName, email, phone, password_hash, role_id, status_id, email_verified, created_at, updated_at) VALUES 
+(undefined, 'Test', 'User2', 'testuser20250531221753@example.com', '+8801712345999', '$2b$12$XukqQu4TVRlP10H2Fxmd9uir.SER8HG6LqjLOyFNnUg9XD7w.egDe', 2, 1, 0, datetime('now'), datetime('now'));
