@@ -2,6 +2,49 @@ const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
 
+// API Base URL
+const API_BASE_URL = 'http://localhost:5000/api';
+
+// Server connectivity check
+async function checkServerConnectivity() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/health`, {
+            method: 'GET',
+            mode: 'cors'
+        });
+        
+        if (response.ok) {
+            console.log('✅ Server is connected');
+            return true;
+        }
+    } catch (error) {
+        console.log('❌ Server connection failed:', error.message);
+        showServerConnectionError();
+        return false;
+    }
+    return false;
+}
+
+// Show server connection error
+function showServerConnectionError() {
+    const errorMessage = `
+🚨 Authentication Server Not Running
+
+The authentication server is not accessible. Please:
+
+1. Double-click 'start-server.bat' in the ShebaXpert folder
+2. Or manually start the server:
+   - Open terminal in: i:\\ShebaXpert\\backend  
+   - Run: node test-auth-server.js
+3. Wait for server to start on http://localhost:5000
+4. Then refresh this page
+
+Need help? Check the console for more details.
+    `;
+    
+    alert(errorMessage);
+}
+
 // ✅ Keep sign-up/sign-in animation as is
 signUpButton.addEventListener('click', () => {
     container.classList.add("right-panel-active");
@@ -10,6 +53,190 @@ signUpButton.addEventListener('click', () => {
 signInButton.addEventListener('click', () => {
     container.classList.remove("right-panel-active");
 });
+
+// ✅ Form submission handlers
+document.addEventListener('DOMContentLoaded', function() {
+    // Check server connectivity on page load
+    console.log('🔄 Checking authentication server connectivity...');
+    checkServerConnectivity();
+    
+    // Sign Up Form Handler
+    const signUpForm = document.querySelector('.sign-up-container form');
+    if (signUpForm) {
+        signUpForm.addEventListener('submit', handleSignUp);
+    }
+
+    // Sign In Form Handler
+    const signInForm = document.querySelector('.sign-in-container form');
+    if (signInForm) {
+        signInForm.addEventListener('submit', handleSignIn);
+    }
+});
+
+// Handle Sign Up
+async function handleSignUp(e) {
+    e.preventDefault();
+    
+    // Check server connectivity first
+    const isServerConnected = await checkServerConnectivity();
+    if (!isServerConnected) {
+        return;
+    }
+    
+    const formData = new FormData(e.target);
+    const firstName = formData.get('firstName') || document.querySelector('input[placeholder="First Name"]').value;
+    const lastName = formData.get('lastName') || document.querySelector('input[placeholder="Last Name"]').value;
+    const email = formData.get('email') || document.querySelector('.sign-up-container input[type="email"]').value;
+    const password = formData.get('password') || document.querySelector('.sign-up-container input[type="password"]').value;
+    const phone = formData.get('phone') || document.querySelector('input[placeholder="Phone"]').value;
+    
+    // Basic validation
+    if (!firstName || !lastName || !email || !password || !phone) {
+        showMessage('All fields are required', 'error');
+        return;
+    }
+
+    if (password.length < 8) {
+        showMessage('Password must be at least 8 characters long', 'error');
+        return;
+    }
+
+    try {
+        showMessage('Creating account...', 'info');
+        
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                email,
+                password,
+                phone,
+                role: 'user'
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Store token and user data
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            showMessage('Account created successfully! Please check your email for verification.', 'success');
+            
+            // Redirect to dashboard or home page after short delay
+            setTimeout(() => {
+                window.location.href = '../Dashboard/dash.html';
+            }, 2000);
+        } else {
+            showMessage(data.message || 'Registration failed', 'error');
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        showMessage('Network error. Please try again.', 'error');
+    }
+}
+
+// Handle Sign In
+async function handleSignIn(e) {
+    e.preventDefault();
+    
+    // Check server connectivity first
+    const isServerConnected = await checkServerConnectivity();
+    if (!isServerConnected) {
+        return;
+    }
+    
+    const formData = new FormData(e.target);
+    const email = formData.get('email') || document.querySelector('.sign-in-container input[type="email"]').value;
+    const password = formData.get('password') || document.querySelector('.sign-in-container input[type="password"]').value;
+    
+    // Basic validation
+    if (!email || !password) {
+        showMessage('Email and password are required', 'error');
+        return;
+    }
+
+    try {
+        showMessage('Signing in...', 'info');
+        
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Store token and user data
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            showMessage('Login successful!', 'success');
+            
+            // Redirect to dashboard or home page after short delay
+            setTimeout(() => {
+                window.location.href = '../Dashboard/dash.html';
+            }, 1500);
+        } else {
+            showMessage(data.message || 'Login failed', 'error');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        showMessage('Network error. Please try again.', 'error');
+    }
+}
+
+// Show message to user
+function showMessage(message, type) {
+    // Remove existing message
+    const existingMessage = document.querySelector('.auth-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `auth-message ${type}`;
+    messageDiv.textContent = message;
+    
+    // Style the message
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: 500;
+        z-index: 10000;
+        max-width: 300px;
+        word-wrap: break-word;
+        ${type === 'success' ? 'background-color: #10b981;' : 
+          type === 'error' ? 'background-color: #ef4444;' : 
+          'background-color: #3b82f6;'}
+    `;
+    
+    // Add to page
+    document.body.appendChild(messageDiv);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.remove();
+        }
+    }, 5000);
+}
 
 // ✅ Language Toggle
 const languageToggle = document.getElementById('languageToggle');
