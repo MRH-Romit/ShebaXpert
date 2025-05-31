@@ -17,7 +17,7 @@ app.use(helmet({
       fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'"]
+      connectSrc: ["'self'", "http://localhost:8080"]
     }
   }
 }));
@@ -27,7 +27,9 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'http://localhost:8000',
+    'http://localhost:8080',
     'http://127.0.0.1:8000',
+    'http://127.0.0.1:8080',
     'file://',
     process.env.FRONTEND_URL
   ].filter(Boolean),

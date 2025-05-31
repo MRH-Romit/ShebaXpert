@@ -17,11 +17,10 @@
         <img class="just_logo" src="../Resources/images/justlogo.png" alt="ShebaXpert Logo">
         <h1 class="logo">সেবাXpert</h1>
       </div>      <nav>
-        <ul>
-          <li><a href="#top">হোম</a></li>
+        <ul>          <li><a href="#top">হোম</a></li>
           <li><a href="#services">সেবাসমূহ</a></li>
-          <li><a href="javascript:showLogin()">লগইন</a></li>
-          <li><a href="javascript:showSignUp()" class="nav-cta">সাইন আপ করুন</a></li>
+          <li><a href="#" onclick="showLogin(); return false;">লগইন</a></li>
+          <li><a href="#" onclick="showSignUp(); return false;" class="nav-cta">সাইন আপ করুন</a></li>
         </ul>
       </nav>
       <div class="mobile-menu-btn">
@@ -216,13 +215,12 @@
   <section class="cta">
     <div class="container">
       <h2 class="section-title">আপনি কীভাবে যুক্ত হতে চান?</h2>
-      <p class="section-subtitle">আপনার প্রয়োজন অনুযায়ী একাউন্ট তৈরি করুন</p>
-        <div class="cta-buttons">
-        <a href="javascript:showSignUp()" class="btn btn-outline btn-rounded">
+      <p class="section-subtitle">আপনার প্রয়োজন অনুযায়ী একাউন্ট তৈরি করুন</p>        <div class="cta-buttons">
+        <a href="#" onclick="showSignUp(); return false;" class="btn btn-outline btn-rounded">
           <i class="fas fa-user"></i> ব্যবহারকারী হিসেবে সাইন আপ করুন
         </a>
         <span class="cta-divider">অথবা</span>
-        <a href="javascript:showSignUp()" class="btn btn-outline btn-rounded">
+        <a href="#" onclick="showSignUp(); return false;" class="btn btn-outline btn-rounded">
           <i class="fas fa-tools"></i> সেবা প্রদানকারী হিসেবে সাইন আপ করুন
         </a>
       </div>
@@ -287,8 +285,6 @@
         <p>&copy; 2023 সেবাXpert. সকল স্বত্ব সংরক্ষিত</p>
       </div>
     </div>
-  </footer>
-
-  <script src="script.js"></script>
+  </footer>  <script src="script.js"></script>
 </body>
 </html>

@@ -36,8 +36,7 @@
     "mysql2": "^3.6.0",
     "node-fetch": "^3.3.2",
     "openai": "^5.0.1",
-    "shebaxpert-backend": "file:",
-    "sqlite3": "^5.1.7"
+    "shebaxpert-backend": "file:"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
