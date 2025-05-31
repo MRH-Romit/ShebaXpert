@@ -47,6 +47,18 @@ const translations = {
 window.onload = function () {
     languageToggle.checked = true; // English mode is selected
     updateLanguage('en'); // Load English content
+    
+    // Check URL parameters to determine which form to show
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    
+    if (mode === 'signup') {
+        // Show sign-up form
+        container.classList.add("right-panel-active");
+    } else {
+        // Default to sign-in form
+        container.classList.remove("right-panel-active");
+    }
 };
 
 // ✅ Toggle language on switch change

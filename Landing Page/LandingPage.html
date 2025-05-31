@@ -9,20 +9,19 @@
   <link rel="stylesheet" href="LandingPage.css">
 </head>
 
-<body>
+<body id="top">
   <!-- Header -->
   <header class="header">
     <div class="container">
       <div class="logo-container">
         <img class="just_logo" src="../Resources/images/justlogo.png" alt="ShebaXpert Logo">
         <h1 class="logo">সেবাXpert</h1>
-      </div>
-      <nav>
+      </div>      <nav>
         <ul>
-          <li><a href="#">হোম</a></li>
-          <li><a href="#">সেবাসমূহ</a></li>
-          <li><a href="#লগইন">লগইন</a></li>
-          <li><a href="#সাইন আপ করুন" class="nav-cta">সাইন আপ করুন</a></li>
+          <li><a href="#top">হোম</a></li>
+          <li><a href="#services">সেবাসমূহ</a></li>
+          <li><a href="javascript:showLogin()">লগইন</a></li>
+          <li><a href="javascript:showSignUp()" class="nav-cta">সাইন আপ করুন</a></li>
         </ul>
       </nav>
       <div class="mobile-menu-btn">
@@ -68,9 +67,8 @@
       </div>
     </div>
   </section>
-
   <!-- Coverage Section -->
-  <section class="coverage">
+  <section class="coverage" id="coverage">
     <div class="container">
       <div class="coverage-content">
         <img class="coverage-logo" src="../Resources/images/logo.png" alt="সেবাXpert লোগো">
@@ -82,9 +80,8 @@
       </div>
     </div>
   </section>
-
   <!-- Services Section -->
-  <section class="services">
+  <section class="services" id="services">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">আমাদের সেবাসমূহ</h2>
@@ -144,9 +141,8 @@
       </div>
     </div>
   </section>
-
   <!-- How It Works Section -->
-  <section class="how-it-works">
+  <section class="how-it-works" id="how-it-works">
     <div class="container">
       <h2 class="section-title">কিভাবে কাজ করে</h2>
       <p class="section-subtitle">মাত্র ৩টি সহজ ধাপে পেশাদার সেবা পান</p>
@@ -221,13 +217,12 @@
     <div class="container">
       <h2 class="section-title">আপনি কীভাবে যুক্ত হতে চান?</h2>
       <p class="section-subtitle">আপনার প্রয়োজন অনুযায়ী একাউন্ট তৈরি করুন</p>
-      
-      <div class="cta-buttons">
-        <a href="#" class="btn btn-outline btn-rounded">
+        <div class="cta-buttons">
+        <a href="javascript:showSignUp()" class="btn btn-outline btn-rounded">
           <i class="fas fa-user"></i> ব্যবহারকারী হিসেবে সাইন আপ করুন
         </a>
         <span class="cta-divider">অথবা</span>
-        <a href="#" class="btn btn-outline btn-rounded">
+        <a href="javascript:showSignUp()" class="btn btn-outline btn-rounded">
           <i class="fas fa-tools"></i> সেবা প্রদানকারী হিসেবে সাইন আপ করুন
         </a>
       </div>
