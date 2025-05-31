@@ -66,7 +66,9 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-    console.log('User object from DB:', user);
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('User object from DB:', user);
+    }
     if (user.status !== 'active') {
       return res.status(401).json({ message: `Account is ${user.status}. Please contact support.` });
     }
