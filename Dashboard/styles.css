@@ -15,6 +15,14 @@
     font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Exclude Leaflet controls from global reset */
+.leaflet-control-zoom,
+.leaflet-control-zoom *,
+.leaflet-control-zoom a {
+    box-sizing: content-box !important;
+    font-family: 'Courier New', monospace !important;
+}
+
 
 /* Full screen layout */
 body {
@@ -306,14 +314,14 @@ body {
     color: var(--primary-color);
 }
 
-/* Dashboard Layout */
+/* Dashboard Layout - Full Width */
 .dashboard-container {
     display: grid;
     grid-template-columns: 320px 1fr;
-    min-height: calc(100vh - 150px);
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+    min-height: calc(100vh - 80px);
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Sidebar Styles */
@@ -949,4 +957,69 @@ body {
     }
 }
 
-/* All production styles for dashboard, map, pulsing marker, popups, toasts, and responsive design are present. No debug/test code remains. */
+/* Leaflet Zoom Controls Fix - Simplified approach */
+.leaflet-control-zoom a {
+    background-color: #ffffff !important;
+    border: 2px solid #767676 !important;
+    color: #333333 !important;
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    line-height: 26px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    width: 30px !important;
+    height: 30px !important;
+    display: block !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
+    font-family: Arial, sans-serif !important;
+    box-sizing: content-box !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background-color: #f4f4f4 !important;
+}
+
+.leaflet-control-zoom-in {
+    border-bottom: 1px solid #767676 !important;
+    border-radius: 2px 2px 0 0 !important;
+}
+
+.leaflet-control-zoom-out {
+    border-top: none !important;
+    border-radius: 0 0 2px 2px !important;
+}
+
+/* Error states for form validation */
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.field-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.field-error::before {
+    content: "⚠";
+    font-size: 0.75rem;
+}
+
+/* Profile dropdown active state */
+.dropdown-item.active {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.dropdown-item.active:hover {
+    background: #00a8e6;
+}
+
+/* All production styles for dashboard, map, pulsing marker, popups, toasts, zoom controls, and responsive design are present. No debug/test code remains. */

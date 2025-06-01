@@ -1,21 +1,17 @@
 console.log('🚀 ShebaXpert Dashboard Script Loaded - Version 2025-06-02');
 
-// Initialize the map with higher zoom settings
+// Initialize the map with default zoom controls and no attribution control
 var map = L.map('mapid', {
     center: [23.8103, 90.4125], 
     zoom: 15,  
     maxZoom: 21,
     minZoom: 5,
-    zoomControl: false
+    zoomControl: true,  // Enable default zoom controls
+    attributionControl: false  // Remove attribution control (white button)
 });
 
-L.control.zoom({
-    position: 'bottomright' 
-}).addTo(map);
-
-// Add OpenStreetMap tiles
+// Add OpenStreetMap tiles without attribution
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 22  
 }).addTo(map);
 

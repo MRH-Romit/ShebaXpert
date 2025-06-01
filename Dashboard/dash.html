@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Sheba Expert - সার্ভিস প্রোভাইডার ড্যাশবোর্ড</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Sheba Expert - সার্ভিস প্রোভাইডার ড্যাশবোর্ড</title>    <!-- Load Leaflet CSS first from multiple sources for reliability -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        // Cache busting for CSS
+        // Cache busting for custom CSS - load after Leaflet CSS
         const cssTimestamp = new Date().getTime();
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = `styles.css?v=${cssTimestamp}`;
         document.head.appendChild(link);
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <header class="main-header">
@@ -38,7 +40,7 @@
                         <p class="user-name">Test User</p>
                         <p class="user-email">test@email.com</p>
                     </div>
-                    <a href="#" class="dropdown-item"><i class="fas fa-user"></i> প্রোফাইল</a>
+                    <a href="../Profile/profile.html" class="dropdown-item"><i class="fas fa-user"></i> প্রোফাইল</a>
                     <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
                 </div>
             </div>
@@ -135,7 +137,9 @@
         <div class="footer-bottom">
             <p>&copy; ২০২৩ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
         </div>
-    </footer>    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    </footer>    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
     <script>
         // Cache busting for development
         const jsTimestamp = new Date().getTime();

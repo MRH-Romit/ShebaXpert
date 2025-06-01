@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রোফাইল - সেবাXpert</title>
+    <!-- Load Leaflet CSS and FontAwesome -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Dashboard/styles.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-title">
+                <img class="logo-container" src="../Resources/images/justlogo.png" alt="Sheba Expert Logo">
+                <h2>সেবাXpert</h2>
+            </div>
+
+            <div class="nav-profile-container">                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../Dashboard/dash.html"><i class="fas fa-home"></i> হোম</a></li>
+                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
+                        <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> সহায়তা</a></li>
+                    </ul>
+                </nav>
+                <div class="profile-dropdown">
+                    <button class="profile-btn" title="প্রোফাইল মেনু">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="user-info">
+                            <p class="user-name">Test User</p>
+                            <p class="user-email">test@email.com</p>
+                        </div>
+                        <a href="profile.html" class="dropdown-item active"><i class="fas fa-user"></i> প্রোফাইল</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>    <!-- Main Content -->
+    <div class="profile-container">
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb-nav">
+            <a href="../Dashboard/dash.html"><i class="fas fa-home"></i> হোম</a>
+            <i class="fas fa-chevron-right"></i>
+            <span class="current-page">প্রোফাইল</span>
+        </div>
+
+        <!-- Profile Sidebar -->
+        <aside class="profile-sidebar">
+            <div class="profile-nav">
+                <h3><i class="fas fa-user-cog"></i> প্রোফাইল মেনু</h3>
+                <ul class="profile-nav-list">
+                    <li><a href="#personal-info" class="nav-link active" data-section="personal-info">
+                        <i class="fas fa-user"></i> ব্যক্তিগত তথ্য
+                    </a></li>
+                    <li><a href="#contact-info" class="nav-link" data-section="contact-info">
+                        <i class="fas fa-address-book"></i> যোগাযোগের তথ্য
+                    </a></li>
+                    <li><a href="#service-history" class="nav-link" data-section="service-history">
+                        <i class="fas fa-history"></i> সার্ভিস ইতিহাস
+                    </a></li>
+                    <li><a href="#preferences" class="nav-link" data-section="preferences">
+                        <i class="fas fa-cog"></i> পছন্দসমূহ
+                    </a></li>
+                    <li><a href="#security" class="nav-link" data-section="security">
+                        <i class="fas fa-shield-alt"></i> নিরাপত্তা
+                    </a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Profile Content -->
+        <main class="profile-main">
+            <!-- Personal Information Section -->
+            <section id="personal-info" class="profile-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-user"></i> ব্যক্তিগত তথ্য</h2>
+                    <button class="edit-btn" onclick="toggleEdit('personal-info')">
+                        <i class="fas fa-edit"></i> সম্পাদনা করুন
+                    </button>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-photo-section">
+                        <div class="profile-photo">
+                            <img id="profile-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNDIiIHI9IjE4IiBmaWxsPSIjOUI5QjlCIi8+CjxwYXRoIGQ9Ik0yNSAxMDBDMjUgODcgNDEgNzYgNjAgNzZTOTUgODcgOTUgMTAwIiBmaWxsPSIjOUI5QjlCIi8+Cjx0ZXh0IHg9IjYwIiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI4IiBmaWxsPSIjNkI3MjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Qcm9maWxlPC90ZXh0Pgo8L3N2Zz4K" alt="প্রোফাইল ছবি">
+                            <div class="photo-overlay">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <input type="file" id="photo-upload" accept="image/*" class="hidden" aria-label="প্রোফাইল ছবি আপলোড করুন">
+                    </div>
+
+                    <div class="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="full-name">পূর্ণ নাম *</label>
+                                <input type="text" id="full-name" value="মোহাম্মদ রহিম উদ্দিন" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="nick-name">ডাকনাম</label>
+                                <input type="text" id="nick-name" value="রহিম ভাই" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="birth-date">জন্ম তারিখ</label>
+                                <input type="date" id="birth-date" value="1985-05-15" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">লিঙ্গ</label>
+                                <select id="gender" disabled>
+                                    <option value="male" selected>পুরুষ</option>
+                                    <option value="female">মহিলা</option>
+                                    <option value="other">অন্যান্য</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bio">সম্পর্কে</label>
+                            <textarea id="bio" readonly placeholder="নিজের সম্পর্কে কিছু লিখুন...">একজন সাধারণ গৃহস্থ, বাড়ির বিভিন্ন সমস্যার জন্য দক্ষ সেবা প্রয়োজন।</textarea>
+                        </div>
+
+                        <div class="form-actions hidden">
+                            <button type="button" class="save-btn" onclick="saveSection('personal-info')">
+                                <i class="fas fa-save"></i> সংরক্ষণ করুন
+                            </button>
+                            <button type="button" class="cancel-btn" onclick="cancelEdit('personal-info')">
+                                <i class="fas fa-times"></i> বাতিল
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information Section -->
+            <section id="contact-info" class="profile-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-address-book"></i> যোগাযোগের তথ্য</h2>
+                    <button class="edit-btn" onclick="toggleEdit('contact-info')">
+                        <i class="fas fa-edit"></i> সম্পাদনা করুন
+                    </button>
+                </div>
+
+                <div class="profile-card">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">ফোন নম্বর *</label>
+                            <input type="tel" id="phone" value="01712345678" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">ইমেইল</label>
+                            <input type="email" id="email" value="rahim@example.com" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">ঠিকানা *</label>
+                        <textarea id="address" readonly>বাড়ি: ১২৩, রোড: ৫, ব্লক: এ, মিরপুর-১০, ঢাকা-১২১৬</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="district">জেলা</label>
+                            <select id="district" disabled>
+                                <option value="dhaka" selected>ঢাকা</option>
+                                <option value="chittagong">চট্টগ্রাম</option>
+                                <option value="sylhet">সিলেট</option>
+                                <option value="rajshahi">রাজশাহী</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="postal-code">পোস্টাল কোড</label>
+                            <input type="text" id="postal-code" value="1216" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-actions hidden">
+                        <button type="button" class="save-btn" onclick="saveSection('contact-info')">
+                            <i class="fas fa-save"></i> সংরক্ষণ করুন
+                        </button>
+                        <button type="button" class="cancel-btn" onclick="cancelEdit('contact-info')">
+                            <i class="fas fa-times"></i> বাতিল
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Service History Section -->
+            <section id="service-history" class="profile-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-history"></i> সার্ভিস ইতিহাস</h2>
+                    <div class="filter-controls">
+                        <select id="history-filter" title="সার্ভিস ইতিহাস ফিল্টার করুন">
+                            <option value="all">সব সার্ভিস</option>
+                            <option value="completed">সম্পন্ন</option>
+                            <option value="pending">চলমান</option>
+                            <option value="cancelled">বাতিল</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="service-history-list">
+                    <div class="service-item completed">
+                        <div class="service-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="service-details">
+                            <h4>ইলেকট্রিক্যাল সমস্যা সমাধান</h4>
+                            <p class="service-provider">রহিম ইলেকট্রিক সার্ভিস</p>
+                            <p class="service-date">২৮ মে, ২০২৫</p>
+                        </div>
+                        <div class="service-status">
+                            <span class="status-badge completed">সম্পন্ন</span>
+                            <div class="service-rating">
+                                <i class="fas fa-star"></i>
+                                <span>৪.৮</span>
+                            </div>
+                        </div>
+                        <div class="service-amount">৳১,২০০</div>
+                    </div>
+
+                    <div class="service-item completed">
+                        <div class="service-icon">
+                            <i class="fas fa-faucet"></i>
+                        </div>
+                        <div class="service-details">
+                            <h4>পাইপ লিকেজ মেরামত</h4>
+                            <p class="service-provider">আলী প্লাম্বিং সার্ভিস</p>
+                            <p class="service-date">২০ মে, ২০২৫</p>
+                        </div>
+                        <div class="service-status">
+                            <span class="status-badge completed">সম্পন্ন</span>
+                            <div class="service-rating">
+                                <i class="fas fa-star"></i>
+                                <span>৪.৫</span>
+                            </div>
+                        </div>
+                        <div class="service-amount">৳৮০০</div>
+                    </div>
+
+                    <div class="service-item pending">
+                        <div class="service-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="service-details">
+                            <h4>এয়ার কন্ডিশনার সার্ভিসিং</h4>
+                            <p class="service-provider">কুল এয়ার সার্ভিস</p>
+                            <p class="service-date">৩ জুন, ২০২৫ (আগামীকাল)</p>
+                        </div>
+                        <div class="service-status">
+                            <span class="status-badge pending">চলমান</span>
+                        </div>
+                        <div class="service-amount">৳১,৫০০</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preferences Section -->
+            <section id="preferences" class="profile-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-cog"></i> পছন্দসমূহ</h2>
+                </div>
+
+                <div class="profile-card">
+                    <div class="preference-group">
+                        <h4><i class="fas fa-bell"></i> নোটিফিকেশন সেটিংস</h4>                        <div class="preference-item">
+                            <label class="switch" for="email-notifications">
+                                <input type="checkbox" id="email-notifications" checked aria-describedby="email-desc" aria-label="ইমেইল নোটিফিকেশন">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="preference-label">
+                                <span>ইমেইল নোটিফিকেশন</span>
+                                <small id="email-desc">নতুন সার্ভিস এবং অফারের জন্য ইমেইল পান</small>
+                            </div>
+                        </div>                        <div class="preference-item">
+                            <label class="switch" for="sms-notifications">
+                                <input type="checkbox" id="sms-notifications" checked aria-describedby="sms-desc" aria-label="SMS নোটিফিকেশন">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="preference-label">
+                                <span>SMS নোটিফিকেশন</span>
+                                <small id="sms-desc">সার্ভিস আপডেট এবং রিমাইন্ডার পান</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="preference-group">
+                        <h4><i class="fas fa-map-marker-alt"></i> লোকেশন সেটিংস</h4>                        <div class="preference-item">
+                            <label class="switch" for="location-sharing">
+                                <input type="checkbox" id="location-sharing" checked aria-describedby="location-desc" aria-label="লোকেশন শেয়ারিং">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="preference-label">
+                                <span>লোকেশন শেয়ারিং</span>
+                                <small id="location-desc">আপনার অবস্থানের ভিত্তিতে কাছাকাছি সেবা খুঁজুন</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="preference-group">
+                        <h4><i class="fas fa-language"></i> ভাষা ও অঞ্চল</h4>
+                        <div class="form-group">
+                            <label for="language">ভাষা</label>
+                            <select id="language">
+                                <option value="bn" selected>বাংলা</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Section -->
+            <section id="security" class="profile-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-shield-alt"></i> নিরাপত্তা</h2>
+                </div>
+
+                <div class="profile-card">
+                    <div class="security-group">
+                        <h4><i class="fas fa-key"></i> পাসওয়ার্ড পরিবর্তন</h4>
+                        <form id="password-form">
+                            <div class="form-group">
+                                <label for="current-password">বর্তমান পাসওয়ার্ড</label>
+                                <input type="password" id="current-password" placeholder="বর্তমান পাসওয়ার্ড লিখুন">
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password">নতুন পাসওয়ার্ড</label>
+                                <input type="password" id="new-password" placeholder="নতুন পাসওয়ার্ড লিখুন">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">পাসওয়ার্ড নিশ্চিত করুন</label>
+                                <input type="password" id="confirm-password" placeholder="নতুন পাসওয়ার্ড আবার লিখুন">
+                            </div>
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i> পাসওয়ার্ড আপডেট করুন
+                            </button>
+                        </form>
+                    </div>                    <div class="security-group">
+                        <h4><i class="fas fa-mobile-alt"></i> দুই-ধাপ যাচাইকরণ</h4>                        <div class="preference-item">
+                            <label class="switch" for="two-factor-auth">
+                                <input type="checkbox" id="two-factor-auth" aria-describedby="2fa-desc" aria-label="দুই-ধাপ যাচাইকরণ">
+                                <span class="slider"></span>
+                            </label>
+                            <div class="preference-label">
+                                <span>দুই-ধাপ যাচাইকরণ সক্রিয় করুন</span>
+                                <small id="2fa-desc">অতিরিক্ত নিরাপত্তার জন্য SMS কোড ব্যবহার করুন</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="security-group">
+                        <h4><i class="fas fa-history"></i> লগইন ইতিহাস</h4>
+                        <div class="login-history">
+                            <div class="login-entry">
+                                <div class="login-info">
+                                    <strong>আজ ১২:৩০ PM</strong>
+                                    <span class="login-device">Chrome on Windows</span>
+                                </div>
+                                <span class="login-status current">বর্তমান সেশন</span>
+                            </div>
+                            <div class="login-entry">
+                                <div class="login-info">
+                                    <strong>গতকাল ৩:৪৫ PM</strong>
+                                    <span class="login-device">Chrome on Windows</span>
+                                </div>
+                                <span class="login-status">সফল</span>
+                            </div>
+                            <div class="login-entry">
+                                <div class="login-info">
+                                    <strong>৩০ মে ৯:২০ AM</strong>
+                                    <span class="login-device">Firefox on Windows</span>
+                                </div>
+                                <span class="login-status">সফল</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Sheba Expert</h4>
+                <p>আপনার ঘরের সব সমস্যার একমাত্র সমাধান</p>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>লিংক</h4>
+                <ul>
+                    <li><a href="#">হোম</a></li>
+                    <li><a href="#">সার্ভিস সমূহ</a></li>
+                    <li><a href="#">প্রোভাইডার</a></li>
+                    <li><a href="#">যোগাযোগ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>যোগাযোগ</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ১২৩ রোড, ঢাকা, বাংলাদেশ</p>
+                <p><i class="fas fa-phone"></i> +৮৮০ ১২৩৪ ৫৬৭৮৯</p>
+                <p><i class="fas fa-envelope"></i> info@shebaexpert.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; ২০২৫ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
+        </div>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>
