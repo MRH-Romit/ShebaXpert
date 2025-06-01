@@ -480,27 +480,36 @@ style.textContent = `
 // Append styles to head
 document.head.appendChild(style);
 
-// Robust initialization
-function safeInit() {
+// Multiple initialization methods to ensure it works
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAll);
+} else {
+    // DOM already loaded
     initializeAll();
 }
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', safeInit);
-} else {
-    safeInit();
-}
-window.addEventListener('load', safeInit);
 
-// Always use pulsing marker for user location
+// Backup initialization method
+window.addEventListener('load', function() {
+    console.log('Window loaded, ensuring initialization...');
+    // Only initialize if not already done
+    const locationBtn = document.getElementById('show-my-location');
+    if (locationBtn && !locationBtn.hasAttribute('data-initialized')) {
+        initializeAll();
+        locationBtn.setAttribute('data-initialized', 'true');
+    }
+});
+
+// Try to get real user location on initial load
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(pos) {
-        setUserLocationWithPulse(pos.coords.latitude, pos.coords.longitude);
+        setUserLocation(pos.coords.latitude, pos.coords.longitude);
         showServiceMarkers(currentCategory);
     }, function() {
-        setUserLocationWithPulse(userLocation[0], userLocation[1]);
+        // Permission denied or error, use default
+        setUserLocation(userLocation[0], userLocation[1]);
         showServiceMarkers(currentCategory);
     });
 } else {
-    setUserLocationWithPulse(userLocation[0], userLocation[1]);
+    setUserLocation(userLocation[0], userLocation[1]);
     showServiceMarkers(currentCategory);
 }
