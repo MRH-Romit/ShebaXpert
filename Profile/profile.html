@@ -21,11 +21,10 @@
             </div>
 
             <div class="nav-profile-container">                <nav class="main-nav">
-                    <ul>
-                        <li><a href="../Dashboard/dash.html"><i class="fas fa-home"></i> হোম</a></li>
+                    <ul>                        <li><a href="../Dashboard/dash.html"><i class="fas fa-home"></i> হোম</a></li>
                         <li><a href="#"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
                         <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
-                        <li><a href="#"><i class="fas fa-headset"></i> সহায়তা</a></li>
+                        <li><a href="#" id="help-btn"><i class="fas fa-headset"></i> সহায়তা</a></li>
                     </ul>
                 </nav>
                 <div class="profile-dropdown">
@@ -43,7 +42,105 @@
                 </div>
             </div>
         </div>
-    </header>    <!-- Main Content -->
+    </header>
+
+    <!-- Support Modal -->
+    <div id="support-modal" class="support-modal">
+        <div class="support-modal-content">
+            <div class="support-header">
+                <h2><i class="fas fa-headset"></i> সহায়তা কেন্দ্র</h2>
+                <button class="close-modal" id="close-support-modal" title="বন্ধ করুন">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Quick Support Options -->
+            <div class="support-section quick-support">
+                <h3><i class="fas fa-rocket"></i> দ্রুত সহায়তা</h3>
+                <div class="quick-support-grid">
+                    <button class="support-option" id="talk-with-agent">
+                        <i class="fas fa-comments"></i>
+                        <span>এজেন্টের সাথে কথা বলুন</span>
+                        <small>২৪/৭ সেবা</small>
+                    </button>
+                    <button class="support-option" id="call-support">
+                        <i class="fas fa-phone"></i>
+                        <span>কল করুন</span>
+                        <small>+8801700000000</small>
+                    </button>
+                    <button class="support-option" id="whatsapp-support">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>হোয়াটসঅ্যাপ</span>
+                        <small>তাৎক্ষণিক উত্তর</small>
+                    </button>
+                    <button class="support-option" id="email-support">
+                        <i class="fas fa-envelope"></i>
+                        <span>ইমেইল করুন</span>
+                        <small>support@shebaexpert.com</small>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="support-section faq-section">
+                <h3><i class="fas fa-question-circle"></i> সচরাচর জিজ্ঞাসা</h3>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>কিভাবে সার্ভিস বুক করবো?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            ম্যাপে আপনার পছন্দের সেবা প্রদানকারী খুঁজুন, তাদের প্রোফাইলে ক্লিক করুন এবং "যোগাযোগ করুন" বাটনে চাপুন।
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>পেমেন্ট কিভাবে করবো?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            আমরা নগদ, বিকাশ, রকেট এবং ব্যাংক ট্রান্সফার সহ বিভিন্ন পেমেন্ট অপশন গ্রহণ করি।
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>সার্ভিস ক্যানসেল করতে চাই</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            সার্ভিস শুরুর ২৪ ঘন্টা আগে পর্যন্ত ফ্রিতে ক্যানসেল করতে পারবেন। সহায়তা কেন্দ্রে যোগাযোগ করুন।
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="support-section contact-form-section">
+                <h3><i class="fas fa-paper-plane"></i> আমাদের লিখুন</h3>
+                <form class="support-contact-form" id="support-contact-form">
+                    <div class="form-group">
+                        <select id="issue-type" required>
+                            <option value="">সমস্যার ধরন নির্বাচন করুন</option>
+                            <option value="booking-issue">বুকিং সমস্যা</option>
+                            <option value="payment-issue">পেমেন্ট সমস্যা</option>
+                            <option value="provider-issue">সেবা প্রদানকারীর বিরুদ্ধে অভিযোগ</option>
+                            <option value="technical-issue">টেকনিক্যাল সমস্যা</option>
+                            <option value="other">অন্যান্য</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="আপনার সমস্যা বিস্তারিত লিখুন..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> পাঠান
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
     <div class="profile-container">
         <!-- Breadcrumb Navigation -->
         <div class="breadcrumb-nav">

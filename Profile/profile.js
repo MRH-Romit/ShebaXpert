@@ -65,6 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add keyboard navigation support
     addKeyboardNavigation();
+    
+    // Initialize support modal
+    initializeSupportModal();
 });
 
 // Navigation functionality
@@ -520,3 +523,165 @@ window.toggleEdit = toggleEdit;
 window.saveSection = saveSection;
 window.cancelEdit = cancelEdit;
 window.exportProfileData = exportProfileData;
+
+// Support Modal Functionality
+function initializeSupportModal() {
+    console.log('Initializing support modal...');
+    
+    const helpBtn = document.getElementById('help-btn');
+    const supportModal = document.getElementById('support-modal');
+    const closeModalBtn = document.getElementById('close-support-modal');
+    
+    // Ensure modal is hidden by default
+    if (supportModal) {
+        supportModal.classList.remove('show');
+        supportModal.style.display = 'none';
+    }
+    
+    if (helpBtn && supportModal) {        // Open support modal
+        helpBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Opening support modal');
+            supportModal.style.display = 'flex';
+            supportModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Close support modal
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function() {
+                console.log('Closing support modal');
+                supportModal.classList.remove('show');
+                supportModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // Close modal when clicking outside
+        supportModal.addEventListener('click', function(e) {
+            if (e.target === supportModal) {
+                console.log('Closing support modal (outside click)');
+                supportModal.classList.remove('show');
+                supportModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Initialize FAQ toggles
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const icon = this.querySelector('i.fa-chevron-down');
+                
+                // Toggle active state
+                faqItem.classList.toggle('active');
+                
+                // Toggle icon rotation
+                if (icon) {
+                    icon.style.transform = faqItem.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            });
+        });
+        
+        // Initialize support options
+        initializeSupportOptions();
+        
+        // Initialize contact form
+        initializeSupportContactForm();
+    }
+}
+
+function initializeSupportOptions() {
+    const supportOptions = document.querySelectorAll('.support-option');
+    
+    supportOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const optionId = this.id;
+            
+            switch(optionId) {
+                case 'talk-with-agent':
+                    console.log('Opening chat with agent');
+                    // In a real app, this would open a chat widget
+                    showNotification('চ্যাট শীঘ্রই উপলব্ধ হবে', 'info');
+                    break;
+                    
+                case 'call-support':
+                    console.log('Initiating call to support');
+                    window.open('tel:+8801700000000');
+                    break;
+                    
+                case 'whatsapp-support':
+                    console.log('Opening WhatsApp');
+                    window.open('https://wa.me/8801700000000?text=আসসালামু আলাইকুম, আমার সাহায্য প্রয়োজন');
+                    break;
+                    
+                case 'email-support':
+                    console.log('Opening email client');
+                    window.open('mailto:support@shebaexpert.com?subject=সহায়তা প্রয়োজন');
+                    break;
+            }
+        });
+    });
+}
+
+function initializeSupportContactForm() {
+    const contactForm = document.getElementById('support-contact-form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const issueType = document.getElementById('issue-type').value;
+            const message = document.getElementById('message').value;
+            
+            if (!issueType || !message.trim()) {
+                showNotification('অনুগ্রহ করে সকল ক্ষেত্র পূরণ করুন', 'error');
+                return;
+            }
+            
+            // Simulate form submission
+            console.log('Submitting support request:', { issueType, message });
+            
+            // Show success message
+            showNotification('আপনার বার্তা পাঠানো হয়েছে। শীঘ্রই আমরা আপনার সাথে যোগাযোগ করব।', 'success');
+            
+            // Reset form
+            contactForm.reset();
+              // Close modal after a delay
+            setTimeout(() => {
+                const supportModal = document.getElementById('support-modal');
+                if (supportModal) {
+                    supportModal.classList.remove('show');
+                    supportModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }, 2000);
+        });
+    }
+}
+
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
