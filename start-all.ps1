@@ -51,13 +51,13 @@ Write-Host "Starting services..." -ForegroundColor Green
 
 # 1. Start the static file server for the frontend (port 8080)
 Write-Host "Starting frontend server on http://localhost:8080..." -ForegroundColor Cyan
-Start-Process powershell -ArgumentList 'cd "i:\ShebaXpert"; python -m http.server 8080' -WindowStyle Minimized
+Start-Process python -ArgumentList '-m', 'http.server', '8080' -WorkingDirectory 'i:\ShebaXpert' -WindowStyle Minimized
 
 Start-Sleep -Seconds 3 # Give the static server time to start
 
 # 2. Start the backend API server (port 5000)
 Write-Host "Starting backend API server on http://localhost:5000..." -ForegroundColor Cyan
-Start-Process powershell -ArgumentList 'cd "i:\ShebaXpert\backend"; node server.js' -WindowStyle Minimized
+Start-Process node -ArgumentList 'server.js' -WorkingDirectory 'i:\ShebaXpert\backend' -WindowStyle Minimized
 
 Start-Sleep -Seconds 3 # Give the backend time to start
 
