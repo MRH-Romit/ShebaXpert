@@ -1582,3 +1582,161 @@ body {
         font-size: 1.2rem;
     }
 }
+
+/* Additional Support System Styles */
+#floating-support:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 20px rgba(0, 74, 173, 0.4) !important;
+}
+
+.support-notification {
+    white-space: pre-line;
+}
+
+@keyframes slideOutRight {
+    from { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+}
+
+/* Emergency Button Color Variations */
+.emergency-btn.fire:hover {
+    background: #FFF5F5;
+    border-color: #DC2626;
+}
+
+.emergency-btn.police:hover {
+    background: #EFF6FF;
+    border-color: #2563EB;
+}
+
+.emergency-btn.ambulance:hover {
+    background: #F0FDF4;
+    border-color: #16A34A;
+}
+
+.emergency-btn.electric:hover {
+    background: #FFFBEB;
+    border-color: #D97706;
+}
+
+.emergency-btn.gas:hover {
+    background: #FEF3C7;
+    border-color: #F59E0B;
+}
+
+.emergency-btn.water:hover {
+    background: #ECFDF5;
+    border-color: #059669;
+}
+
+/* Chat Widget Enhancements */
+.chat-widget::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-widget::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-widget::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.chat-widget::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Support Section Hover Effects */
+.support-section:hover {
+    border-color: var(--secondary-color);
+    transition: border-color 0.3s ease;
+}
+
+/* Loading States */
+.support-option.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.support-option.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Accessibility Improvements */
+.support-modal:focus-within {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.emergency-btn:focus,
+.support-option:focus,
+.faq-question:focus,
+.report-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Support Modal Animation Enhancement */
+.support-modal-content {
+    animation: modalSlideIn 0.4s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+    .support-modal-content {
+        background: #1F2937;
+        color: #F9FAFB;
+    }
+    
+    .support-section {
+        border-color: #374151;
+    }
+    
+    .support-section h3 {
+        background: #111827;
+        color: #60A5FA;
+    }
+    
+    .chat-widget {
+        background: #1F2937;
+        color: #F9FAFB;
+    }
+    
+    .message-content {
+        background: #374151;
+        color: #F9FAFB;
+    }
+}
