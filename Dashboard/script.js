@@ -1,3 +1,5 @@
+console.log('🚀 ShebaXpert Dashboard Script Loaded - Version 2025-06-02');
+
 // Initialize the map with higher zoom settings
 var map = L.map('mapid', {
     center: [23.8103, 90.4125], 
@@ -186,12 +188,16 @@ function contactProvider(phone) {
 
 // Initialize location button functionality
 function initializeLocationButton() {
-    console.log('Initializing location button...');
+    console.log('🎯 Initializing location button...');
     const locationBtn = document.getElementById('show-my-location');
-    console.log('Location button found:', locationBtn);
+    console.log('📍 Location button found:', locationBtn);
     
     if (locationBtn) {
-        console.log('Adding click listener to location button');
+        console.log('✅ Adding click listener to location button');
+        // Add a visual indicator that the button is ready
+        locationBtn.style.border = '2px solid #00C6FF';
+        locationBtn.style.boxShadow = '0 0 10px rgba(0, 198, 255, 0.3)';
+        
         locationBtn.addEventListener('click', function() {
             console.log('Location button clicked!');
             // Add loading state
@@ -471,7 +477,7 @@ function logout() {
 
 // Initialize everything when DOM is ready
 function initializeAll() {
-    console.log('Initializing all functionality...');
+    console.log('🚀 Initializing all functionality...');
     checkAuthentication();
     loadUserInfo();
     setupLogout();
@@ -479,6 +485,7 @@ function initializeAll() {
     initializeCategorySelection();
     initializeSearch();
     initializeProfileDropdown();
+    console.log('✅ All initialization complete - Dashboard ready!');
 }
 
 // Add custom marker styles to the page
