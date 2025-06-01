@@ -44,45 +44,108 @@ serviceProviders.forEach(provider => {
         .bindPopup(`<b>${provider.name}</b><br>${provider.category}`);
 });
 
-// Category selection
+// --- Geolocation and dynamic service marker logic ---
+let userLocation = [23.8103, 90.4125]; // Default: Dhaka center
+let userMarker = null;
+let serviceMarkers = [];
+
+function setUserLocation(lat, lng) {
+    userLocation = [lat, lng];
+    map.setView(userLocation, 16);
+    if (userMarker) {
+        map.removeLayer(userMarker);
+    }
+    userMarker = L.marker(userLocation, {
+        icon: createCustomIcon('map-marker-alt')
+    }).addTo(map).bindPopup('আপনার অবস্থান').openPopup();
+}
+
+// Try to get real user location
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        setUserLocation(pos.coords.latitude, pos.coords.longitude);
+        showServiceMarkers(currentCategory);
+    }, function() {
+        // Permission denied or error, use default
+        setUserLocation(userLocation[0], userLocation[1]);
+        showServiceMarkers(currentCategory);
+    });
+} else {
+    setUserLocation(userLocation[0], userLocation[1]);
+    showServiceMarkers(currentCategory);
+}
+
+// Helper: get providers by category, near user
+function getNearbyProviders(category, center, radiusKm = 3) {
+    // For demo, just filter by category and randomize near user
+    return serviceProviders.filter(p => p.category === category).map(p => {
+        // Randomize location within radius
+        const angle = Math.random() * 2 * Math.PI;
+        const dist = Math.random() * radiusKm / 111; // ~1 deg = 111km
+        return {
+            ...p,
+            lat: center[0] + Math.cos(angle) * dist,
+            lng: center[1] + Math.sin(angle) * dist
+        };
+    });
+}
+
+function clearServiceMarkers() {
+    serviceMarkers.forEach(m => map.removeLayer(m));
+    serviceMarkers = [];
+}
+
+let currentCategory = 'electrician'; // Default
+
+function showServiceMarkers(category) {
+    clearServiceMarkers();
+    const providers = getNearbyProviders(category, userLocation);
+    providers.forEach(provider => {
+        const marker = L.marker([provider.lat, provider.lng], {
+            icon: createCustomIcon(provider.icon)
+        }).addTo(map)
+            .bindPopup(`<b>${provider.name}</b><br>${category}`);
+        serviceMarkers.push(marker);
+    });
+}
+
+// --- Category selection logic ---
 const categoryItems = document.querySelectorAll('.category-item');
+const categoryMap = {
+    'ইলেকট্রিশিয়ান': 'electrician',
+    'প্লাম্বার': 'plumber',
+    'এসি সার্ভিস': 'ac',
+    'কার্পেন্টার': 'carpenter',
+    'পেইন্টিং': 'painting',
+    'গৃহস্থালি মেরামত': 'repair'
+};
 categoryItems.forEach(item => {
     item.addEventListener('click', () => {
         categoryItems.forEach(i => i.classList.remove('active'));
         item.classList.add('active');
-        // Here you would filter the map markers by category
+        const label = item.innerText.trim();
+        currentCategory = categoryMap[label] || 'electrician';
+        showServiceMarkers(currentCategory);
     });
 });
 
-// Search Location by Name
+// --- Search Location by Name ---
 document.querySelector('.search-button').addEventListener('click', async () => {
     const placeInput = document.querySelector('.input-field');
     let placeName = placeInput.value.trim();
-    
     if (placeName === "") {
         alert("অনুগ্রহ করে একটি স্থান নাম লিখুন!");
         return;
     }
-    
     let url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}&countrycodes=bd`;
     try {
         let response = await fetch(url);
         let data = await response.json();
-        
         if (data.length > 0) {
             let lat = parseFloat(data[0].lat);
             let lon = parseFloat(data[0].lon);
-            
-            // Move the map to the searched location
-            map.setView([lat, lon], 16);
-            
-            // Add marker at the searched location
-            L.marker([lat, lon], {
-                icon: createCustomIcon('map-marker-alt')
-            }).addTo(map)
-                .bindPopup(`📍 <b>${placeName}</b>`)
-                .openPopup();
-            
+            setUserLocation(lat, lon);
+            showServiceMarkers(currentCategory);
         } else {
             alert("কোনো ফলাফল পাওয়া যায়নি!");
         }
