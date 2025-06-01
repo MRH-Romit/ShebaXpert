@@ -481,8 +481,319 @@ function initializeAll() {
     initializeCategorySelection();
     initializeSearch();
     initializeProfileDropdown();
+    initializeSupportSystem(); // Add support system initialization
     console.log('✅ All initialization complete - Dashboard ready!');
 }
+
+// Support System Functions
+function initializeSupportSystem() {
+    console.log('🆘 Initializing support system...');
+    
+    // Help button click handler
+    const helpBtn = document.getElementById('help-btn');
+    const supportModal = document.getElementById('support-modal');
+    const closeSupportModal = document.getElementById('close-support-modal');
+    
+    if (helpBtn && supportModal) {
+        helpBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSupportModal();
+        });
+    }
+    
+    if (closeSupportModal) {
+        closeSupportModal.addEventListener('click', hideSupportModal);
+    }
+    
+    // Close modal when clicking outside
+    if (supportModal) {
+        supportModal.addEventListener('click', function(e) {
+            if (e.target === supportModal) {
+                hideSupportModal();
+            }
+        });
+    }
+    
+    // Initialize FAQ functionality
+    initializeFAQ();
+    
+    // Initialize support options
+    initializeSupportOptions();
+    
+    // Initialize chat widget
+    initializeChatWidget();
+    
+    // Initialize report buttons
+    initializeReportButtons();
+    
+    console.log('✅ Support system initialized');
+}
+
+function showSupportModal() {
+    const supportModal = document.getElementById('support-modal');
+    if (supportModal) {
+        supportModal.style.display = 'flex';
+        setTimeout(() => {
+            supportModal.classList.add('show');
+        }, 10);
+        
+        // Disable body scroll
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function hideSupportModal() {
+    const supportModal = document.getElementById('support-modal');
+    if (supportModal) {
+        supportModal.classList.remove('show');
+        setTimeout(() => {
+            supportModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+}
+
+// Emergency call function
+function makeEmergencyCall(number) {
+    const confirmation = confirm(`${number} নম্বরে জরুরি কল করতে চান?\n\nএই নম্বরটি জরুরি সেবার জন্য ব্যবহার করুন।`);
+    if (confirmation) {
+        window.open(`tel:${number}`, '_self');
+        
+        // Show success message
+        showLocationToast(`${number} নম্বরে কল করা হচ্ছে...`, 'success');
+    }
+}
+
+// FAQ functionality
+function initializeFAQ() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const faqItem = this.closest('.faq-item');
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        });
+    });
+}
+
+// Support options functionality
+function initializeSupportOptions() {
+    // Talk with agent
+    const talkWithAgentBtn = document.getElementById('talk-with-agent');
+    if (talkWithAgentBtn) {
+        talkWithAgentBtn.addEventListener('click', function() {
+            hideSupportModal();
+            setTimeout(() => {
+                showChatWidget();
+            }, 300);
+        });
+    }
+    
+    // Call support
+    const callSupportBtn = document.getElementById('call-support');
+    if (callSupportBtn) {
+        callSupportBtn.addEventListener('click', function() {
+            makeEmergencyCall('+8801700000000');
+        });
+    }
+    
+    // WhatsApp support
+    const whatsappSupportBtn = document.getElementById('whatsapp-support');
+    if (whatsappSupportBtn) {
+        whatsappSupportBtn.addEventListener('click', function() {
+            const message = encodeURIComponent('আস্সালামু আলাইকুম, আমার সহায়তা প্রয়োজন।');
+            window.open(`https://wa.me/8801700000000?text=${message}`, '_blank');
+        });
+    }
+    
+    // Email support
+    const emailSupportBtn = document.getElementById('email-support');
+    if (emailSupportBtn) {
+        emailSupportBtn.addEventListener('click', function() {
+            const subject = encodeURIComponent('সাপোর্ট অনুরোধ - ShebaXpert');
+            const body = encodeURIComponent('আস্সালামু আলাইকুম,\n\nআমার নিম্নলিখিত বিষয়ে সহায়তা প্রয়োজন:\n\n[আপনার সমস্যা এখানে লিখুন]\n\nধন্যবাদ');
+            window.open(`mailto:support@shebaexpert.com?subject=${subject}&body=${body}`, '_self');
+        });
+    }
+}
+
+// Chat widget functionality
+function initializeChatWidget() {
+    const chatWidget = document.getElementById('chat-widget');
+    const closeChatBtn = document.getElementById('close-chat');
+    const chatInput = document.getElementById('chat-input');
+    const sendMessageBtn = document.getElementById('send-message');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    if (closeChatBtn) {
+        closeChatBtn.addEventListener('click', hideChatWidget);
+    }
+    
+    if (sendMessageBtn && chatInput) {
+        sendMessageBtn.addEventListener('click', sendChatMessage);
+        
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+    }
+}
+
+function showChatWidget() {
+    const chatWidget = document.getElementById('chat-widget');
+    if (chatWidget) {
+        chatWidget.style.display = 'flex';
+        setTimeout(() => {
+            chatWidget.classList.add('show');
+        }, 10);
+        
+        // Focus on input
+        const chatInput = document.getElementById('chat-input');
+        if (chatInput) {
+            setTimeout(() => {
+                chatInput.focus();
+            }, 300);
+        }
+    }
+}
+
+function hideChatWidget() {
+    const chatWidget = document.getElementById('chat-widget');
+    if (chatWidget) {
+        chatWidget.classList.remove('show');
+        setTimeout(() => {
+            chatWidget.style.display = 'none';
+        }, 300);
+    }
+}
+
+function sendChatMessage() {
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    if (!chatInput || !chatMessages) return;
+    
+    const message = chatInput.value.trim();
+    if (!message) return;
+    
+    // Add user message
+    addChatMessage(message, 'user');
+    
+    // Clear input
+    chatInput.value = '';
+    
+    // Simulate agent response
+    setTimeout(() => {
+        const responses = [
+            'ধন্যবাদ আপনার বার্তার জন্য। আমি আপনার সমস্যা বুঝতে পারছি।',
+            'আমি আপনাকে এই বিষয়ে সাহায্য করতে পারি। একটু অপেক্ষা করুন।',
+            'আপনার সমস্যার সমাধানের জন্য আমি আমাদের টিমের সাথে যোগাযোগ করছি।',
+            'এই সমস্যার জন্য আমাদের একজন এক্সপার্ট টেকনিশিয়ান প্রয়োজন। আমি ব্যবস্থা করছি।',
+            'আর কোনো প্রশ্ন থাকলে জানাতে পারেন। আমি এখানে আছি সাহায্যের জন্য।'
+        ];
+        
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        addChatMessage(randomResponse, 'agent');
+    }, 1000 + Math.random() * 2000);
+}
+
+function addChatMessage(message, sender) {
+    const chatMessages = document.getElementById('chat-messages');
+    if (!chatMessages) return;
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message`;
+    
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('bn-BD', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+    });
+    
+    messageDiv.innerHTML = `
+        <div class="message-content">${message}</div>
+        <div class="message-time">${timeString}</div>
+    `;
+    
+    chatMessages.appendChild(messageDiv);
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Report buttons functionality
+function initializeReportButtons() {
+    const reportButtons = document.querySelectorAll('.report-btn');
+    
+    reportButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const reportType = this.classList.contains('service-issue') ? 'সার্ভিস সমস্যা' :
+                             this.classList.contains('payment-issue') ? 'পেমেন্ট সমস্যা' :
+                             this.classList.contains('provider-issue') ? 'প্রদানকারী অভিযোগ' :
+                             'অ্যাপ সমস্যা';
+            
+            const confirmed = confirm(`${reportType} রিপোর্ট করতে চান?\n\nএই রিপোর্ট আমাদের সাপোর্ট টিমের কাছে পাঠানো হবে।`);
+            
+            if (confirmed) {
+                // Hide support modal
+                hideSupportModal();
+                
+                // Show success message
+                showLocationToast(`${reportType} সফলভাবে রিপোর্ট করা হয়েছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।`, 'success');
+                
+                // Optionally open email or show chat
+                setTimeout(() => {
+                    const subject = encodeURIComponent(`${reportType} - ShebaXpert`);
+                    const body = encodeURIComponent(`${reportType} সম্পর্কে বিস্তারিত:\n\n[সমস্যার বিবরণ লিখুন]\n\nতারিখ: ${new Date().toLocaleDateString('bn-BD')}\nসময়: ${new Date().toLocaleTimeString('bn-BD')}`);
+                    window.open(`mailto:support@shebaexpert.com?subject=${subject}&body=${body}`, '_self');
+                }, 2000);
+            }
+        });
+    });
+}
+
+// Keyboard shortcuts for support
+document.addEventListener('keydown', function(e) {
+    // Ctrl/Cmd + H to open help
+    if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+        e.preventDefault();
+        showSupportModal();
+    }
+    
+    // ESC to close modals
+    if (e.key === 'Escape') {
+        const supportModal = document.getElementById('support-modal');
+        const chatWidget = document.getElementById('chat-widget');
+        
+        if (supportModal && supportModal.classList.contains('show')) {
+            hideSupportModal();
+        } else if (chatWidget && chatWidget.classList.contains('show')) {
+            hideChatWidget();
+        }
+    }
+});
+
+// Add emergency quick access (Ctrl/Cmd + E)
+document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+        e.preventDefault();
+        if (confirm('জরুরি সহায়তা প্রয়োজন? 999 নম্বরে কল করতে চান?')) {
+            makeEmergencyCall('999');
+        }
+    }
+});
 
 // Add custom marker styles to the page
 const style = document.createElement('style');
