@@ -62,6 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add smooth scrolling for navigation
     addSmoothScrolling();
+    
+    // Add keyboard navigation support
+    addKeyboardNavigation();
 });
 
 // Navigation functionality
@@ -447,6 +450,52 @@ function addSmoothScrolling() {
             }
         });
     });
+}
+
+// Add keyboard navigation support
+function addKeyboardNavigation() {
+    document.addEventListener('keydown', function(e) {
+        // Alt + 1-5 for quick navigation to sections
+        if (e.altKey && e.key >= '1' && e.key <= '5') {
+            e.preventDefault();
+            const sections = ['personal-info', 'contact-info', 'service-history', 'preferences', 'security'];
+            const sectionIndex = parseInt(e.key) - 1;
+            
+            if (sections[sectionIndex]) {
+                const navLink = document.querySelector(`[data-section="${sections[sectionIndex]}"]`);
+                if (navLink) {
+                    navLink.click();
+                }
+            }
+        }
+        
+        // Escape key to cancel editing
+        if (e.key === 'Escape') {
+            const activeEditButtons = document.querySelectorAll('.form-actions:not(.hidden)');
+            if (activeEditButtons.length > 0) {
+                const section = activeEditButtons[0].closest('.profile-section');
+                if (section) {
+                    const sectionId = section.id;
+                    cancelEdit(sectionId);
+                }
+            }
+        }
+    });
+}
+
+// Show keyboard shortcuts help
+function showKeyboardShortcuts() {
+    const shortcuts = `
+    কীবোর্ড শর্টকাট:
+    Alt + 1: ব্যক্তিগত তথ্য
+    Alt + 2: যোগাযোগের তথ্য
+    Alt + 3: সার্ভিস ইতিহাস
+    Alt + 4: পছন্দসমূহ
+    Alt + 5: নিরাপত্তা
+    Escape: সম্পাদনা বাতিল
+    `;
+    
+    showMessage(shortcuts, 'info');
 }
 
 // Initialize service history filter
