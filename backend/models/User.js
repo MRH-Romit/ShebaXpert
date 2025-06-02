@@ -59,6 +59,35 @@ class User {
     }
   }
 
+  // Get a user by phone number with role and status information
+  static async findByPhone(phone) {
+    try {
+      const [rows] = await pool.query(`
+        SELECT 
+          u.id, 
+          u.first_name, 
+          u.last_name, 
+          u.email, 
+          u.password_hash,
+          u.phone, 
+          u.email_verified,
+          u.phone_verified,
+          u.created_at,
+          u.updated_at,
+          ur.role_name as role,
+          us.status_name as status
+        FROM users u
+        JOIN user_roles ur ON u.role_id = ur.id
+        JOIN user_status us ON u.status_id = us.id
+        WHERE u.phone = ?
+      `, [phone]);
+      return rows[0];
+    } catch (error) {
+      console.error('Error finding user by phone:', error);
+      throw error;
+    }
+  }
+
   // Create a new user
   static async create(userData) {
     try {

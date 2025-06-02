@@ -33,6 +33,7 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
     "mysql2": "^3.6.0",
     "node-fetch": "^3.3.2",
     "openai": "^5.0.1",

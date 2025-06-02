@@ -132,3 +132,26 @@ CREATE TABLE login_attempts (
     INDEX idx_email_ip (email, ip_address),
     INDEX idx_attempted_at (attempted_at)
 );
+
+-- Service Providers Table (Additional information for service providers)
+CREATE TABLE service_providers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL UNIQUE,
+    full_name VARCHAR(255) NOT NULL,
+    service_category VARCHAR(100) NOT NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    work_description TEXT NOT NULL,
+    nid_document_path VARCHAR(500),
+    photo_path VARCHAR(500),
+    verification_status ENUM('pending', 'verified', 'rejected') DEFAULT 'pending',
+    is_available BOOLEAN DEFAULT TRUE,
+    average_rating DECIMAL(3,2) DEFAULT 0.00,
+    total_jobs INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_service_category (service_category),
+    INDEX idx_location (location),
+    INDEX idx_verification_status (verification_status)
+);
