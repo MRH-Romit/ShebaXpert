@@ -1,180 +1,199 @@
-# ShebaXpert
+# ShebaXpert - Service Provider Platform
 
-A platform designed to connect users with skilled low-income workers such as carpenters, plumbers, painters, pest controllers, and electricians. The project integrates map-based location tracking and automated Facebook posting for easy service accessibility.
+ShebaXpert is a comprehensive service provider platform built with Node.js backend and vanilla HTML/CSS/JavaScript frontend, featuring MySQL-based authentication and user management.
+
+## Project Structure
+
+```
+ShebaXpert/
+├── backend/                 # Node.js Express server
+│   ├── config/             # Database and API configurations
+│   ├── controllers/        # Route handlers
+│   ├── middleware/         # Authentication middleware
+│   ├── models/            # Database models
+│   ├── routes/            # API routes
+│   ├── utils/             # Utility functions
+│   ├── server.js          # Main server file
+│   ├── schema.sql         # MySQL database schema
+│   └── createMySQLDatabase.js # Database setup script
+├── Dashboard/             # User dashboard interface
+├── Landing Page/          # Main landing page
+├── Login/                # Authentication interface
+├── Resources/            # Static assets (images, etc.)
+└── start-all.ps1        # Application startup script
+```
 
 ## Features
 
-- **Map-Based Service Locator**: Easily find nearby service providers based on user location.
-- **Automated Facebook Posting**: Helps in broadcasting service availability to a wider audience.
-- **User-Friendly Interface**: Simple and intuitive UI for seamless navigation.
-- **Verified Service Providers**: Ensures reliability and trustworthiness.
-- **Real-Time Updates**: Live tracking of service requests and provider availability.
+- **MySQL Authentication System**: Secure user registration and login
+- **RESTful API**: Complete backend API for user management
+- **Responsive UI**: Modern, mobile-friendly interface
+- **Dashboard**: User profile and service management
+- **Service Provider Integration**: Connect with various service providers
+- **Real-time Notifications**: User notification system
 
-## Tech Stack
+## Prerequisites
 
-- **Frontend**: HTML, CSS, JavaScript (React/Next.js preferred)
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB / PostgreSQL
-- **Map Integration**: Google Maps API / OpenStreetMap
-- **Automation**: Facebook Graph API
-- **Hosting & Deployment**: Vercel / Firebase / AWS
+- Node.js (v16 or higher)
+- Python (for static file server)
+- MySQL Server
+- PowerShell (Windows)
 
-## Installation & Setup
+## Quick Start
 
-1. Clone the repository:
+### 1. Database Setup
 
-   ```bash
-   git clone https://github.com/yourusername/service-locator.git
+1. Install and start MySQL server
+2. Create database credentials and update `backend/.env`:
    ```
-
-2. Navigate to the project folder:
-
-   ```bash
-   cd service-locator
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-4. Set up environment variables (create a `.env` file and add required keys):
-
-   ```env
-   MAP_API_KEY=your_google_maps_api_key
-   FACEBOOK_API_KEY=your_facebook_api_key
-   ```
-
-5. Run the development server:
-
-   ```bash
-   npm start
-   ```
-
-## Frontend Setup
-
-### Frontend Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Steps to Run the Frontend
-
-1. Navigate to the `frontend` directory:
-
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-
-   ```bash
-   npm start
-   ```
-
-4. Open your browser and navigate to `http://localhost:3000` to view the application.
-
-### Tailwind CSS
-
-The project uses Tailwind CSS for styling. Ensure that the `tailwind.config.js` file is properly configured. If you make changes to the configuration, restart the development server.
-
-### Environment Variables
-
-Create a `.env` file in the `frontend` directory and add the following variables:
-
-```env
-REACT_APP_API_URL=http://localhost:5000
-REACT_APP_MAPBOX_TOKEN=your_mapbox_token
-```
-
-## Backend Setup
-
-### Backend Prerequisites
-
-- Node.js (v14 or higher)
-- MySQL or PostgreSQL database
-
-### Steps to Run the Backend
-
-1. Navigate to the `backend` directory:
-
-   ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Set up the database:
-
-   - Create a database named `shebaxpert`.
-   - Import the schema from `schema.sql`:
-
-     ```bash
-     mysql -u your_username -p shebaxpert < schema.sql
-     ```
-
-4. Create a `.env` file in the `backend` directory and add the following variables:
-
-   ```env
    DB_HOST=localhost
-   DB_USER=root
-   DB_PASSWORD=yourpassword
+   DB_USER=your_username
+   DB_PASSWORD=your_password
    DB_NAME=shebaxpert
    JWT_SECRET=your_jwt_secret
-   FB_PAGE_ID=your_facebook_page_id
-   FB_ACCESS_TOKEN=your_facebook_access_token
-   FB_WEBHOOK_TOKEN=your_webhook_verify_token
-   FB_WEBHOOK_SECRET=your_webhook_secret
-   OPENAI_API_KEY=your_openai_api_key
    ```
 
-5. Start the backend server:
-
+3. Run database setup:
    ```bash
-   npm start
+   cd backend
+   node createMySQLDatabase.js
    ```
 
-6. The backend will be available at `http://localhost:5000`.
+### 2. Install Dependencies
 
-## Full-Stack Integration
+```bash
+cd backend
+npm install
+```
 
-Ensure that the `REACT_APP_API_URL` in the frontend `.env` file matches the backend URL. This allows the frontend to communicate with the backend APIs seamlessly.
+### 3. Start Application
 
-## Contribution
+Run the comprehensive startup script:
+```powershell
+.\start-all.ps1
+```
 
-Contributions are welcome! To contribute:
+This script will:
+- Check for required dependencies
+- Install missing packages
+- Start the backend API server (port 5000)
+- Start the frontend server (port 8080)
+- Open the application in your browser
 
-1. Fork the repository.
-2. Create a new branch:
+### Manual Start (Alternative)
 
-   ```bash
-   git checkout -b feature-branch
-   ```
+If you prefer to start services manually:
 
-3. Make changes and commit:
+```bash
+# Start backend (Terminal 1)
+cd backend
+npm start
 
-   ```bash
-   git commit -m "Added new feature"
-   ```
+# Start frontend (Terminal 2)
+cd ..
+python -m http.server 8080
 
-4. Push to your fork:
+# Open browser
+# Navigate to: http://localhost:8080/Landing%20Page/LandingPage.html
+```
 
-   ```bash
-   git push origin feature-branch
-   ```
+## API Endpoints
 
-5. Create a pull request.
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/profile` - Get user profile (protected)
+
+### Services
+- `GET /api/services` - Get available services
+- `POST /api/services` - Create service request
+- `GET /api/services/:id` - Get specific service
+
+### Notifications
+- `GET /api/notifications` - Get user notifications
+- `POST /api/notifications` - Create notification
+- `PUT /api/notifications/:id` - Mark notification as read
+
+## Development
+
+### Backend Development
+```bash
+cd backend
+npm run dev  # Start with nodemon for auto-reload
+```
+
+### Frontend Development
+The frontend uses vanilla HTML/CSS/JavaScript. Simply edit files and refresh the browser.
+
+### Database Schema
+The database schema is defined in `backend/schema.sql`. To reset the database:
+```bash
+cd backend
+node createMySQLDatabase.js
+```
+
+## Configuration
+
+### Environment Variables
+Create `backend/.env` with:
+```
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=shebaxpert
+DB_PORT=3306
+JWT_SECRET=your_secret_key
+PORT=5000
+OPENAI_API_KEY=your_openai_key (optional)
+FACEBOOK_APP_ID=your_facebook_app_id (optional)
+FACEBOOK_APP_SECRET=your_facebook_secret (optional)
+```
+
+### Database Configuration
+MySQL connection settings are in `backend/config/db.js`.
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Port already in use**
+   - The startup script automatically kills existing processes
+   - Manually check: `netstat -ano | findstr :5000` or `netstat -ano | findstr :8080`
+
+2. **MySQL connection failed**
+   - Verify MySQL server is running
+   - Check credentials in `.env` file
+   - Ensure database exists
+
+3. **Dependencies missing**
+   - Run `npm install` in the backend directory
+   - Ensure Node.js and Python are installed
+
+### Logs
+- Backend logs: Check the backend terminal window
+- Frontend logs: Check browser developer console
+
+## Security
+
+- Passwords are hashed using bcrypt
+- JWT tokens for authentication
+- Input validation on all endpoints
+- SQL injection protection with parameterized queries
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
+This project is licensed under the terms specified in the LICENSE file.
+
+---
+
+**Quick Start Command**: `.\start-all.ps1`
+
+For support or questions, please refer to the project documentation or create an issue.
