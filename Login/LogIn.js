@@ -1,6 +1,9 @@
 // ShebaXpert Authentication System
 const API_BASE_URL = 'http://localhost:5000/api';
 
+// Global variables
+let selectedRole = null;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Check URL parameters for signup mode
     const urlParams = new URLSearchParams(window.location.search);
@@ -10,142 +13,243 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('container').classList.add('right-panel-active');
     }
 
-    // Sign Up Form Handler
-    const signUpForm = document.querySelector('.sign-up-container form');
-    if (signUpForm) {
-        signUpForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const userData = {
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                email: formData.get('email'),
-                password: formData.get('password'),
-                phone: formData.get('phone')
-            };
+    // Initialize event listeners
+    initializeEventListeners();
+});
 
-            // Validation
-            if (!userData.firstName || !userData.lastName || !userData.email || !userData.password || !userData.phone) {
-                showMessage('All fields are required', 'error');
-                return;
-            }
-            
-            if (userData.password.length < 8) {
-                showMessage('Password must be at least 8 characters long', 'error');
-                return;
-            }
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/auth/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(userData)
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok) {
-                    localStorage.setItem('authToken', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    showMessage('Account created! Redirecting...', 'success');
-                    setTimeout(() => { window.location.href = '../Dashboard/dash.html'; }, 1200);
-                } else {
-                    showMessage(data.message || 'Registration failed', 'error');
-                }
-            } catch (error) {
-                showMessage('Network error. Please try again.', 'error');
-            }
-        });
+function initializeEventListeners() {
+    // Sign Up Form Handler (User Registration)
+    const userSignUpForm = document.getElementById('user-signup-form');
+    if (userSignUpForm) {
+        userSignUpForm.addEventListener('submit', handleUserSignUp);
     }
 
     // Sign In Form Handler
-    const signInForm = document.querySelector('.sign-in-container form');
+    const signInForm = document.getElementById('signin-form');
     if (signInForm) {
-        signInForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        signInForm.addEventListener('submit', handleSignIn);
+    }
+
+    // Initialize role toggle switch
+    initializeRoleToggle();
+
+    // Panel switching
+    document.getElementById('signUp').addEventListener('click', () => {
+        document.getElementById('container').classList.add("right-panel-active");
+        showRoleSelection();
+    });
+
+    document.getElementById('signIn').addEventListener('click', () => {
+        document.getElementById('container').classList.remove("right-panel-active");
+    });
+}
+
+// Role Selection Functions
+function selectRole(role) {
+    selectedRole = role;
+    
+    if (role === 'user') {
+        showUserSignUpForm();
+    } else if (role === 'provider') {
+        // Redirect to service provider registration page
+        window.location.href = '../Service Provider registration/registration.html';
+    }
+}
+
+function showRoleSelection() {
+    document.getElementById('role-selection').style.display = 'flex';
+    document.getElementById('user-signup-form').style.display = 'none';
+}
+
+function showUserSignUpForm() {
+    document.getElementById('role-selection').style.display = 'none';
+    document.getElementById('user-signup-form').style.display = 'block';
+}
+
+function goBackToRoleSelection() {
+    showRoleSelection();
+    selectedRole = null;
+}
+
+// User Sign Up Handler
+async function handleUserSignUp(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const userData = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+        phone: formData.get('phone')
+    };
+
+    // Validation
+    if (!userData.firstName || !userData.lastName || !userData.email || !userData.password || !userData.phone) {
+        showMessage('All fields are required', 'error');
+        return;
+    }
+    
+    if (userData.password.length < 8) {
+        showMessage('Password must be at least 8 characters long', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            showMessage('Account created! Redirecting...', 'success');
             
-            const formData = new FormData(e.target);
-            const credentials = {
-                email: formData.get('email'),
-                password: formData.get('password')
-            };
+            setTimeout(() => {
+                window.location.href = '../Dashboard/dash.html';
+            }, 2000);
+        } else {
+            showMessage(data.message || 'Registration failed', 'error');
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        showMessage('Network error. Please try again.', 'error');
+    }
+}
 
-            if (!credentials.email || !credentials.password) {
-                showMessage('Email and password are required', 'error');
-                return;
-            }
+// Sign In Handler
+async function handleSignIn(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const roleToggle = document.getElementById('roleToggle');
+    const selectedRole = roleToggle.checked ? 'service_provider' : 'user';
+    
+    const loginData = {
+        email: formData.get('email'),
+        password: formData.get('password'),
+        role: selectedRole
+    };
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(credentials)
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok) {
-                    localStorage.setItem('authToken', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    showMessage('Login successful! Redirecting...', 'success');
-                    setTimeout(() => { window.location.href = '../Dashboard/dash.html'; }, 1000);
+    // Validation
+    if (!loginData.email || !loginData.password) {
+        showMessage('Email and password are required', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(loginData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            showMessage('Login successful! Redirecting...', 'success');
+            
+            // Redirect based on user role
+            setTimeout(() => {
+                if (data.user.role === 'service_provider') {
+                    window.location.href = '../Dashboard/dash.html'; // Service provider dashboard
                 } else {
-                    showMessage(data.message || 'Login failed', 'error');
+                    window.location.href = '../Dashboard/dash.html'; // User dashboard
                 }
-            } catch (error) {
-                showMessage('Network error. Please try again.', 'error');
-            }
-        });
+            }, 1500);
+        } else {
+            showMessage(data.message || 'Login failed', 'error');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        showMessage('Network error. Please try again.', 'error');
     }
+}
 
-    // Toggle between login and signup forms
-    const signUpBtn = document.getElementById('signUp');
-    const signInBtn = document.getElementById('signIn');
-    
-    if (signUpBtn) {
-        signUpBtn.addEventListener('click', function() {
-            document.getElementById('container').classList.add('right-panel-active');
+// Initialize role toggle switch
+function initializeRoleToggle() {
+    const roleToggle = document.getElementById('roleToggle');
+    if (roleToggle) {
+        // Set default state (unchecked = user, checked = service_provider)
+        roleToggle.checked = false;
+        
+        // Add change event listener for debugging/feedback
+        roleToggle.addEventListener('change', function() {
+            const selectedRole = this.checked ? 'service_provider' : 'user';
+            console.log('Role switched to:', selectedRole);
         });
     }
-    
-    if (signInBtn) {
-        signInBtn.addEventListener('click', function() {
-            document.getElementById('container').classList.remove('right-panel-active');
-        });
-    }
-});
+}
 
+// Utility Functions
 function showMessage(message, type) {
-    const existing = document.querySelector('.auth-message');
-    if (existing) existing.remove();
+    // Remove existing messages
+    const existingMessage = document.querySelector('.message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${type}`;
+    messageDiv.textContent = message;
     
-    const div = document.createElement('div');
-    div.className = `auth-message ${type}`;
-    div.textContent = message;
-    div.style.cssText = `
+    // Style the message
+    messageDiv.style.cssText = `
         position: fixed;
         top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 10px 20px;
-        background: #fff;
-        border-radius: 5px;
-        z-index: 9999;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        color: #222;
-        font-weight: bold;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     `;
     
-    if (type === 'error') {
-        div.style.background = '#ffeaea';
-        div.style.color = '#b00';
-    }
     if (type === 'success') {
-        div.style.background = '#eaffea';
-        div.style.color = '#080';
+        messageDiv.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+    } else if (type === 'error') {
+        messageDiv.style.background = 'linear-gradient(135deg, #f44336, #da190b)';
+    } else {
+        messageDiv.style.background = 'linear-gradient(135deg, #2196F3, #0b7dda)';
     }
     
-    document.body.appendChild(div);
-    setTimeout(() => { div.remove(); }, 3000);
+    // Add to page
+    document.body.appendChild(messageDiv);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 300);
+        }
+    }, 5000);
 }
+
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);

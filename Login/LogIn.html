@@ -11,39 +11,66 @@
     <!-- Language Switch -->
     <div class="switch">
         <label class="switch__wrapper">
-          <input type="checkbox" id="languageToggle" />
+          <input type="checkbox" id="languageToggle" title="Toggle between Bengali and English language" />
           <span class="switch__slider"></span>
           <div></div>
         </label>
     </div>
 
     <div class="container" id="container">        <div class="form-container sign-up-container">
-            <form action="#" method="POST">
-                <h1 id="signup-title">Create Account</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            <!-- Role Selection Step -->
+            <div id="role-selection" class="role-selection">
+                <h1 id="signup-title">Choose Your Role</h1>
+                <span id="signup-subtitle">How would you like to join ShebaXpert?</span>
+                <div class="role-buttons">
+                    <button type="button" class="role-btn user-role" onclick="selectRole('user')">
+                        <i class="fas fa-user"></i>
+                        <span>Service User</span>
+                        <small>Book services from professionals</small>
+                    </button>
+                    <button type="button" class="role-btn provider-role" onclick="selectRole('provider')">
+                        <i class="fas fa-tools"></i>
+                        <span>Service Provider</span>
+                        <small>Offer your professional services</small>
+                    </button>
                 </div>
-                <span id="signup-subtitle">or use your email for registration</span>
+            </div>
+
+            <!-- User Registration Form -->
+            <form action="#" method="POST" id="user-signup-form" class="hidden-form">                <h1 id="user-signup-title">Create User Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social" title="Sign up with Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social" title="Sign up with Google"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social" title="Sign up with LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span id="user-signup-subtitle">or use your email for registration</span>
                 <input type="text" name="firstName" placeholder="First Name" required />
                 <input type="text" name="lastName" placeholder="Last Name" required />
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="tel" name="phone" placeholder="Phone Number" required />
                 <input type="password" name="password" placeholder="Password" required minlength="8" />
-                <button type="submit" id="signup-button">Sign Up</button>
+                <button type="button" class="back-btn" onclick="goBackToRoleSelection()">← Back</button>
+                <button type="submit" id="user-signup-button">Sign Up</button>
             </form>
-        </div>
-
-        <div class="form-container sign-in-container">
-            <form action="#" method="POST">
-                <h1 id="signin-title">Sign in</h1>
+        </div>        <div class="form-container sign-in-container">
+            <form action="#" method="POST" id="signin-form">                <h1 id="signin-title">Sign in</h1>
                 <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social" title="Sign in with Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social" title="Sign in with Google"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social" title="Sign in with LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span id="signin-subtitle">or use your account</span>
+                  <!-- Role Selection for Login -->
+                <div class="login-role-selection">
+                    <label>Login as:</label>                    <div class="role-switch">
+                        <label class="role-switch__wrapper">
+                            <input type="checkbox" id="roleToggle" name="loginRole" title="Toggle between User and Service Provider roles" />
+                            <span class="role-switch__slider"></span>
+                            <div></div>
+                        </label>
+                    </div>
+                </div>
+                
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <a href="#" id="forgot-password">Forgot your password?</a>
