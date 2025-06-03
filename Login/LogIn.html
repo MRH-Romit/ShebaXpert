@@ -11,48 +11,60 @@
     <!-- Language Switch -->
     <div class="switch">
         <label class="switch__wrapper">
-          <input type="checkbox" id="languageToggle" title="Toggle between Bengali and English language" />
+          <input type="checkbox" id="languageToggle" />
           <span class="switch__slider"></span>
           <div></div>
         </label>
-    </div>    <div class="container" id="container">
-        <!-- Sign In Form -->
+    </div>
+
+    <div class="container" id="container">        <div class="form-container sign-up-container">
+            <form action="#" method="POST">
+                <h1 id="signup-title">Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span id="signup-subtitle">or use your email for registration</span>
+                <input type="text" name="firstName" placeholder="First Name" required />
+                <input type="text" name="lastName" placeholder="Last Name" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <input type="tel" name="phone" placeholder="Phone Number" required />
+                <input type="password" name="password" placeholder="Password" required minlength="8" />
+                <button type="submit" id="signup-button">Sign Up</button>
+            </form>
+        </div>
+
         <div class="form-container sign-in-container">
-            <form action="#" method="POST" id="signin-form">
+            <form action="#" method="POST">
                 <h1 id="signin-title">Sign in</h1>
                 <div class="social-container">
-                    <a href="#" class="social" title="Sign in with Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social" title="Sign in with Google"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social" title="Sign in with LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span id="signin-subtitle">or use your account</span>
-                  <!-- Role Selection for Login -->
-                <div class="login-role-selection">
-                    <label>Login as:</label>
-                    <div class="role-switch">
-                        <label class="role-switch__wrapper">
-                            <input type="checkbox" id="roleToggle" name="loginRole" title="Toggle between User and Service Provider roles" />
-                            <span class="role-switch__slider"></span>
-                            <div></div>
-                        </label>
-                    </div>
-                </div>
-                
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <a href="#" id="forgot-password">Forgot your password?</a>
                 <button type="submit" id="signin-button">Sign In</button>
             </form>
-        </div>        <div class="overlay-container">
+        </div>
+
+        <div class="overlay-container">
             <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1 id="welcome-back">Welcome Back!</h1>
+                    <p id="welcome-back-text">To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
                 <div class="overlay-panel overlay-right">
                     <h1 id="hello-friend">Hello, Friend!</h1>
                     <p id="hello-friend-text">Enter your personal details and start your journey with us</p>
                     <button class="ghost" id="signUp">Sign Up</button>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>    </div>
 
     <footer>
         <p id="footer-text">&copy; 2023 ShebaXpert. All rights reserved</p>
