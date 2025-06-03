@@ -28,15 +28,13 @@ function initializeEventListeners() {
     const signInForm = document.getElementById('signin-form');
     if (signInForm) {
         signInForm.addEventListener('submit', handleSignIn);
-    }
-
-    // Initialize role toggle switch
+    }    // Initialize role toggle switch
     initializeRoleToggle();
 
     // Panel switching
     document.getElementById('signUp').addEventListener('click', () => {
-        document.getElementById('container').classList.add("right-panel-active");
-        showRoleSelection();
+        // Redirect to role selection page instead of showing inline form
+        window.location.href = 'role-selection.html';
     });
 
     document.getElementById('signIn').addEventListener('click', () => {
