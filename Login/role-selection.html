@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Role - ShebaXpert</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #87CEEB 0%, #4682B4 50%, #1E90FF 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .role-selection-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }        .logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .role-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .role-card {
+            background: #f8f9fa;
+            border: 3px solid #e9ecef;
+            border-radius: 15px;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .role-card:hover::before {
+            left: 100%;
+        }        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: #1E90FF;
+        }
+
+        .user-card:hover {
+            background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+            color: white;
+        }
+
+        .provider-card:hover {
+            background: linear-gradient(135deg, #1E90FF 0%, #4169E1 100%);
+            color: white;
+        }        .role-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1E90FF;
+            transition: all 0.3s ease;
+        }
+
+        .user-card:hover .role-icon,
+        .provider-card:hover .role-icon {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .role-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .user-card:hover .role-title,
+        .provider-card:hover .role-title {
+            color: white;
+        }
+
+        .role-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .user-card:hover .role-description,
+        .provider-card:hover .role-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .features-list li {
+            margin: 5px 0;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .user-card:hover .features-list li::before,
+        .provider-card:hover .features-list li::before {
+            color: #90EE90;
+        }
+
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .role-selection-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .role-options {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .role-card {
+                padding: 25px 15px;
+            }
+
+            .role-icon {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Loading animation for role selection */        .role-card.selected {
+            border-color: #1E90FF;
+            transform: scale(0.95);
+            opacity: 0.8;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1E90FF;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="role-selection-container">
+        <div class="logo">
+            <img src="../Resources/images/logo.png" alt="ShebaXpert Logo" onerror="this.style.display='none'">
+        </div>
+        
+        <h1>Choose Your Role</h1>
+        <p class="subtitle">How would you like to join ShebaXpert? Select the option that best describes you.</p>
+        
+        <div class="role-options">
+            <div class="role-card user-card" onclick="selectRole('user')">
+                <div class="role-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="role-title">Service User</div>
+                <div class="role-description">
+                    Looking for professional services? Join as a service user to book and manage services.
+                </div>
+                <ul class="features-list">
+                    <li>Browse available services</li>
+                    <li>Book appointments</li>
+                    <li>Rate and review providers</li>
+                    <li>Track service history</li>
+                </ul>
+            </div>
+            
+            <div class="role-card provider-card" onclick="selectRole('provider')">
+                <div class="role-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="role-title">Service Provider</div>
+                <div class="role-description">
+                    Ready to offer your professional services? Join as a service provider to grow your business.
+                </div>
+                <ul class="features-list">
+                    <li>Create service profiles</li>
+                    <li>Manage bookings</li>
+                    <li>Set your own rates</li>
+                    <li>Build your reputation</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="loading" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666;">Redirecting...</p>
+        </div>
+        
+        <a href="LogIn.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Login
+        </a>
+          <p class="footer-text">
+            Already have an account? <a href="LogIn.html" style="color: #1E90FF; text-decoration: none;">Sign in here</a>
+        </p>
+    </div>
+
+    <script>
+        function selectRole(role) {
+            // Add selected animation
+            const cards = document.querySelectorAll('.role-card');
+            cards.forEach(card => card.classList.remove('selected'));
+            
+            const selectedCard = document.querySelector(`.${role}-card`);
+            selectedCard.classList.add('selected');
+            
+            // Show loading spinner
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            loadingSpinner.classList.add('show');
+            
+            // Simulate brief loading time for better UX
+            setTimeout(() => {
+                if (role === 'user') {
+                    // Redirect to user registration
+                    window.location.href = 'user-registration.html';
+                } else if (role === 'provider') {
+                    // Redirect to service provider registration
+                    window.location.href = '../Service Provider registration/registration.html';
+                }
+            }, 800);
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                window.location.href = 'LogIn.html';
+            }
+        });
+
+        // Add entrance animation delay for cards
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.role-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+                card.style.animation = 'slideUp 0.6s ease-out forwards';
+            });
+        });
+    </script>
+</body>
+</html>

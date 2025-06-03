@@ -9,4 +9,8 @@ router.post('/login', authController.login);
 router.post('/register-service-provider', authController.registerServiceProvider);
 router.post('/upload-service-provider-files', authController.uploadServiceProviderFiles);
 
+// Registration checker routes
+router.get('/check-registrations', authController.checkRegistrations);
+router.get('/latest-registration', authController.getLatestRegistration);
+
 module.exports = router;

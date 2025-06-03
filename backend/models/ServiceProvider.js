@@ -178,11 +178,58 @@ class ServiceProvider {
           total_jobs = total_jobs + 1,
           updated_at = CURRENT_TIMESTAMP
         WHERE user_id = ?
-      `, [newRating, userId]);
-
-      return true;
+      `, [newRating, userId]);      return true;
     } catch (error) {
       console.error('Error updating rating:', error);
+      throw error;
+    }
+  }
+
+  // Get all service providers with user details
+  static async getAllWithUserDetails() {
+    try {
+      const [rows] = await pool.query(`
+        SELECT 
+          sp.*,
+          u.first_name,
+          u.last_name,
+          u.email,
+          u.phone,
+          u.email_verified,
+          u.phone_verified,
+          u.created_at as user_created_at
+        FROM service_providers sp
+        JOIN users u ON sp.user_id = u.id
+        ORDER BY sp.created_at DESC
+      `);
+      return rows;
+    } catch (error) {
+      console.error('Error getting all service providers with user details:', error);
+      throw error;
+    }
+  }
+
+  // Get latest registration
+  static async getLatestRegistration() {
+    try {
+      const [rows] = await pool.query(`
+        SELECT 
+          sp.*,
+          u.first_name,
+          u.last_name,
+          u.email,
+          u.phone,
+          u.email_verified,
+          u.phone_verified,
+          u.created_at as user_created_at
+        FROM service_providers sp
+        JOIN users u ON sp.user_id = u.id
+        ORDER BY sp.created_at DESC
+        LIMIT 1
+      `);
+      return rows[0];
+    } catch (error) {
+      console.error('Error getting latest registration:', error);
       throw error;
     }
   }

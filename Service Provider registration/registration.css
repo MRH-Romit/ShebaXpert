@@ -1,8 +1,138 @@
 /* Service Provider Registration CSS */
-/* This file can contain additional styles if needed */
-/* The main styles are already included in the HTML file */
+/* Professional Sky Blue Theme Styles */
 
-/* Additional responsive styles */
+/* Message Styles */
+.message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message.info {
+  background: #cce7ff;
+  color: #004085;
+  border: 1px solid #87ceeb;
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #1E90FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Form Validation Styles */
+input.invalid, select.invalid, textarea.invalid {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+input.valid, select.valid, textarea.valid {
+  border-color: #28a745;
+  background-color: #f8fff8;
+}
+
+/* File Upload Enhancements */
+.file-upload-area {
+  position: relative;
+  overflow: hidden;
+}
+
+.file-upload-area input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.file-upload-label {
+  display: block;
+  padding: 20px;
+  text-align: center;
+  border: 2px dashed #e9ecef;
+  border-radius: 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-upload-label:hover {
+  border-color: #1E90FF;
+  background: rgba(30, 144, 255, 0.05);
+}
+
+.file-upload-label i {
+  font-size: 2rem;
+  color: #1E90FF;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Progress Animation */
+.form-progress {
+  width: 100%;
+  height: 4px;
+  background: #e9ecef;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.form-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #87CEEB, #1E90FF);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Additional responsive improvements */
 @media (max-width: 480px) {
   .form-container {
     width: 95%;
@@ -11,7 +141,12 @@
   }
   
   h2 {
-    font-size: 22px;
+    font-size: 1.3rem;
+  }
+  
+  .role-badge {
+    font-size: 0.8rem;
+    padding: 6px 12px;
   }
   
   .form-group {
@@ -24,7 +159,7 @@
   select,
   textarea {
     padding: 10px 12px;
-    font-size: 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
   
   .submit-btn {
