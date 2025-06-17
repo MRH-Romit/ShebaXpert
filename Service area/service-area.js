@@ -1,3 +1,240 @@
+// Add this provider data at the top of your JavaScript file
+const serviceProviders = {
+    "গুলশান": [
+        {
+            id: 1,
+            name: "আব্দুল করিম",
+            service: "ইলেকট্রিশিয়ান",
+            rating: 4.8,
+            experience: "৫ বছর",
+            price: "৳৫০০-৳১০০০",
+            available: true,
+            image: "provider1.jpg",
+            description: "প্রফেশনাল ইলেকট্রিশিয়ান, সব ধরনের ইলেকট্রিক্যাল সমস্যার সমাধান"
+        },
+        {
+            id: 2,
+            name: "রহিম মিয়া",
+            service: "প্লাম্বার",
+            rating: 4.5,
+            experience: "৩ বছর",
+            price: "৳৪০০-৳৮০০",
+            available: true,
+            image: "provider2.jpg",
+            description: "সব ধরনের পাইপ লাইন ও স্যানিটারি সমস্যার সমাধান"
+        }
+    ],
+    "ধানমন্ডি": [
+        {
+            id: 3,
+            name: "জামাল উদ্দিন",
+            service: "এসি সার্ভিস",
+            rating: 4.9,
+            experience: "৭ বছর",
+            price: "৳৮০০-৳১৫০০",
+            available: true,
+            image: "provider3.jpg",
+            description: "এসি ইনস্টলেশন, রিপেয়ার ও রেগুলার মেইনটেনেন্স"
+        }
+    ],
+    // Add more providers for other areas...
+    "বনানী": [
+        {
+            id: 4,
+            name: "সোহেল রানা",
+            service: "কাঠমিস্ত্রি",
+            rating: 4.7,
+            experience: "৪ বছর",
+            price: "৳৬০০-৳১২০০",
+            available: true,
+            image: "provider4.jpg",
+            description: "ফার্নিচার মেরামত ও কাস্টম কাজ"
+        }
+    ]
+};
+
+// Update the viewProviders function
+function viewProviders(areaName) {
+    // Hide the service areas container
+    document.getElementById('areas-container').style.display = 'none';
+    
+    // Create and show providers container
+    const providersContainer = document.createElement('div');
+    providersContainer.id = 'providers-container';
+    providersContainer.className = 'providers-container';
+    
+    // Create back button
+    const backButton = document.createElement('button');
+    backButton.className = 'back-button';
+    backButton.innerHTML = '<i class="fas fa-arrow-left"></i> সার্ভিস এলাকায় ফিরে যান';
+    backButton.onclick = function() {
+        document.getElementById('areas-container').style.display = 'grid';
+        providersContainer.remove();
+    };
+    
+    providersContainer.appendChild(backButton);
+    
+    // Add title
+    const title = document.createElement('h2');
+    title.className = 'providers-title';
+    title.innerHTML = `<i class="fas fa-users"></i> ${areaName} এলাকার প্রোভাইডার`;
+    providersContainer.appendChild(title);
+    
+    // Get providers for this area
+    const providers = serviceProviders[areaName] || [];
+    
+    if (providers.length === 0) {
+        const noProviders = document.createElement('div');
+        noProviders.className = 'no-providers';
+        noProviders.innerHTML = `
+            <i class="fas fa-user-slash"></i>
+            <h3>এই এলাকায় কোনো প্রোভাইডার পাওয়া যায়নি</h3>
+            <p>অনুগ্রহ করে অন্য এলাকা চেক করুন</p>
+        `;
+        providersContainer.appendChild(noProviders);
+    } else {
+        const providersGrid = document.createElement('div');
+        providersGrid.className = 'providers-grid';
+        
+        providers.forEach(provider => {
+            const providerCard = document.createElement('div');
+            providerCard.className = 'provider-card';
+            providerCard.innerHTML = `
+                <div class="provider-header">
+                    <div class="provider-image">
+                        <img src="../Resources/images/${provider.image}" alt="${provider.name}">
+                    </div>
+                    <div class="provider-info">
+                        <h3>${provider.name}</h3>
+                        <span class="provider-service">${provider.service}</span>
+                        <div class="provider-rating">
+                            <i class="fas fa-star"></i>
+                            <span>${provider.rating}</span>
+                            <span class="provider-experience">${provider.experience} অভিজ্ঞতা</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="provider-body">
+                    <p>${provider.description}</p>
+                    <div class="provider-price">
+                        <i class="fas fa-tag"></i>
+                        <span>${provider.price}</span>
+                    </div>
+                    <div class="provider-availability ${provider.available ? 'available' : 'busy'}">
+                        <i class="fas fa-circle"></i>
+                        <span>${provider.available ? 'এখনই উপলব্ধ' : 'ব্যস্ত'}</span>
+                    </div>
+                </div>
+                <div class="provider-actions">
+                    <button class="action-btn primary" onclick="bookProvider('${areaName}', ${provider.id})">
+                        <i class="fas fa-calendar-check"></i> বুক করুন
+                    </button>
+                    <button class="action-btn secondary" onclick="viewProviderDetails(${provider.id})">
+                        <i class="fas fa-info-circle"></i> বিস্তারিত
+                    </button>
+                </div>
+            `;
+            providersGrid.appendChild(providerCard);
+        });
+        
+        providersContainer.appendChild(providersGrid);
+    }
+    
+    // Add the providers container to the page
+    document.querySelector('.service-area-container').appendChild(providersContainer);
+}
+
+// Add these new functions
+function bookProvider(areaName, providerId) {
+    const provider = serviceProviders[areaName].find(p => p.id === providerId);
+    showNotification(`${provider.name} এর সাথে সেবা বুকিং শুরু হচ্ছে...`, 'info');
+    
+    // Simulate booking process
+    setTimeout(() => {
+        showNotification(`${provider.name} এর সাথে বুকিং কনফার্ম করতে অনুগ্রহ করে যোগাযোগ করুন`, 'success');
+    }, 1500);
+}
+
+function viewProviderDetails(providerId) {
+    // Find the provider in all areas
+    let provider = null;
+    for (const area in serviceProviders) {
+        provider = serviceProviders[area].find(p => p.id === providerId);
+        if (provider) break;
+    }
+    
+    if (!provider) return;
+    
+    // Create modal for provider details
+    const modal = document.createElement('div');
+    modal.className = 'provider-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="close-modal" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <div class="provider-image">
+                    <img src="../Resources/images/${provider.image}" alt="${provider.name}">
+                </div>
+                <div class="provider-info">
+                    <h2>${provider.name}</h2>
+                    <span class="provider-service">${provider.service}</span>
+                    <div class="provider-rating">
+                        <i class="fas fa-star"></i>
+                        <span>${provider.rating}</span>
+                        <span class="provider-experience">${provider.experience} অভিজ্ঞতা</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h3><i class="fas fa-info-circle"></i> সম্পর্কে</h3>
+                <p>${provider.description}</p>
+                
+                <h3><i class="fas fa-tools"></i> সেবাসমূহ</h3>
+                <ul class="service-list">
+                    <li><i class="fas fa-check"></i> বাসা-বাড়ির ইলেকট্রিক্যাল সমস্যা সমাধান</li>
+                    <li><i class="fas fa-check"></i> নতুন ওয়্যারিং ইনস্টলেশন</li>
+                    <li><i class="fas fa-check"></i> ইলেকট্রিক্যাল ডিভাইস রিপেয়ার</li>
+                </ul>
+                
+                <div class="provider-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>১৫০+ বুকিং সম্পন্ন</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-user-check"></i>
+                        <span>৯৫% সন্তুষ্টি হার</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn primary" onclick="bookProvider('${Object.keys(serviceProviders).find(area => serviceProviders[area].some(p => p.id === providerId))}', ${providerId})">
+                    <i class="fas fa-calendar-check"></i> এখনই বুক করুন
+                </button>
+                <button class="action-btn secondary" onclick="showNotification('প্রোভাইডারকে কল করা হচ্ছে...', 'info')">
+                    <i class="fas fa-phone"></i> কল করুন
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+// Make the new functions available globally
+window.viewProviders = viewProviders;
+window.bookProvider = bookProvider;
+window.viewProviderDetails = viewProviderDetails;
+
+
+
+
+
+
+
+
 // Service Area JavaScript File
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
