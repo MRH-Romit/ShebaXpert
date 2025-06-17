@@ -1,7 +1,4 @@
 // Service Area JavaScript File
-// Author: ShebaXpert Development Team
-// Purpose: Handle service area functionality including area display, filtering, search, and support modal
-
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initializeServiceAreas();
@@ -136,12 +133,17 @@ let currentView = 'grid';
 // Initialize service areas display
 function initializeServiceAreas() {
     displayAreas(serviceAreas);
+    
+    // Add loaded class after a short delay to trigger animations
+    setTimeout(() => {
+        document.getElementById('areas-container').classList.add('loaded');
+    }, 100);
 }
 
 // Display areas based on current filters
 function displayAreas(areas) {
     const container = document.getElementById('areas-container');
-    container.className = `service-areas-${currentView}`;
+    container.className = `service-areas-grid ${currentView}-view`;
     
     if (areas.length === 0) {
         container.innerHTML = `
@@ -160,22 +162,24 @@ function displayAreas(areas) {
 // Create individual area card
 function createAreaCard(area) {
     const servicesHtml = area.services.map(service => 
-        `<span class="service-tag">${serviceTranslations[service]}</span>`
+        `<span class="service-tag"><i class="fas fa-${getServiceIcon(service)}"></i> ${serviceTranslations[service]}</span>`
     ).join('');
 
     const emergencyBadge = area.emergencyService ? 
-        '<span class="emergency-badge"><i class="fas fa-exclamation-triangle"></i> জরুরি</span>' : '';
-
+        `<span class="emergency-badge"><i class="fas fa-exclamation-triangle"></i> জরুরি</span>` : '';
+    
     const availabilityText = area.availability === '24h' ? '২৪/৭ উপলব্ধ' : 'নিয়মিত সময়';
+    const availabilityIcon = area.availability === '24h' ? 'fa-clock' : 'fa-calendar-alt';
 
     return `
         <div class="area-card" data-area-id="${area.id}">
             <div class="area-header">
-                <h3><i class="fas fa-map-marker-alt"></i> ${area.name}</h3>
+                <h3 class="area-name"><i class="fas fa-map-marker-alt"></i> ${area.name}</h3>
                 ${emergencyBadge}
             </div>
-            <div class="area-info">
+            <div class="area-body">
                 <p class="area-description">${area.description}</p>
+                
                 <div class="area-stats">
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
@@ -186,27 +190,39 @@ function createAreaCard(area) {
                         <span>${area.rating} রেটিং</span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas ${availabilityIcon}"></i>
                         <span>${availabilityText}</span>
                     </div>
                 </div>
-                <div class="services-list">
-                    <h4>উপলব্ধ সেবা:</h4>
-                    <div class="services-tags">
-                        ${servicesHtml}
-                    </div>
+                
+                <h4 class="services-title"><i class="fas fa-tools"></i> উপলব্ধ সেবা:</h4>
+                <div class="services-grid">
+                    ${servicesHtml}
                 </div>
             </div>
             <div class="area-actions">
-                <button class="book-service-btn" onclick="bookService('${area.name}')">
+                <button class="action-btn primary" onclick="bookService('${area.name}')">
                     <i class="fas fa-calendar-plus"></i> সেবা বুক করুন
                 </button>
-                <button class="view-providers-btn" onclick="viewProviders('${area.name}')">
+                <button class="action-btn secondary" onclick="viewProviders('${area.name}')">
                     <i class="fas fa-users"></i> প্রোভাইডার দেখুন
                 </button>
             </div>
         </div>
     `;
+}
+
+// Helper function to get icons for services
+function getServiceIcon(service) {
+    const icons = {
+        electrician: 'bolt',
+        plumber: 'faucet',
+        ac: 'snowflake',
+        carpenter: 'hammer',
+        painting: 'paint-roller',
+        repair: 'tools'
+    };
+    return icons[service] || 'toolbox';
 }
 
 // Initialize filters
@@ -335,18 +351,11 @@ function initializeSupportModal() {
     const closeModalBtn = document.getElementById('close-support-modal');
     const supportForm = document.getElementById('support-contact-form');
 
-    // Ensure modal is hidden initially
-    if (supportModal) {
-        supportModal.style.display = 'none';
-        supportModal.classList.remove('active');
-    }
-
     // Open support modal
     if (helpBtn && supportModal) {
         helpBtn.addEventListener('click', function(e) {
             e.preventDefault();
             supportModal.style.display = 'flex';
-            supportModal.classList.add('active');
             document.body.classList.add('modal-open');
         });
     }
@@ -355,7 +364,6 @@ function initializeSupportModal() {
     if (closeModalBtn && supportModal) {
         closeModalBtn.addEventListener('click', function() {
             supportModal.style.display = 'none';
-            supportModal.classList.remove('active');
             document.body.classList.remove('modal-open');
         });
     }
@@ -365,7 +373,6 @@ function initializeSupportModal() {
         supportModal.addEventListener('click', function(e) {
             if (e.target === supportModal) {
                 supportModal.style.display = 'none';
-                supportModal.classList.remove('active');
                 document.body.classList.remove('modal-open');
             }
         });
@@ -394,7 +401,6 @@ function initializeSupportModal() {
                 // Close modal after successful submission
                 setTimeout(() => {
                     supportModal.style.display = 'none';
-                    supportModal.classList.remove('active');
                     document.body.classList.remove('modal-open');
                 }, 2000);
             }, 2000);
@@ -454,7 +460,7 @@ function showNotification(message, type = 'info') {
     notification.innerHTML = `
         <i class="${icons[type] || icons.info}"></i>
         <span>${message}</span>
-        <button class="notification-close" onclick="closeNotification(this)">
+        <button class="notification-close" onclick="this.parentElement.remove()">
             <i class="fas fa-times"></i>
         </button>
     `;
@@ -472,46 +478,18 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-function closeNotification(button) {
-    const notification = button.parentElement;
-    notification.classList.add('fade-out');
-    setTimeout(() => {
-        notification.remove();
-    }, 300);
-}
-
 // Handle ESC key to close modal
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         const supportModal = document.getElementById('support-modal');
-        if (supportModal && supportModal.classList.contains('active')) {
+        if (supportModal && supportModal.style.display === 'flex') {
             supportModal.style.display = 'none';
-            supportModal.classList.remove('active');
             document.body.classList.remove('modal-open');
         }
     }
 });
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Add loading animation when page loads
-window.addEventListener('load', function() {
-    const container = document.getElementById('areas-container');
-    container.classList.add('loaded');
-});
-
-// Console log for debugging
-console.log('Service Area page initialized successfully');
-console.log(`Loaded ${serviceAreas.length} service areas`);
+// Make functions available globally
+window.bookService = bookService;
+window.viewProviders = viewProviders;
+window.showNotification = showNotification;
