@@ -17,12 +17,12 @@
             </div>
             
             <ul class="nav-menu">
-                <li class="active"><a href="#"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-                <li><a href="#"><i class="fas fa-user"></i> প্রোফাইল</a></li>
-                <li><a href="#"><i class="fas fa-calendar"></i> অ্যাপয়েন্টমেন্ট</a></li>
-                <li><a href="#"><i class="fas fa-comments"></i> মেসেজ</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> সেটিংস</a></li>
-                <li><a href="#"><i class="fas fa-sign-out-alt"></i> লগ আউট</a></li>
+                <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+                <li><a href="#profile"><i class="fas fa-user"></i> প্রোফাইল</a></li>
+                <li><a href="#appointment"><i class="fas fa-calendar"></i> অ্যাপয়েন্টমেন্ট</a></li>
+                <li><a href="#message"><i class="fas fa-comments"></i> মেসেজ</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> সেটিংস</a></li>
+                <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> লগ আউট</a></li>
             </ul>
         </div>
         
@@ -31,6 +31,9 @@
             <!-- Header -->
             <header class="header">
                 <div class="header-left">
+                    <div class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </div>
                     <h2>ড্যাশবোর্ড</h2>
                 </div>
                 <div class="header-right">
@@ -47,159 +50,7 @@
             
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <!-- Stats Cards -->
-                <div class="stats-cards">
-                    <div class="card">
-                        <div class="card-icon bg-blue">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>কল রিকুয়েস্ট</h3>
-                            <p>১৫</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon bg-green">
-                            <i class="fas fa-comment"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>মেসেজ</h3>
-                            <p>২৩</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon bg-orange">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>রেটিং</h3>
-                            <p>৪.৮/৫</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-icon bg-purple">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="card-info">
-                            <h3>সার্ভিস এরিয়া</h3>
-                            <p>৫ টি</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Main Sections -->
-                <div class="main-sections">
-                    <!-- Notifications Section -->
-                    <div class="section">
-                        <div class="section-header">
-                            <h3><i class="fas fa-bell"></i> নোটিফিকেশন</h3>
-                            <a href="#" class="see-all">সব দেখুন</a>
-                        </div>
-                        <div class="notification-list">
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-comment"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <p>রহিম আপনাকে একটি মেসেজ পাঠিয়েছেন</p>
-                                    <span class="time">১০ মিনিট আগে</span>
-                                </div>
-                            </div>
-                            
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <p>করিম আপনাকে কল করেছেন</p>
-                                    <span class="time">৩০ মিনিট আগে</span>
-                                </div>
-                            </div>
-                            
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <p>আপনি একজন নতুন কাস্টমার থেকে ৫ স্টার রেটিং পেয়েছেন</p>
-                                    <span class="time">২ ঘন্টা আগে</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Service Areas Section -->
-                    <div class="section">
-                        <div class="section-header">
-                            <h3><i class="fas fa-map-marked-alt"></i> সার্ভিস এরিয়া</h3>
-                        </div>
-                        <div class="service-areas">
-                            <div class="area-tag">ঢাকা</div>
-                            <div class="area-tag">নারায়ণগঞ্জ</div>
-                            <div class="area-tag">গাজীপুর</div>
-                            <div class="area-tag">সাভার</div>
-                            <div class="area-tag">কেরাণীগঞ্জ</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Reviews Section -->
-                <div class="section full-width">
-                    <div class="section-header">
-                        <h3><i class="fas fa-comment-dots"></i> ব্যবহারকারীদের রিভিউ</h3>
-                        <a href="#" class="see-all">সব দেখুন</a>
-                    </div>
-                    <div class="reviews">
-                        <div class="review-item">
-                            <div class="reviewer">
-                                <img src="user1.jpg" alt="ব্যবহারকারী">
-                                <div class="reviewer-info">
-                                    <h4>আব্দুল্লাহ আল মামুন</h4>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span>৪.৫</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-text">
-                                <p>খুব ভালো সার্ভিস পেয়েছি। সময়মতো কাজ শেষ করেছেন এবং দামও যুক্তিসঙ্গত। পরবর্তীতেও আপনার সেবা নিবো ইনশাআল্লাহ।</p>
-                            </div>
-                            <div class="review-date">
-                                ১০ দিন আগে
-                            </div>
-                        </div>
-                        
-                        <div class="review-item">
-                            <div class="reviewer">
-                                <img src="user2.jpg" alt="ব্যবহারকারী">
-                                <div class="reviewer-info">
-                                    <h4>ফারহানা ইয়াসমিন</h4>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span>৫.০</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review-text">
-                                <p>অসাধারণ কাজ! আমি খুবই সন্তুষ্ট। আপনার কাজের মান এবং আচরণ দুটোই প্রশংসনীয়। সবাইকে আপনার সেবা নেওয়ার পরামর্শ দিবো।</p>
-                            </div>
-                            <div class="review-date">
-                                ৩ দিন আগে
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Content loaded dynamically -->
             </div>
         </div>
     </div>
