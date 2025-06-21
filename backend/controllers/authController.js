@@ -103,20 +103,36 @@ exports.register = async (req, res) => {
 // Login user
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
+    
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
+
     const user = await User.findByEmail(email);
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
+
     if (process.env.NODE_ENV !== 'production') {
       console.log('User object from DB:', user);
     }
+
     if (user.status !== 'active') {
       return res.status(401).json({ message: `Account is ${user.status}. Please contact support.` });
     }
+
+    // Role validation
+    if (role && user.role !== role) {
+      const roleMessages = {
+        'user': 'This account is not registered as a service user. Please try logging in as a service provider.',
+        'service_provider': 'This account is not registered as a service provider. Please try logging in as a service user.'
+      };
+      return res.status(401).json({ 
+        message: roleMessages[role] || 'Invalid user role for this account' 
+      });
+    }
+
     let isPasswordValid;
     try {
       isPasswordValid = await User.verifyPassword(password, user.password_hash);
@@ -125,10 +141,13 @@ exports.login = async (req, res) => {
       console.error('Password verification error:', err);
       return res.status(500).json({ message: 'Password verification error' });
     }
+
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
+
     const token = generateToken(user.id, user.role);
+    
     res.status(200).json({
       message: 'Login successful',
       token,
@@ -273,3 +292,54 @@ exports.uploadServiceProviderFiles = [
     }
   }
 ];
+
+// Check registrations endpoint
+const checkRegistrations = async (req, res) => {
+  try {
+    const registrations = await ServiceProvider.getAllWithUserDetails();
+    res.status(200).json({
+      success: true,
+      data: registrations,
+      count: registrations.length
+    });
+  } catch (error) {
+    console.error('Error checking registrations:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving registration data'
+    });
+  }
+};
+
+// Get latest registration endpoint
+const getLatestRegistration = async (req, res) => {
+  try {
+    const latestRegistration = await ServiceProvider.getLatestRegistration();
+    if (latestRegistration) {
+      res.status(200).json({
+        success: true,
+        data: latestRegistration
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'No registrations found'
+      });
+    }
+  } catch (error) {
+    console.error('Error getting latest registration:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving latest registration'
+    });
+  }
+};
+
+module.exports = {
+  register: exports.register,
+  login: exports.login,
+  registerServiceProvider: exports.registerServiceProvider,
+  uploadServiceProviderFiles: exports.uploadServiceProviderFiles,
+  checkRegistrations,
+  getLatestRegistration
+};
