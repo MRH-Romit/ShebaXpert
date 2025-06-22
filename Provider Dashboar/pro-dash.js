@@ -510,80 +510,181 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
     // Messages content
-    function showMessages() {
-        const dashboardContent = document.querySelector('.dashboard-content');
-        dashboardContent.innerHTML = `
-            <div class="messages-section">
-                <div class="messages-container">
-                    <div class="conversation-list">
-                        <div class="search-box">
-                            <input type="text" placeholder="মেসেজ খুঁজুন...">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        
+   function showMessages() {
+    const dashboardContent = document.querySelector('.dashboard-content');
+    dashboardContent.innerHTML = `
+        <div class="messages-section">
+            <div class="section-header">
+                <h2><i class="fas fa-comments"></i> মেসেজ</h2>
+                <div class="search-container">
+                    <input type="text" placeholder="মেসেজ খুঁজুন...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <div class="messages-container">
+                <div class="conversation-list">
+                    <div class="conversation-header">
+                        <h3>কনভারসেশন</h3>
+                        <button class="btn new-chat-btn"><i class="fas fa-plus"></i> নতুন চ্যাট</button>
+                    </div>
+                    
+                    <div class="conversation-search">
+                        <input type="text" placeholder="কন্টাক্ট খুঁজুন...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <div class="conversation-items">
                         <div class="conversation-item active">
-                            <img src="user1.jpg" alt="ব্যবহারকারী">
+                            <div class="user-avatar">
+                                <img src="user1.jpg" alt="ব্যবহারকারী">
+                                <span class="online-status"></span>
+                            </div>
                             <div class="conversation-info">
-                                <h4>আব্দুল্লাহ আল মামুন</h4>
+                                <div class="user-info">
+                                    <h4>আব্দুল্লাহ আল মামুন</h4>
+                                    <span class="time">১০:৩০ AM</span>
+                                </div>
                                 <p class="last-message">আপনি কি আগামীকাল আসবেন?</p>
-                                <p class="time">১০:৩০ AM</p>
+                                <span class="unread-count">২</span>
                             </div>
-                            <span class="unread-count">২</span>
                         </div>
                         
                         <div class="conversation-item">
-                            <img src="user2.jpg" alt="ব্যবহারকারী">
+                            <div class="user-avatar">
+                                <img src="user2.jpg" alt="ব্যবহারকারী">
+                                <span class="online-status"></span>
+                            </div>
                             <div class="conversation-info">
-                                <h4>ফারহানা ইয়াসমিন</h4>
+                                <div class="user-info">
+                                    <h4>ফারহানা ইয়াসমিন</h4>
+                                    <span class="time">গতকাল</span>
+                                </div>
                                 <p class="last-message">ধন্যবাদ আপনার সাহায্যের জন্য</p>
-                                <p class="time">গতকাল</p>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item unread">
+                            <div class="user-avatar">
+                                <img src="user3.jpg" alt="ব্যবহারকারী">
+                                <span class="online-status online"></span>
+                            </div>
+                            <div class="conversation-info">
+                                <div class="user-info">
+                                    <h4>রহিম উদ্দিন</h4>
+                                    <span class="time">২ দিন আগে</span>
+                                </div>
+                                <p class="last-message">আমার ইলেকট্রিক্যাল সমস্যা আছে</p>
+                                <span class="unread-count">৫</span>
                             </div>
                         </div>
                         
                         <div class="conversation-item">
-                            <img src="user3.jpg" alt="ব্যবহারকারী">
+                            <div class="user-avatar">
+                                <img src="user4.jpg" alt="ব্যবহারকারী">
+                                <span class="online-status"></span>
+                            </div>
                             <div class="conversation-info">
-                                <h4>রহিম উদ্দিন</h4>
-                                <p class="last-message">আমার ইলেকট্রিক্যাল সমস্যা আছে</p>
-                                <p class="time">২ দিন আগে</p>
+                                <div class="user-info">
+                                    <h4>করিম উদ্দিন</h4>
+                                    <span class="time">৩ দিন আগে</span>
+                                </div>
+                                <p class="last-message">আমি আপনার সেবা নিতে চাই</p>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item">
+                            <div class="user-avatar">
+                                <img src="user5.jpg" alt="ব্যবহারকারী">
+                                <span class="online-status online"></span>
+                            </div>
+                            <div class="conversation-info">
+                                <div class="user-info">
+                                    <h4>সুমাইয়া আক্তার</h4>
+                                    <span class="time">১ সপ্তাহ আগে</span>
+                                </div>
+                                <p class="last-message">আপনার ফোন নম্বরটি দিতে পারবেন?</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="message-view">
-                        <div class="message-header">
-                            <div class="recipient-info">
+                </div>
+                
+                <div class="message-view">
+                    <div class="message-header">
+                        <div class="recipient-info">
+                            <div class="user-avatar">
                                 <img src="user1.jpg" alt="ব্যবহারকারী">
+                                <span class="online-status"></span>
+                            </div>
+                            <div>
                                 <h4>আব্দুল্লাহ আল মামুন</h4>
+                                <p class="last-seen">সর্বশেষ দেখা: আজ ১০:১৫ AM</p>
                             </div>
                         </div>
+                        <div class="message-actions">
+                            <button class="btn action-btn" title="ফোন করুন"><i class="fas fa-phone"></i></button>
+                            <button class="btn action-btn" title="ভিডিও কল"><i class="fas fa-video"></i></button>
+                            <button class="btn action-btn" title="অ্যাপয়েন্টমেন্ট বুক করুন"><i class="fas fa-calendar-alt"></i></button>
+                            <button class="btn action-btn" title="আরো"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="message-history">
+                        <div class="date-divider">
+                            <span>আজ</span>
+                        </div>
                         
-                        <div class="message-history">
-                            <div class="message received">
+                        <div class="message received">
+                            <div class="message-content">
                                 <p>আসসালামু আলাইকুম, আপনি কি আগামীকাল আসবেন?</p>
                                 <span class="time">১০:৩০ AM</span>
                             </div>
-                            
-                            <div class="message sent">
+                        </div>
+                        
+                        <div class="message sent">
+                            <div class="message-content">
                                 <p>ওয়ালাইকুম আসসালাম, হ্যাঁ আমি আসতে পারবো ইনশাআল্লাহ</p>
                                 <span class="time">১০:৩২ AM</span>
+                                <span class="status"><i class="fas fa-check-double"></i></span>
                             </div>
-                            
-                            <div class="message received">
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-content">
                                 <p>ভালো, কখন আসবেন?</p>
                                 <span class="time">১০:৩৩ AM</span>
                             </div>
                         </div>
                         
-                        <div class="message-input">
-                            <input type="text" placeholder="এখানে মেসেজ লিখুন...">
-                            <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                        <div class="message sent">
+                            <div class="message-content">
+                                <p>আমি সকাল ১০টায় আসবো। ঠিকানা এবং ফোন নম্বরটি আবার দিবেন?</p>
+                                <span class="time">১০:৩৫ AM</span>
+                                <span class="status"><i class="fas fa-check-double"></i></span>
+                            </div>
                         </div>
+                        
+                        <div class="message received">
+                            <div class="message-content">
+                                <p>মিরপুর ১০, রোড ৮, বাড়ি ১২। ফোন: ০১৭১২৩৪৫৬৭৮</p>
+                                <span class="time">১০:৩৬ AM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message-input-container">
+                        <div class="input-actions">
+                            <button class="btn action-btn" title="অ্যাটাচমেন্ট"><i class="fas fa-paperclip"></i></button>
+                            <button class="btn action-btn" title="ইমোজি"><i class="far fa-smile"></i></button>
+                        </div>
+                        <input type="text" placeholder="এখানে মেসেজ লিখুন...">
+                        <button class="btn send-btn" title="পাঠান"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
     // Settings content
     function showSettings() {
