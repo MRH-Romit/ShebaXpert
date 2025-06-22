@@ -315,89 +315,199 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Appointments content
-    function showAppointments() {
-        const dashboardContent = document.querySelector('.dashboard-content');
-        dashboardContent.innerHTML = `
-            <div class="appointments-section">
-                <div class="section-header">
-                    <h3><i class="fas fa-calendar"></i> অ্যাপয়েন্টমেন্ট তালিকা</h3>
-                    <div class="filter-options">
-                        <select id="appointment-filter">
+   function showAppointments() {
+    const dashboardContent = document.querySelector('.dashboard-content');
+    dashboardContent.innerHTML = `
+        <div class="appointments-section">
+            <div class="section-header">
+                <h2><i class="fas fa-calendar-alt"></i> অ্যাপয়েন্টমেন্ট ব্যবস্থাপনা</h2>
+                <div class="header-actions">
+                    <div class="filter-container">
+                        <select id="appointment-filter" class="filter-select">
                             <option value="all">সব অ্যাপয়েন্টমেন্ট</option>
                             <option value="today">আজকের</option>
                             <option value="upcoming">আসন্ন</option>
                             <option value="completed">সম্পন্ন</option>
                             <option value="cancelled">বাতিল</option>
                         </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <button class="btn primary-btn"><i class="fas fa-plus"></i> নতুন অ্যাপয়েন্টমেন্ট</button>
+                </div>
+            </div>
+            
+            <div class="appointments-container">
+                <div class="appointments-summary">
+                    <div class="summary-card">
+                        <div class="summary-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>মোট অ্যাপয়েন্টমেন্ট</h3>
+                            <p>২৫</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon confirmed">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>নিশ্চিতকৃত</h3>
+                            <p>১৮</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon completed">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>সম্পন্ন</h3>
+                            <p>১৫</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon cancelled">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3>বাতিল</h3>
+                            <p>২</p>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="appointments-list">
-                    <div class="appointment-item">
-                        <div class="appointment-info">
-                            <div class="client-info">
-                                <img src="user1.jpg" alt="ক্লায়েন্ট">
-                                <div>
-                                    <h4>আব্দুল্লাহ আল মামুন</h4>
-                                    <p><i class="fas fa-map-marker-alt"></i> মিরপুর, ঢাকা</p>
-                                </div>
-                            </div>
-                            <div class="appointment-details">
-                                <p><i class="fas fa-calendar-day"></i> আগামীকাল, ১০:০০ AM</p>
-                                <p><i class="fas fa-tools"></i> ইলেকট্রিক্যাল মেরামত</p>
+                    <div class="list-header">
+                        <div class="header-item">ক্লায়েন্ট</div>
+                        <div class="header-item">সেবা</div>
+                        <div class="header-item">তারিখ ও সময়</div>
+                        <div class="header-item">অবস্থা</div>
+                        <div class="header-item">অ্যাকশন</div>
+                    </div>
+                    
+                    <div class="appointment-item confirmed">
+                        <div class="client-info">
+                            <img src="user1.jpg" alt="ক্লায়েন্ট">
+                            <div>
+                                <h4>আব্দুল্লাহ আল মামুন</h4>
+                                <p><i class="fas fa-map-marker-alt"></i> মিরপুর, ঢাকা</p>
                             </div>
                         </div>
-                        <div class="appointment-actions">
-                            <button class="btn confirm-btn"><i class="fas fa-check"></i> নিশ্চিত করুন</button>
-                            <button class="btn reschedule-btn"><i class="fas fa-calendar-alt"></i> সময় পরিবর্তন</button>
-                            <button class="btn cancel-btn"><i class="fas fa-times"></i> বাতিল করুন</button>
+                        <div class="service-info">
+                            <i class="fas fa-bolt"></i>
+                            <span>ইলেকট্রিক্যাল মেরামত</span>
+                        </div>
+                        <div class="time-info">
+                            <div class="date">আগামীকাল, ১০:০০ AM</div>
+                            <div class="duration"><i class="fas fa-clock"></i> ২ ঘন্টা</div>
+                        </div>
+                        <div class="status-badge confirmed">
+                            <i class="fas fa-check-circle"></i>
+                            <span>নিশ্চিতকৃত</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn action-btn view-btn" title="বিস্তারিত দেখুন"><i class="fas fa-eye"></i></button>
+                            <button class="btn action-btn chat-btn" title="চ্যাট করুন"><i class="fas fa-comment"></i></button>
+                            <button class="btn action-btn reschedule-btn" title="সময় পরিবর্তন"><i class="fas fa-calendar-alt"></i></button>
+                            <button class="btn action-btn cancel-btn" title="বাতিল করুন"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="appointment-item pending">
+                        <div class="client-info">
+                            <img src="user2.jpg" alt="ক্লায়েন্ট">
+                            <div>
+                                <h4>ফারহানা ইয়াসমিন</h4>
+                                <p><i class="fas fa-map-marker-alt"></i> উত্তরা, ঢাকা</p>
+                            </div>
+                        </div>
+                        <div class="service-info">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>লাইট ফিক্সিং</span>
+                        </div>
+                        <div class="time-info">
+                            <div class="date">১৫ই জুন, ২:০০ PM</div>
+                            <div class="duration"><i class="fas fa-clock"></i> ১ ঘন্টা</div>
+                        </div>
+                        <div class="status-badge pending">
+                            <i class="fas fa-clock"></i>
+                            <span>পেন্ডিং</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn action-btn confirm-btn" title="নিশ্চিত করুন"><i class="fas fa-check"></i></button>
+                            <button class="btn action-btn reschedule-btn" title="সময় পরিবর্তন"><i class="fas fa-calendar-alt"></i></button>
+                            <button class="btn action-btn cancel-btn" title="বাতিল করুন"><i class="fas fa-times"></i></button>
                         </div>
                     </div>
                     
                     <div class="appointment-item completed">
-                        <div class="appointment-info">
-                            <div class="client-info">
-                                <img src="user2.jpg" alt="ক্লায়েন্ট">
-                                <div>
-                                    <h4>ফারহানা ইয়াসমিন</h4>
-                                    <p><i class="fas fa-map-marker-alt"></i> উত্তরা, ঢাকা</p>
-                                </div>
-                            </div>
-                            <div class="appointment-details">
-                                <p><i class="fas fa-calendar-day"></i> গতকাল, ২:০০ PM</p>
-                                <p><i class="fas fa-tools"></i> লাইট ফিক্সিং</p>
+                        <div class="client-info">
+                            <img src="user3.jpg" alt="ক্লায়েন্ট">
+                            <div>
+                                <h4>রহিম উদ্দিন</h4>
+                                <p><i class="fas fa-map-marker-alt"></i> ধানমন্ডি, ঢাকা</p>
                             </div>
                         </div>
-                        <div class="appointment-status">
-                            <span class="status-badge completed"><i class="fas fa-check-circle"></i> সম্পন্ন</span>
-                            <button class="btn review-btn"><i class="fas fa-star"></i> রিভিউ দেখুন</button>
+                        <div class="service-info">
+                            <i class="fas fa-fan"></i>
+                            <span>ফ্যান ইনস্টলেশন</span>
+                        </div>
+                        <div class="time-info">
+                            <div class="date">১০ই জুন, ১১:০০ AM</div>
+                            <div class="duration"><i class="fas fa-clock"></i> ১.৫ ঘন্টা</div>
+                        </div>
+                        <div class="status-badge completed">
+                            <i class="fas fa-check-circle"></i>
+                            <span>সম্পন্ন</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn action-btn review-btn" title="রিভিউ দেখুন"><i class="fas fa-star"></i></button>
+                            <button class="btn action-btn invoice-btn" title="ইনভয়েস"><i class="fas fa-file-invoice"></i></button>
+                            <button class="btn action-btn repeat-btn" title="পুনরায় বুক করুন"><i class="fas fa-redo"></i></button>
                         </div>
                     </div>
                     
-                    <div class="appointment-item">
-                        <div class="appointment-info">
-                            <div class="client-info">
-                                <img src="user3.jpg" alt="ক্লায়েন্ট">
-                                <div>
-                                    <h4>রহিম উদ্দিন</h4>
-                                    <p><i class="fas fa-map-marker-alt"></i> ধানমন্ডি, ঢাকা</p>
-                                </div>
-                            </div>
-                            <div class="appointment-details">
-                                <p><i class="fas fa-calendar-day"></i> ১৫ই জুন, ১১:০০ AM</p>
-                                <p><i class="fas fa-tools"></i> ফ্যান ইনস্টলেশন</p>
+                    <div class="appointment-item cancelled">
+                        <div class="client-info">
+                            <img src="user4.jpg" alt="ক্লায়েন্ট">
+                            <div>
+                                <h4>করিম উদ্দিন</h4>
+                                <p><i class="fas fa-map-marker-alt"></i> মোহাম্মদপুর, ঢাকা</p>
                             </div>
                         </div>
-                        <div class="appointment-actions">
-                            <button class="btn confirm-btn"><i class="fas fa-check"></i> নিশ্চিত করুন</button>
-                            <button class="btn reschedule-btn"><i class="fas fa-calendar-alt"></i> সময় পরিবর্তন</button>
-                            <button class="btn cancel-btn"><i class="fas fa-times"></i> বাতিল করুন</button>
+                        <div class="service-info">
+                            <i class="fas fa-plug"></i>
+                            <span>সকেট ইনস্টলেশন</span>
+                        </div>
+                        <div class="time-info">
+                            <div class="date">৫ই জুন, ৩:০০ PM</div>
+                            <div class="duration"><i class="fas fa-clock"></i> ২ ঘন্টা</div>
+                        </div>
+                        <div class="status-badge cancelled">
+                            <i class="fas fa-times-circle"></i>
+                            <span>বাতিল</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn action-btn reschedule-btn" title="পুনরায় বুক করুন"><i class="fas fa-calendar-alt"></i></button>
+                            <button class="btn action-btn delete-btn" title="ডিলিট করুন"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
+                
+                <div class="pagination">
+                    <button class="btn pagination-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn pagination-btn active">1</button>
+                    <button class="btn pagination-btn">2</button>
+                    <button class="btn pagination-btn">3</button>
+                    <button class="btn pagination-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
     // Messages content
     function showMessages() {
