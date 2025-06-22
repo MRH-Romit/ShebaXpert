@@ -1,7 +1,241 @@
-// Service Area JavaScript File
-// Author: ShebaXpert Development Team
-// Purpose: Handle service area functionality including area display, filtering, search, and support modal
+// Add this provider data at the top of your JavaScript file
+const serviceProviders = {
+    "গুলশান": [
+        {
+            id: 1,
+            name: "আব্দুল করিম",
+            service: "ইলেকট্রিশিয়ান",
+            rating: 4.8,
+            experience: "৫ বছর",
+            price: "৳৫০০-৳১০০০",
+            available: true,
+            image: "provider1.jpg",
+            description: "প্রফেশনাল ইলেকট্রিশিয়ান, সব ধরনের ইলেকট্রিক্যাল সমস্যার সমাধান"
+        },
+        {
+            id: 2,
+            name: "রহিম মিয়া",
+            service: "প্লাম্বার",
+            rating: 4.5,
+            experience: "৩ বছর",
+            price: "৳৪০০-৳৮০০",
+            available: true,
+            image: "provider2.jpg",
+            description: "সব ধরনের পাইপ লাইন ও স্যানিটারি সমস্যার সমাধান"
+        }
+    ],
+    "ধানমন্ডি": [
+        {
+            id: 3,
+            name: "জামাল উদ্দিন",
+            service: "এসি সার্ভিস",
+            rating: 4.9,
+            experience: "৭ বছর",
+            price: "৳৮০০-৳১৫০০",
+            available: true,
+            image: "provider3.jpg",
+            description: "এসি ইনস্টলেশন, রিপেয়ার ও রেগুলার মেইনটেনেন্স"
+        }
+    ],
+    // Add more providers for other areas...
+    "বনানী": [
+        {
+            id: 4,
+            name: "সোহেল রানা",
+            service: "কাঠমিস্ত্রি",
+            rating: 4.7,
+            experience: "৪ বছর",
+            price: "৳৬০০-৳১২০০",
+            available: true,
+            image: "provider4.jpg",
+            description: "ফার্নিচার মেরামত ও কাস্টম কাজ"
+        }
+    ]
+};
 
+// Update the viewProviders function
+function viewProviders(areaName) {
+    // Hide the service areas container
+    document.getElementById('areas-container').style.display = 'none';
+    
+    // Create and show providers container
+    const providersContainer = document.createElement('div');
+    providersContainer.id = 'providers-container';
+    providersContainer.className = 'providers-container';
+    
+    // Create back button
+    const backButton = document.createElement('button');
+    backButton.className = 'back-button';
+    backButton.innerHTML = '<i class="fas fa-arrow-left"></i> সার্ভিস এলাকায় ফিরে যান';
+    backButton.onclick = function() {
+        document.getElementById('areas-container').style.display = 'grid';
+        providersContainer.remove();
+    };
+    
+    providersContainer.appendChild(backButton);
+    
+    // Add title
+    const title = document.createElement('h2');
+    title.className = 'providers-title';
+    title.innerHTML = `<i class="fas fa-users"></i> ${areaName} এলাকার প্রোভাইডার`;
+    providersContainer.appendChild(title);
+    
+    // Get providers for this area
+    const providers = serviceProviders[areaName] || [];
+    
+    if (providers.length === 0) {
+        const noProviders = document.createElement('div');
+        noProviders.className = 'no-providers';
+        noProviders.innerHTML = `
+            <i class="fas fa-user-slash"></i>
+            <h3>এই এলাকায় কোনো প্রোভাইডার পাওয়া যায়নি</h3>
+            <p>অনুগ্রহ করে অন্য এলাকা চেক করুন</p>
+        `;
+        providersContainer.appendChild(noProviders);
+    } else {
+        const providersGrid = document.createElement('div');
+        providersGrid.className = 'providers-grid';
+        
+        providers.forEach(provider => {
+            const providerCard = document.createElement('div');
+            providerCard.className = 'provider-card';
+            providerCard.innerHTML = `
+                <div class="provider-header">
+                    <div class="provider-image">
+                        <img src="../Resources/images/${provider.image}" alt="${provider.name}">
+                    </div>
+                    <div class="provider-info">
+                        <h3>${provider.name}</h3>
+                        <span class="provider-service">${provider.service}</span>
+                        <div class="provider-rating">
+                            <i class="fas fa-star"></i>
+                            <span>${provider.rating}</span>
+                            <span class="provider-experience">${provider.experience} অভিজ্ঞতা</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="provider-body">
+                    <p>${provider.description}</p>
+                    <div class="provider-price">
+                        <i class="fas fa-tag"></i>
+                        <span>${provider.price}</span>
+                    </div>
+                    <div class="provider-availability ${provider.available ? 'available' : 'busy'}">
+                        <i class="fas fa-circle"></i>
+                        <span>${provider.available ? 'এখনই উপলব্ধ' : 'ব্যস্ত'}</span>
+                    </div>
+                </div>
+                <div class="provider-actions">
+                    <button class="action-btn primary" onclick="bookProvider('${areaName}', ${provider.id})">
+                        <i class="fas fa-calendar-check"></i> বুক করুন
+                    </button>
+                    <button class="action-btn secondary" onclick="viewProviderDetails(${provider.id})">
+                        <i class="fas fa-info-circle"></i> বিস্তারিত
+                    </button>
+                </div>
+            `;
+            providersGrid.appendChild(providerCard);
+        });
+        
+        providersContainer.appendChild(providersGrid);
+    }
+    
+    // Add the providers container to the page
+    document.querySelector('.service-area-container').appendChild(providersContainer);
+}
+
+// Add these new functions
+function bookProvider(areaName, providerId) {
+    const provider = serviceProviders[areaName].find(p => p.id === providerId);
+    showNotification(`${provider.name} এর সাথে সেবা বুকিং শুরু হচ্ছে...`, 'info');
+    
+    // Simulate booking process
+    setTimeout(() => {
+        showNotification(`${provider.name} এর সাথে বুকিং কনফার্ম করতে অনুগ্রহ করে যোগাযোগ করুন`, 'success');
+    }, 1500);
+}
+
+function viewProviderDetails(providerId) {
+    // Find the provider in all areas
+    let provider = null;
+    for (const area in serviceProviders) {
+        provider = serviceProviders[area].find(p => p.id === providerId);
+        if (provider) break;
+    }
+    
+    if (!provider) return;
+    
+    // Create modal for provider details
+    const modal = document.createElement('div');
+    modal.className = 'provider-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="close-modal" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <div class="provider-image">
+                    <img src="../Resources/images/${provider.image}" alt="${provider.name}">
+                </div>
+                <div class="provider-info">
+                    <h2>${provider.name}</h2>
+                    <span class="provider-service">${provider.service}</span>
+                    <div class="provider-rating">
+                        <i class="fas fa-star"></i>
+                        <span>${provider.rating}</span>
+                        <span class="provider-experience">${provider.experience} অভিজ্ঞতা</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h3><i class="fas fa-info-circle"></i> সম্পর্কে</h3>
+                <p>${provider.description}</p>
+                
+                <h3><i class="fas fa-tools"></i> সেবাসমূহ</h3>
+                <ul class="service-list">
+                    <li><i class="fas fa-check"></i> বাসা-বাড়ির ইলেকট্রিক্যাল সমস্যা সমাধান</li>
+                    <li><i class="fas fa-check"></i> নতুন ওয়্যারিং ইনস্টলেশন</li>
+                    <li><i class="fas fa-check"></i> ইলেকট্রিক্যাল ডিভাইস রিপেয়ার</li>
+                </ul>
+                
+                <div class="provider-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>১৫০+ বুকিং সম্পন্ন</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-user-check"></i>
+                        <span>৯৫% সন্তুষ্টি হার</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn primary" onclick="bookProvider('${Object.keys(serviceProviders).find(area => serviceProviders[area].some(p => p.id === providerId))}', ${providerId})">
+                    <i class="fas fa-calendar-check"></i> এখনই বুক করুন
+                </button>
+                <button class="action-btn secondary" onclick="showNotification('প্রোভাইডারকে কল করা হচ্ছে...', 'info')">
+                    <i class="fas fa-phone"></i> কল করুন
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+// Make the new functions available globally
+window.viewProviders = viewProviders;
+window.bookProvider = bookProvider;
+window.viewProviderDetails = viewProviderDetails;
+
+
+
+
+
+
+
+
+// Service Area JavaScript File
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initializeServiceAreas();
@@ -136,12 +370,17 @@ let currentView = 'grid';
 // Initialize service areas display
 function initializeServiceAreas() {
     displayAreas(serviceAreas);
+    
+    // Add loaded class after a short delay to trigger animations
+    setTimeout(() => {
+        document.getElementById('areas-container').classList.add('loaded');
+    }, 100);
 }
 
 // Display areas based on current filters
 function displayAreas(areas) {
     const container = document.getElementById('areas-container');
-    container.className = `service-areas-${currentView}`;
+    container.className = `service-areas-grid ${currentView}-view`;
     
     if (areas.length === 0) {
         container.innerHTML = `
@@ -160,22 +399,24 @@ function displayAreas(areas) {
 // Create individual area card
 function createAreaCard(area) {
     const servicesHtml = area.services.map(service => 
-        `<span class="service-tag">${serviceTranslations[service]}</span>`
+        `<span class="service-tag"><i class="fas fa-${getServiceIcon(service)}"></i> ${serviceTranslations[service]}</span>`
     ).join('');
 
     const emergencyBadge = area.emergencyService ? 
-        '<span class="emergency-badge"><i class="fas fa-exclamation-triangle"></i> জরুরি</span>' : '';
-
+        `<span class="emergency-badge"><i class="fas fa-exclamation-triangle"></i> জরুরি</span>` : '';
+    
     const availabilityText = area.availability === '24h' ? '২৪/৭ উপলব্ধ' : 'নিয়মিত সময়';
+    const availabilityIcon = area.availability === '24h' ? 'fa-clock' : 'fa-calendar-alt';
 
     return `
         <div class="area-card" data-area-id="${area.id}">
             <div class="area-header">
-                <h3><i class="fas fa-map-marker-alt"></i> ${area.name}</h3>
+                <h3 class="area-name"><i class="fas fa-map-marker-alt"></i> ${area.name}</h3>
                 ${emergencyBadge}
             </div>
-            <div class="area-info">
+            <div class="area-body">
                 <p class="area-description">${area.description}</p>
+                
                 <div class="area-stats">
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
@@ -186,27 +427,39 @@ function createAreaCard(area) {
                         <span>${area.rating} রেটিং</span>
                     </div>
                     <div class="stat-item">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas ${availabilityIcon}"></i>
                         <span>${availabilityText}</span>
                     </div>
                 </div>
-                <div class="services-list">
-                    <h4>উপলব্ধ সেবা:</h4>
-                    <div class="services-tags">
-                        ${servicesHtml}
-                    </div>
+                
+                <h4 class="services-title"><i class="fas fa-tools"></i> উপলব্ধ সেবা:</h4>
+                <div class="services-grid">
+                    ${servicesHtml}
                 </div>
             </div>
             <div class="area-actions">
-                <button class="book-service-btn" onclick="bookService('${area.name}')">
+                <button class="action-btn primary" onclick="bookService('${area.name}')">
                     <i class="fas fa-calendar-plus"></i> সেবা বুক করুন
                 </button>
-                <button class="view-providers-btn" onclick="viewProviders('${area.name}')">
+                <button class="action-btn secondary" onclick="viewProviders('${area.name}')">
                     <i class="fas fa-users"></i> প্রোভাইডার দেখুন
                 </button>
             </div>
         </div>
     `;
+}
+
+// Helper function to get icons for services
+function getServiceIcon(service) {
+    const icons = {
+        electrician: 'bolt',
+        plumber: 'faucet',
+        ac: 'snowflake',
+        carpenter: 'hammer',
+        painting: 'paint-roller',
+        repair: 'tools'
+    };
+    return icons[service] || 'toolbox';
 }
 
 // Initialize filters
@@ -335,18 +588,11 @@ function initializeSupportModal() {
     const closeModalBtn = document.getElementById('close-support-modal');
     const supportForm = document.getElementById('support-contact-form');
 
-    // Ensure modal is hidden initially
-    if (supportModal) {
-        supportModal.style.display = 'none';
-        supportModal.classList.remove('active');
-    }
-
     // Open support modal
     if (helpBtn && supportModal) {
         helpBtn.addEventListener('click', function(e) {
             e.preventDefault();
             supportModal.style.display = 'flex';
-            supportModal.classList.add('active');
             document.body.classList.add('modal-open');
         });
     }
@@ -355,7 +601,6 @@ function initializeSupportModal() {
     if (closeModalBtn && supportModal) {
         closeModalBtn.addEventListener('click', function() {
             supportModal.style.display = 'none';
-            supportModal.classList.remove('active');
             document.body.classList.remove('modal-open');
         });
     }
@@ -365,7 +610,6 @@ function initializeSupportModal() {
         supportModal.addEventListener('click', function(e) {
             if (e.target === supportModal) {
                 supportModal.style.display = 'none';
-                supportModal.classList.remove('active');
                 document.body.classList.remove('modal-open');
             }
         });
@@ -394,7 +638,6 @@ function initializeSupportModal() {
                 // Close modal after successful submission
                 setTimeout(() => {
                     supportModal.style.display = 'none';
-                    supportModal.classList.remove('active');
                     document.body.classList.remove('modal-open');
                 }, 2000);
             }, 2000);
@@ -454,7 +697,7 @@ function showNotification(message, type = 'info') {
     notification.innerHTML = `
         <i class="${icons[type] || icons.info}"></i>
         <span>${message}</span>
-        <button class="notification-close" onclick="closeNotification(this)">
+        <button class="notification-close" onclick="this.parentElement.remove()">
             <i class="fas fa-times"></i>
         </button>
     `;
@@ -472,46 +715,18 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-function closeNotification(button) {
-    const notification = button.parentElement;
-    notification.classList.add('fade-out');
-    setTimeout(() => {
-        notification.remove();
-    }, 300);
-}
-
 // Handle ESC key to close modal
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         const supportModal = document.getElementById('support-modal');
-        if (supportModal && supportModal.classList.contains('active')) {
+        if (supportModal && supportModal.style.display === 'flex') {
             supportModal.style.display = 'none';
-            supportModal.classList.remove('active');
             document.body.classList.remove('modal-open');
         }
     }
 });
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Add loading animation when page loads
-window.addEventListener('load', function() {
-    const container = document.getElementById('areas-container');
-    container.classList.add('loaded');
-});
-
-// Console log for debugging
-console.log('Service Area page initialized successfully');
-console.log(`Loaded ${serviceAreas.length} service areas`);
+// Make functions available globally
+window.bookService = bookService;
+window.viewProviders = viewProviders;
+window.showNotification = showNotification;
