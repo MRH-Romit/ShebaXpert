@@ -306,7 +306,7 @@ nav ul li a:hover::after {
   opacity: 0.9;
 }
 
-/* Coverage Section */
+/* Coverage Section - Enhanced Design */
 .coverage {
   background-color: var(--white);
   position: relative;
@@ -339,18 +339,20 @@ nav ul li a:hover::after {
   color: var(--primary);
 }
 
-/* Enhanced Map Container with Frame */
+/* Completely redesigned map container with elegant frame */
 .coverage-map-container {
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  transition: all 0.3s ease;
   position: relative;
-  border: 15px solid var(--primary);
-  background-color: var(--primary);
-  padding: 10px;
   max-width: 900px;
   margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(145deg, var(--primary-light), var(--primary-dark));
+  border-radius: var(--radius-xl);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 12px var(--primary),
+    inset 0 0 0 15px var(--secondary);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
 }
 
 .coverage-map-container::before {
@@ -360,27 +362,141 @@ nav ul li a:hover::after {
   left: 0;
   right: 0;
   bottom: 0;
-  border: 2px solid var(--secondary);
-  border-radius: var(--radius-lg);
-  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
   z-index: 1;
+  pointer-events: none;
+}
+
+.coverage-map-container::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: calc(var(--radius-xl) - 5px);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .coverage-map-container:hover {
   transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 12px var(--primary),
+    inset 0 0 0 15px var(--secondary);
 }
 
 .coverage-map {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: var(--radius-lg);
-  transition: transform 0.3s ease;
+  border-radius: calc(var(--radius-xl) - 10px);
+  transition: transform 0.4s ease;
+  position: relative;
+  z-index: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .coverage-map-container:hover .coverage-map {
   transform: scale(1.02);
+}
+
+/* Map corner accents */
+.coverage-map-container .corner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+}
+
+.coverage-map-container .corner::before,
+.coverage-map-container .corner::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 3px solid var(--secondary);
+  transition: all 0.3s ease;
+}
+
+.coverage-map-container .corner-top-left {
+  top: 15px;
+  left: 15px;
+}
+
+.coverage-map-container .corner-top-left::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.coverage-map-container .corner-top-left::after {
+  bottom: 0;
+  right: 0;
+}
+
+.coverage-map-container .corner-top-right {
+  top: 15px;
+  right: 15px;
+}
+
+.coverage-map-container .corner-top-right::before {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+.coverage-map-container .corner-top-right::after {
+  bottom: 0;
+  left: 0;
+}
+
+.coverage-map-container .corner-bottom-left {
+  bottom: 15px;
+  left: 15px;
+}
+
+.coverage-map-container .corner-bottom-left::before {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+.coverage-map-container .corner-bottom-left::after {
+  top: 0;
+  right: 0;
+}
+
+.coverage-map-container .corner-bottom-right {
+  bottom: 15px;
+  right: 15px;
+}
+
+.coverage-map-container .corner-bottom-right::before {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.coverage-map-container .corner-bottom-right::after {
+  top: 0;
+  left: 0;
+}
+
+.coverage-map-container:hover .corner::before,
+.coverage-map-container:hover .corner::after {
+  border-color: var(--white);
 }
 
 /* Services Section */
@@ -958,6 +1074,10 @@ nav ul li a:hover::after {
   .testimonial-grid {
     grid-template-columns: 1fr;
   }
+
+  .coverage-map-container {
+    padding: 10px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -982,7 +1102,22 @@ nav ul li a:hover::after {
   }
 
   .coverage-map-container {
-    border-width: 8px;
-    padding: 5px;
+    box-shadow: 
+      0 10px 25px rgba(0, 0, 0, 0.2),
+      inset 0 0 0 8px var(--primary),
+      inset 0 0 0 10px var(--secondary);
+    padding: 10px;
+  }
+  
+  .coverage-map-container .corner {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .coverage-map-container .corner::before,
+  .coverage-map-container .corner::after {
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
   }
 }
