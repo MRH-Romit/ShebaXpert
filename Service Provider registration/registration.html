@@ -3,77 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>নিবন্ধন ফর্ম</title>
+  <title>সেবা প্রদানকারী নিবন্ধন - ShebaXpert</title>
   <link rel="stylesheet" href="registration.css">
-  <style>    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     
     body {
       font-family: 'Hind Siliguri', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                  url('../Resources/images/handyman_page_top.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      background: linear-gradient(135deg, #87CEEB 0%, #4682B4 50%, #1E90FF 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 20px;
       color: #333;
+    }    
+    .form-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      max-width: 650px;
+      width: 100%;
+      animation: slideUp 0.6s ease-out;
     }
     
-    .form-container {
-      max-width: 650px;
-      width: 90%;
-      margin: 30px auto;
-      background: rgba(255, 255, 255, 0.99);
-      padding: 30px 40px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: all 0.3s ease;
-      
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     
     .form-container:hover {
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .logo {
+      margin-bottom: 20px;
+    }
+    
+    .logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
     }
     
     h2 {
-      text-align: center;
-      color: #004AAD;
-      margin-bottom: 25px;
-      font-size: 28px;
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 5px;
       font-weight: 700;
-      position: relative;
-      padding-bottom: 10px;
+      text-align: center;
     }
     
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: linear-gradient(to right, #004AAD, #00C6FF);
-      border-radius: 3px;
+    .subtitle {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      text-align: center;
     }
     
+    .role-badge {
+      background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }    
     .form-group {
       margin-bottom: 20px;
-      position: relative;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
     }
     
     label {
       display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #004AAD;
-      font-size: 15px;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+      font-size: 0.9rem;
     }
     
     input[type="text"],
@@ -83,11 +120,11 @@
     textarea {
       width: 100%;
       padding: 12px 15px;
-      border: 2px solid #e0e0e0;
+      border: 2px solid #e9ecef;
       border-radius: 8px;
-      font-size: 15px;
-      transition: all 0.3s;
-      background-color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
     }
     
     input[type="text"]:focus,
@@ -95,22 +132,31 @@
     input[type="password"]:focus,
     select:focus,
     textarea:focus {
-      border-color: #004AAD;
-      box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.2);
       outline: none;
+      border-color: #1E90FF;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
     }
     
+    input:valid {
+      border-color: #28a745;
+    }
+    
+        
     input[type="file"] {
       width: 100%;
-      padding: 10px;
+      padding: 15px;
       background: #f8f9fa;
-      border: 2px dashed #e0e0e0;
+      border: 2px dashed #e9ecef;
       border-radius: 8px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
     }
     
     input[type="file"]:hover {
-      border-color: #004AAD;
+      border-color: #1E90FF;
+      background: rgba(30, 144, 255, 0.05);
     }
     
     textarea {
@@ -127,81 +173,172 @@
     }
     
     .submit-btn {
-      margin-top: 25px;
-      background: linear-gradient(to right, #004AAD, #00C6FF);
-      color: white;
-      border: none;
-      padding: 14px;
       width: 100%;
-      font-size: 16px;
-      font-weight: 600;
+      padding: 15px;
+      background: linear-gradient(135deg, #87CEEB 0%, #4682B4 50%, #1E90FF 100%);
+      border: none;
       border-radius: 8px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(0, 74, 173, 0.3);
+      transition: all 0.3s ease;
+      margin-top: 20px;
       text-transform: uppercase;
       letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
     }
     
     .submit-btn:hover {
-      background: linear-gradient(to right, #003d8f, #00a8e0);
-      box-shadow: 0 6px 20px rgba(0, 74, 173, 0.4);
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(30, 144, 255, 0.4);
     }
     
     .submit-btn:active {
       transform: translateY(0);
     }
     
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }    
     ::placeholder {
       color: #aaa;
       opacity: 1;
     }
     
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 5px;
+      display: block;
+    }
+    
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .back-link a {
+      color: #1E90FF;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link a:hover {
+      color: #4682B4;
+    }
+    
+    .form-progress {
+      width: 100%;
+      height: 8px;
+      background: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 10px;
+      display: none;
+    }
+    
+    .form-progress-bar {
+      height: 100%;
+      background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+      width: 0;
+      transition: width 0.4s ease;
+    }
+    
     @media (max-width: 768px) {
       .form-container {
-        padding: 25px;
+        padding: 30px 25px;
+        margin: 10px;
       }
       
       h2 {
-        font-size: 24px;
+        font-size: 1.5rem;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      input, select, textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 25px 20px;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
       }
     }
   </style>
 </head>
-<body>
-  <div class="form-container">
-    <h2>নিবন্ধন করুন</h2>    <form id="serviceProviderForm">
-      <div class="form-group">
-        <label>জাতীয় পরিচয়পত্র (NID)/ জন্ম সনদ:</label>
-        <input type="file" name="nidDocument" accept=".pdf,.jpg,.jpeg,.png" required>
+<body>  <div class="form-container">
+    <div class="header">
+      <div class="logo">
+        <img src="../Resources/images/ShebaXpert_logo.png" alt="ShebaXpert Logo">
+      </div>
+      <h2>সেবা প্রদানকারী নিবন্ধন</h2>
+      <div class="subtitle">ShebaXpert এ যোগ দিন এবং আপনার দক্ষতা শেয়ার করুন</div>
+      <div class="role-badge">
+        <i class="fas fa-tools"></i>
+        সেবা প্রদানকারী
       </div>
       
-      <div class="form-group">
-        <label>নাম (NID/ জন্ম সনদ অনুযায়ী):</label>
-        <input type="text" name="fullName" placeholder="NID এর নাম অনুযায়ী" required>
+      <!-- Progress indicator -->
+      <div class="form-progress">
+        <div class="form-progress-bar" id="progressBar"></div>
       </div>
-      
-      <div class="form-group">
-        <label>ফোন নম্বর:</label>
-        <input type="text" name="phone" placeholder="আপনার ফোন নম্বর লিখুন" pattern="[0-9]{11}" required>
+    </div>
+
+    <form id="serviceProviderForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>নাম (NID/ জন্ম সনদ অনুযায়ী):</label>
+          <input type="text" name="fullName" placeholder="NID এর নাম অনুযায়ী" required>
+        </div>
+        <div class="form-group">
+          <label>ফোন নম্বর:</label>
+          <input type="text" name="phone" placeholder="আপনার ফোন নম্বর লিখুন" pattern="[0-9]{11}" required>
+        </div>
       </div>
-      
+
       <div class="form-group">
         <label>ইমেইল (ঐচ্ছিক):</label>
         <input type="email" name="email" placeholder="আপনার ইমেইল ঠিকানা">
       </div>
-      
-      <div class="form-group">
-        <label>ছবি:</label>
-        <input type="file" name="photo" accept=".jpg,.jpeg,.png" required>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>আপনার বর্তমান অবস্থান (জেলা/উপজেলা):</label>
+          <input type="text" name="location" placeholder="আপনার বর্তমান জেলা বা উপজেলা লিখুন" required>
+        </div>
+        <div class="form-group">
+          <label>লিঙ্গ:</label>
+          <select name="gender" required>
+            <option selected disabled>লিঙ্গ নির্বাচন করুন</option>
+            <option value="male">পুরুষ</option>
+            <option value="female">নারী</option>
+            <option value="other">অন্যান্য</option>
+          </select>
+        </div>
       </div>
-      
-      <div class="form-group">
-        <label>আপনার বর্তমান অবস্থান (জেলা/উপজেলা):</label>
-        <input type="text" name="location" placeholder="আপনার বর্তমান জেলা বা উপজেলা লিখুন" required>
-      </div>
-      
+
       <div class="form-group">
         <label>আপনি কোন ধরনের সেবা প্রদান করেন?:</label>
         <select name="serviceCategory" required>
@@ -215,33 +352,45 @@
           <option value="other">অন্যান্য</option>
         </select>
       </div>
-      
-      <div class="form-group">
-        <label>লিঙ্গ:</label>
-        <select name="gender" required>
-          <option selected disabled>লিঙ্গ নির্বাচন করুন</option>
-          <option value="male">পুরুষ</option>
-          <option value="female">নারী</option>
-          <option value="other">অন্যান্য</option>
-        </select>
-      </div>
-      
+
       <div class="form-group">
         <label>আপনার পূর্বের কাজ বর্ণনা করুন:</label>
         <textarea name="workDescription" placeholder="আপনার পূর্বের কাজের বিস্তারিত বর্ণনা লিখুন..." required></textarea>
       </div>
-      
+
       <div class="form-group">
-        <label>পাসওয়ার্ড:</label>
-        <input type="password" name="password" placeholder="একটি শক্তিশালী পাসওয়ার্ড দিন" minlength="8" required>
+        <label>জাতীয় পরিচয়পত্র (NID)/ জন্ম সনদ:</label>
+        <input type="file" name="nidDocument" accept=".pdf,.jpg,.jpeg,.png" required>
       </div>
       
       <div class="form-group">
-        <label>পাসওয়ার্ড নিশ্চিত করুন:</label>
-        <input type="password" name="confirmPassword" placeholder="পাসওয়ার্ড আবার লিখুন" minlength="8" required>
+        <label>ছবি:</label>
+        <input type="file" name="photo" accept=".jpg,.jpeg,.png" required>
       </div>
 
-      <button class="submit-btn" type="submit">নিবন্ধন সম্পন্ন করুন</button>    </form>
+      <div class="form-row">
+        <div class="form-group">
+          <label>পাসওয়ার্ড:</label>
+          <input type="password" name="password" placeholder="একটি শক্তিশালী পাসওয়ার্ড দিন" minlength="8" required>
+        </div>
+        <div class="form-group">
+          <label>পাসওয়ার্ড নিশ্চিত করুন:</label>
+          <input type="password" name="confirmPassword" placeholder="পাসওয়ার্ড আবার লিখুন" minlength="8" required>
+        </div>
+      </div>
+
+      <button class="submit-btn" type="submit">
+        <i class="fas fa-user-plus"></i>
+        নিবন্ধন সম্পন্ন করুন
+      </button>
+    </form>
+
+    <div class="back-link">
+      <a href="../Login/role-selection.html">
+        <i class="fas fa-arrow-left"></i>
+        ভূমিকা নির্বাচনে ফিরে যান
+      </a>
+    </div>
   </div>
   <script src="registration.js"></script>
 </body>

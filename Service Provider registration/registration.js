@@ -6,8 +6,118 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (form) {
         form.addEventListener('submit', handleFormSubmission);
+        setupFormValidation();
+        setupFileHandlers();
+        updateProgress(); // Initial progress calculation
     }
 });
+
+function setupFormValidation() {
+    const inputs = document.querySelectorAll('input, select, textarea');
+    
+    inputs.forEach(input => {
+        input.addEventListener('blur', validateField);
+        input.addEventListener('input', clearValidation);
+        input.addEventListener('input', updateProgress);
+    });
+    
+    // Password confirmation validation
+    const passwordField = document.querySelector('input[name="password"]');
+    const confirmPasswordField = document.querySelector('input[name="confirmPassword"]');
+    
+    if (passwordField && confirmPasswordField) {
+        confirmPasswordField.addEventListener('input', function() {
+            if (this.value && passwordField.value !== this.value) {
+                this.classList.add('invalid');
+                this.classList.remove('valid');
+            } else if (this.value && passwordField.value === this.value) {
+                this.classList.add('valid');
+                this.classList.remove('invalid');
+            }
+        });
+    }
+}
+
+function setupFileHandlers() {
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    
+    fileInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const label = this.parentElement.querySelector('label');
+                if (label) {
+                    label.style.color = '#28a745';
+                    label.innerHTML = `${label.textContent.split(':')[0]}: ✓ ${file.name}`;
+                }
+            }
+        });
+    });
+}
+
+function validateField(e) {
+    const field = e.target;
+    const value = field.value.trim();
+    
+    if (field.hasAttribute('required') && !value) {
+        field.classList.add('invalid');
+        field.classList.remove('valid');
+        return false;
+    }
+    
+    // Phone validation
+    if (field.name === 'phone' && value) {
+        if (!/^[0-9]{11}$/.test(value)) {
+            field.classList.add('invalid');
+            field.classList.remove('valid');
+            return false;
+        }
+    }
+    
+    // Email validation
+    if (field.type === 'email' && value) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            field.classList.add('invalid');
+            field.classList.remove('valid');
+            return false;
+        }
+    }
+    
+    // Password validation
+    if (field.name === 'password' && value) {
+        if (value.length < 8) {
+            field.classList.add('invalid');
+            field.classList.remove('valid');
+            return false;
+        }
+    }
+    
+    field.classList.add('valid');
+    field.classList.remove('invalid');
+    return true;
+}
+
+function clearValidation(e) {
+    const field = e.target;
+    field.classList.remove('invalid', 'valid');
+}
+
+function updateProgress() {
+    const formFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    const filledFields = Array.from(formFields).filter(field => {
+        if (field.type === 'file') {
+            return field.files && field.files.length > 0;
+        }
+        return field.value.trim() !== '';
+    });
+    
+    const progress = (filledFields.length / formFields.length) * 100;
+    const progressBar = document.getElementById('progressBar');
+    
+    if (progressBar) {
+        progressBar.style.width = `${progress}%`;
+    }
+}
 
 async function handleFormSubmission(e) {
     e.preventDefault();
@@ -53,11 +163,10 @@ async function handleFormSubmission(e) {
         return;
     }
 
-    try {
-        // Show loading state
+    try {        // Show loading state
         const submitBtn = document.querySelector('.submit-btn');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'নিবন্ধন করা হচ্ছে...';
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> নিবন্ধন করা হচ্ছে...';
         submitBtn.disabled = true;
 
         // Convert FormData to regular object for JSON (except files)
@@ -101,11 +210,10 @@ async function handleFormSubmission(e) {
 
     } catch (error) {
         console.error('Registration error:', error);
-        showMessage('সার্ভার সংযোগে সমস্যা হয়েছে', 'error');
-    } finally {
+        showMessage('সার্ভার সংযোগে সমস্যা হয়েছে', 'error');    } finally {
         // Reset button state
         const submitBtn = document.querySelector('.submit-btn');
-        submitBtn.textContent = 'নিবন্ধন সম্পন্ন করুন';
+        submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> নিবন্ধন সম্পন্ন করুন';
         submitBtn.disabled = false;
     }
 }
