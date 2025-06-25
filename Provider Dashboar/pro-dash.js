@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="appointment-item confirmed">
                         <div class="client-info">
-                            <img src="user1.jpg" alt="ক্লায়েন্ট">
+                            <img src="/ShebaXpert/Resources/images/man1.png" alt="ক্লায়েন্ট">
                             <div>
                                 <h4>আব্দুল্লাহ আল মামুন</h4>
                                 <p><i class="fas fa-map-marker-alt"></i> মিরপুর, ঢাকা</p>
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="appointment-item pending">
                         <div class="client-info">
-                            <img src="user2.jpg" alt="ক্লায়েন্ট">
+                            <img src="/ShebaXpert/Resources/images/woman1.jpeg" alt="ক্লায়েন্ট">
                             <div>
                                 <h4>ফারহানা ইয়াসমিন</h4>
                                 <p><i class="fas fa-map-marker-alt"></i> উত্তরা, ঢাকা</p>
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="appointment-item completed">
                         <div class="client-info">
-                            <img src="user3.jpg" alt="ক্লায়েন্ট">
+                            <img src="/ShebaXpert/Resources/images/man2.png" alt="ক্লায়েন্ট">
                             <div>
                                 <h4>রহিম উদ্দিন</h4>
                                 <p><i class="fas fa-map-marker-alt"></i> ধানমন্ডি, ঢাকা</p>
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="appointment-item cancelled">
                         <div class="client-info">
-                            <img src="user4.jpg" alt="ক্লায়েন্ট">
+                            <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ক্লায়েন্ট">
                             <div>
                                 <h4>করিম উদ্দিন</h4>
                                 <p><i class="fas fa-map-marker-alt"></i> মোহাম্মদপুর, ঢাকা</p>
@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="conversation-items">
                         <div class="conversation-item active">
                             <div class="user-avatar">
-                                <img src="user1.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div class="conversation-info">
@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item">
                             <div class="user-avatar">
-                                <img src="user2.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/woman1.jpeg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div class="conversation-info">
@@ -566,7 +566,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item unread">
                             <div class="user-avatar">
-                                <img src="user3.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man2.png" alt="ব্যবহারকারী">
                                 <span class="online-status online"></span>
                             </div>
                             <div class="conversation-info">
@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item">
                             <div class="user-avatar">
-                                <img src="user4.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man4.jpeg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div class="conversation-info">
@@ -595,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item">
                             <div class="user-avatar">
-                                <img src="user5.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/woman2.png" alt="ব্যবহারকারী">
                                 <span class="online-status online"></span>
                             </div>
                             <div class="conversation-info">
@@ -613,7 +613,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="message-header">
                         <div class="recipient-info">
                             <div class="user-avatar">
-                                <img src="user1.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div>
