@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="appointment-item pending">
                         <div class="client-info">
-                            <img src="user2.jpg" alt="ক্লায়েন্ট">
+                            <img src="/ShebaXpert/Resources/images/unnamed.jpg" alt="ক্লায়েন্ট">
                             <div>
                                 <h4>ফারহানা ইয়াসমিন</h4>
                                 <p><i class="fas fa-map-marker-alt"></i> উত্তরা, ঢাকা</p>
