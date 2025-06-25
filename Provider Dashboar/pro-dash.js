@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="conversation-items">
                         <div class="conversation-item active">
                             <div class="user-avatar">
-                                <img src="user1.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div class="conversation-info">
@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item">
                             <div class="user-avatar">
-                                <img src="user2.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/woman1.jpeg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div class="conversation-info">
@@ -566,7 +566,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item unread">
                             <div class="user-avatar">
-                                <img src="user3.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man2.png" alt="ব্যবহারকারী">
                                 <span class="online-status online"></span>
                             </div>
                             <div class="conversation-info">
@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item">
                             <div class="user-avatar">
-                                <img src="user4.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man4.jpeg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div class="conversation-info">
@@ -595,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         <div class="conversation-item">
                             <div class="user-avatar">
-                                <img src="user5.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/woman2.png" alt="ব্যবহারকারী">
                                 <span class="online-status online"></span>
                             </div>
                             <div class="conversation-info">
@@ -613,7 +613,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="message-header">
                         <div class="recipient-info">
                             <div class="user-avatar">
-                                <img src="user1.jpg" alt="ব্যবহারকারী">
+                                <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ব্যবহারকারী">
                                 <span class="online-status"></span>
                             </div>
                             <div>
