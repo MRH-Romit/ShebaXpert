@@ -1781,379 +1781,307 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
     });
   }
 
-  // Settings content - Redesigned
-  function showSettings() {
+
+  // Settings content - Redesigned with centered modals
+function showSettings() {
     const dashboardContent = document.querySelector(".dashboard-content");
     dashboardContent.innerHTML = `
-            <div class="settings-section">
-                <div class="settings-header">
-                    <h2><i class="fas fa-cog"></i> সেটিংস</h2>
-                    <p>আপনার অ্যাকাউন্ট এবং অ্যাপ্লিকেশন সেটিংস ম্যানেজ করুন</p>
+        <div class="settings-section">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> সেটিংস</h2>
+                <p>আপনার অ্যাকাউন্ট এবং অ্যাপ্লিকেশন সেটিংস ম্যানেজ করুন</p>
+            </div>
+            
+            <div class="settings-cards">
+                <div class="settings-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h3>অ্যাকাউন্ট সেটিংস</h3>
+                    <p>আপনার ব্যক্তিগত তথ্য এবং প্রোফাইল সেটিংস ম্যানেজ করুন</p>
+                    <button class="btn secondary-btn open-modal-btn" data-modal="account-settings-modal">ম্যানেজ করুন</button>
                 </div>
                 
-                <div class="settings-cards">
-                    <div class="settings-card">
-                        <div class="card-icon">
-                            <i class="fas fa-user-cog"></i>
-                        </div>
+                <div class="settings-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>নোটিফিকেশন</h3>
+                    <p>আপনি কোন নোটিফিকেশন পাবেন তা কাস্টমাইজ করুন</p>
+                    <button class="btn secondary-btn open-modal-btn" data-modal="notification-settings-modal">ম্যানেজ করুন</button>
+                </div>
+                
+                <div class="settings-card">
+                    <div class="card-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>প্রাইভেসি ও নিরাপত্তা</h3>
+                    <p>আপনার প্রাইভেসি সেটিংস এবং অ্যাকাউন্ট সুরক্ষা</p>
+                    <button class="btn secondary-btn open-modal-btn" data-modal="privacy-settings-modal">ম্যানেজ করুন</button>
+                </div>
+            </div>
+            
+            <!-- Account Settings Modal -->
+            <div class="modal-overlay" id="account-settings-modal">
+                <div class="modal-container">
+                    <div class="modal-header">
                         <h3>অ্যাকাউন্ট সেটিংস</h3>
-                        <p>আপনার ব্যক্তিগত তথ্য এবং প্রোফাইল সেটিংস ম্যানেজ করুন</p>
-                        <button class="btn secondary-btn" id="account-settings-btn">ম্যানেজ করুন</button>
+                        <button class="close-modal">&times;</button>
                     </div>
-                    
-                    <div class="settings-card">
-                        <div class="card-icon">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <h3>নোটিফিকেশন</h3>
-                        <p>আপনি কোন নোটিফিকেশন পাবেন তা কাস্টমাইজ করুন</p>
-                        <button class="btn secondary-btn" id="notification-settings-btn">ম্যানেজ করুন</button>
-                    </div>
-                    
-                    <div class="settings-card">
-                        <div class="card-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h3>প্রাইভেসি ও নিরাপত্তা</h3>
-                        <p>আপনার প্রাইভেসি সেটিংস এবং অ্যাকাউন্ট সুরক্ষা</p>
-                        <button class="btn secondary-btn" id="privacy-settings-btn">ম্যানেজ করুন</button>
-                    </div>
-                </div>
-                
-                <!-- Account Settings Modal -->
-                <div class="modal" id="account-settings-modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>অ্যাকাউন্ট সেটিংস</h3>
-                            <button class="close-modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="settings-form" id="account-form">
-                                <div class="form-group">
-                                    <label for="name">নাম</label>
-                                    <input type="text" id="name" value="${
-                                      userData.name
-                                    }">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email">ইমেইল</label>
-                                    <input type="email" id="email" value="${
-                                      userData.email
-                                    }">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="phone">ফোন নম্বর</label>
-                                    <input type="tel" id="phone" value="${
-                                      userData.phone
-                                    }">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="profession">পেশা</label>
-                                    <select id="profession">
-                                        <option value="ইলেকট্রিশিয়ান" ${
-                                          userData.profession ===
-                                          "ইলেকট্রিশিয়ান"
-                                            ? "selected"
-                                            : ""
-                                        }>ইলেকট্রিশিয়ান</option>
-                                        <option value="প্লাম্বার" ${
-                                          userData.profession === "প্লাম্বার"
-                                            ? "selected"
-                                            : ""
-                                        }>প্লাম্বার</option>
-                                        <option value="এসি টেকনিশিয়ান" ${
-                                          userData.profession ===
-                                          "এসি টেকনিশিয়ান"
-                                            ? "selected"
-                                            : ""
-                                        }>এসি টেকনিশিয়ান</option>
-                                        <option value="ক্লিনার" ${
-                                          userData.profession === "ক্লিনার"
-                                            ? "selected"
-                                            : ""
-                                        }>ক্লিনার</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-actions">
-                                    <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
-                                    <button type="submit" class="btn primary-btn">সেভ করুন</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Notification Settings Modal -->
-                <div class="modal" id="notification-settings-modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>নোটিফিকেশন সেটিংস</h3>
-                            <button class="close-modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="notification-settings">
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>মেসেজ নোটিফিকেশন</h4>
-                                        <p>যখন নতুন মেসেজ পাবেন তখন নোটিফিকেশন পাবেন</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="message-notification" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>কল রিকুয়েস্ট নোটিফিকেশন</h4>
-                                        <p>যখন কেউ কল রিকুয়েস্ট করবে তখন নোটিফিকেশন পাবেন</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="call-notification" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>রিভিউ নোটিফিকেশন</h4>
-                                        <p>যখন কেউ রিভিউ দিবে তখন নোটিফিকেশন পাবেন</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="review-notification" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>অ্যাপয়েন্টমেন্ট রিমাইন্ডার</h4>
-                                        <p>আপনার আসন্ন অ্যাপয়েন্টমেন্টের জন্য রিমাইন্ডার</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="appointment-notification" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                                
-                                <div class="form-actions">
-                                    <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
-                                    <button type="button" class="btn primary-btn save-notification-btn">সেভ করুন</button>
-                                </div>
+                    <div class="modal-body">
+                        <form class="settings-form" id="account-form">
+                            <div class="form-group">
+                                <label for="name">নাম</label>
+                                <input type="text" id="name" value="${userData.name}">
                             </div>
-                        </div>
+                            
+                            <div class="form-group">
+                                <label for="email">ইমেইল</label>
+                                <input type="email" id="email" value="${userData.email}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">ফোন নম্বর</label>
+                                <input type="tel" id="phone" value="${userData.phone}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="profession">পেশা</label>
+                                <select id="profession">
+                                    <option value="ইলেকট্রিশিয়ান" ${userData.profession === "ইলেকট্রিশিয়ান" ? "selected" : ""}>ইলেকট্রিশিয়ান</option>
+                                    <option value="প্লাম্বার" ${userData.profession === "প্লাম্বার" ? "selected" : ""}>প্লাম্বার</option>
+                                    <option value="এসি টেকনিশিয়ান" ${userData.profession === "এসি টেকনিশিয়ান" ? "selected" : ""}>এসি টেকনিশিয়ান</option>
+                                    <option value="ক্লিনার" ${userData.profession === "ক্লিনার" ? "selected" : ""}>ক্লিনার</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
+                                <button type="submit" class="btn primary-btn">সেভ করুন</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                
-                <!-- Privacy Settings Modal -->
-                <div class="modal" id="privacy-settings-modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>প্রাইভেসি সেটিংস</h3>
-                            <button class="close-modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="privacy-settings">
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>প্রোফাইল দৃশ্যমানতা</h4>
-                                        <p>আপনার প্রোফাইল সবাই দেখতে পারবে কিনা</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="profile-visibility" checked>
-                                        <span class="slider round"></span>
-                                    </label>
+            </div>
+            
+            <!-- Notification Settings Modal -->
+            <div class="modal-overlay" id="notification-settings-modal">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <h3>নোটিফিকেশন সেটিংস</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="notification-settings">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>মেসেজ নোটিফিকেশন</h4>
+                                    <p>যখন নতুন মেসেজ পাবেন তখন নোটিফিকেশন পাবেন</p>
                                 </div>
-                                
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>ফোন নম্বর দেখান</h4>
-                                        <p>আপনার ফোন নম্বর কাস্টমাররা দেখতে পারবে কিনা</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="phone-visibility">
-                                        <span class="slider round"></span>
-                                    </label>
+                                <label class="switch">
+                                    <input type="checkbox" id="message-notification" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>কল রিকুয়েস্ট নোটিফিকেশন</h4>
+                                    <p>যখন কেউ কল রিকুয়েস্ট করবে তখন নোটিফিকেশন পাবেন</p>
                                 </div>
-                                
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>ঠিকানা দেখান</h4>
-                                        <p>আপনার ঠিকানা কাস্টমাররা দেখতে পারবে কিনা</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="address-visibility">
-                                        <span class="slider round"></span>
-                                    </label>
+                                <label class="switch">
+                                    <input type="checkbox" id="call-notification" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>রিভিউ নোটিফিকেশন</h4>
+                                    <p>যখন কেউ রিভিউ দিবে তখন নোটিফিকেশন পাবেন</p>
                                 </div>
-                                
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <h4>অ্যাকাউন্ট সুরক্ষা</h4>
-                                        <p>টু-ফ্যাক্টর অথেন্টিকেশন সক্রিয় করুন</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox" id="two-factor-auth">
-                                        <span class="slider round"></span>
-                                    </label>
+                                <label class="switch">
+                                    <input type="checkbox" id="review-notification" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>অ্যাপয়েন্টমেন্ট রিমাইন্ডার</h4>
+                                    <p>আপনার আসন্ন অ্যাপয়েন্টমেন্টের জন্য রিমাইন্ডার</p>
                                 </div>
-                                
-                                <div class="password-change">
-                                    <h4>পাসওয়ার্ড পরিবর্তন</h4>
-                                    <div class="form-group">
-                                        <label for="current-password">বর্তমান পাসওয়ার্ড</label>
-                                        <input type="password" id="current-password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="new-password">নতুন পাসওয়ার্ড</label>
-                                        <input type="password" id="new-password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirm-password">পাসওয়ার্ড নিশ্চিত করুন</label>
-                                        <input type="password" id="confirm-password">
-                                    </div>
-                                </div>
-                                
-                                <div class="form-actions">
-                                    <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
-                                    <button type="button" class="btn primary-btn save-privacy-btn">সেভ করুন</button>
-                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="appointment-notification" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
+                                <button type="button" class="btn primary-btn save-notification-btn">সেভ করুন</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        `;
- 
-    // Open account settings modal
-    document
-      .getElementById("account-settings-btn")
-      .addEventListener("click", function () {
-        document.getElementById("account-settings-modal").style.display =
-          "block";
-      });
+            
+            <!-- Privacy Settings Modal -->
+            <div class="modal-overlay" id="privacy-settings-modal">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <h3>প্রাইভেসি সেটিংস</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="privacy-settings">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>প্রোফাইল দৃশ্যমানতা</h4>
+                                    <p>আপনার প্রোফাইল সবাই দেখতে পারবে কিনা</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="profile-visibility" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>ফোন নম্বর দেখান</h4>
+                                    <p>আপনার ফোন নম্বর কাস্টমাররা দেখতে পারবে কিনা</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="phone-visibility">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>ঠিকানা দেখান</h4>
+                                    <p>আপনার ঠিকানা কাস্টমাররা দেখতে পারবে কিনা</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="address-visibility">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>অ্যাকাউন্ট সুরক্ষা</h4>
+                                    <p>টু-ফ্যাক্টর অথেন্টিকেশন সক্রিয় করুন</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="two-factor-auth">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="password-change">
+                                <h4>পাসওয়ার্ড পরিবর্তন</h4>
+                                <div class="form-group">
+                                    <label for="current-password">বর্তমান পাসওয়ার্ড</label>
+                                    <input type="password" id="current-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">নতুন পাসওয়ার্ড</label>
+                                    <input type="password" id="new-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">পাসওয়ার্ড নিশ্চিত করুন</label>
+                                    <input type="password" id="confirm-password">
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
+                                <button type="button" class="btn primary-btn save-privacy-btn">সেভ করুন</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 
-// Function to show any modal
-function showModal(modalId) {
-    document.getElementById(modalId).classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
-}
-
-// Function to close any modal
-function closeModal(modalId) {
-    document.getElementById(modalId).classList.remove('active');
-    document.body.style.overflow = ''; // Re-enable scrolling
-}
-
-// Close when clicking X button
-document.querySelectorAll('.close-modal').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const modalId = this.closest('.modal-overlay').id;
-        closeModal(modalId);
-    });
-});
-
-// Close when clicking outside modal
-document.querySelectorAll('.modal-overlay').forEach(modal => {
-    modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal(this.id);
-        }
-    });
-});
-
-
-    // Open notification settings modal
-    document
-      .getElementById("notification-settings-btn")
-      .addEventListener("click", function () {
-        document.getElementById("notification-settings-modal").style.display =
-          "block";
-      });
-
-    // Open privacy settings modal
-    document
-      .getElementById("privacy-settings-btn")
-      .addEventListener("click", function () {
-        document.getElementById("privacy-settings-modal").style.display =
-          "block";
-      });
-
-    // Close modal handlers
-    document
-      .querySelectorAll(".close-modal, .close-modal-btn")
-      .forEach((btn) => {
-        btn.addEventListener("click", function () {
-          document.querySelectorAll(".modal").forEach((modal) => {
-            modal.style.display = "none";
-          });
-        });
-      });
-
-    // Close modal when clicking outside
-    document.querySelectorAll(".modal").forEach((modal) => {
-      modal.addEventListener("click", function (e) {
-        if (e.target === this) {
-          this.style.display = "none";
-        }
-      });
-    });
-
+    // Initialize modal functionality
+    initModalSystem();
+    
     // Account form submission
-    document
-      .getElementById("account-form")
-      .addEventListener("submit", function (e) {
+    document.getElementById("account-form").addEventListener("submit", function(e) {
         e.preventDefault();
-
+        
         // Update user data
         userData.name = document.getElementById("name").value;
         userData.email = document.getElementById("email").value;
         userData.phone = document.getElementById("phone").value;
         userData.profession = document.getElementById("profession").value;
-
+        
         // Update UI
         updateUserName();
-
+        
         // Close modal
-        document.getElementById("account-settings-modal").style.display =
-          "none";
+        closeModal('account-settings-modal');
         alert("অ্যাকাউন্ট তথ্য সফলভাবে আপডেট করা হয়েছে।");
-      });
-
+    });
+    
     // Save notification settings
-    document
-      .querySelector(".save-notification-btn")
-      .addEventListener("click", function () {
+    document.querySelector(".save-notification-btn").addEventListener("click", function() {
         alert("নোটিফিকেশন সেটিংস সফলভাবে সেভ করা হয়েছে।");
-        document.getElementById("notification-settings-modal").style.display =
-          "none";
-      });
-
+        closeModal('notification-settings-modal');
+    });
+    
     // Save privacy settings
-    document
-      .querySelector(".save-privacy-btn")
-      .addEventListener("click", function () {
+    document.querySelector(".save-privacy-btn").addEventListener("click", function() {
         alert("প্রাইভেসি সেটিংস সফলভাবে সেভ করা হয়েছে।");
-        document.getElementById("privacy-settings-modal").style.display =
-          "none";
-      });
-  }
+        closeModal('privacy-settings-modal');
+    });
+}
 
-  // Logout handler
-  function handleLogout() {
-    if (confirm("আপনি কি নিশ্চিতভাবে লগ আউট করতে চান?")) {
-      alert("আপনি সফলভাবে লগ আউট হয়েছেন।");
-      // window.location.href = 'logout.php';
-    }
-  }
+// Initialize modal system
+function initModalSystem() {
+    // Open modal when clicking buttons with open-modal-btn class
+    document.querySelectorAll('.open-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal');
+            showModal(modalId);
+        });
+    });
+    
+    // Close when clicking X button
+    document.querySelectorAll('.close-modal, .close-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modalId = this.closest('.modal-overlay').id;
+            closeModal(modalId);
+        });
+    });
+    
+    // Close when clicking outside modal
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal(this.id);
+            }
+        });
+    });
+}
+
+// Show modal function
+function showModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+// Close modal function
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+    document.body.style.overflow = ''; // Re-enable scrolling
+}
 
 
 
-  
   // Initialize dashboard functionality
   function initDashboard() {
     // Notification dropdown
