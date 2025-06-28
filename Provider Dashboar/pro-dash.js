@@ -278,79 +278,82 @@ document.addEventListener('DOMContentLoaded', function() {
     function showProfile() {
         const dashboardContent = document.querySelector('.dashboard-content');
         dashboardContent.innerHTML = `
-            <div class="profile-section">
-                <div class="profile-header">
-                    <div class="profile-image-container">
-                        <div class="profile-image">
-                            <img src="${userData.profileImage}" alt="প্রোফাইল ছবি">
-                            <button class="edit-icon" id="change-profile-pic">
-                                <i class="fas fa-camera"></i>
-                            </button>
-                        </div>
-                        <h2 class="user-name">${userData.name}</h2>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>৪.৭ (১২৩ রিভিউ)</span>
-                        </div>
-                        <p class="expert-type">${userData.profession}</p>
-                    </div>
-                </div>
-                
-                <div class="profile-tabs">
-                    <div class="tab active" data-tab="personal">ব্যক্তিগত তথ্য</div>
-                    <div class="tab" data-tab="professional">পেশাগত তথ্য</div>
-                    <div class="tab" data-tab="about">সম্পর্কে</div>
-                </div>
-                
-                <div class="profile-content">
-                    <div class="tab-content active" id="personal">
-                        <div class="detail-item">
-                            <label>নাম:</label>
-                            <div class="detail-value" id="profile-name">${userData.name}</div>
-                            <button class="edit-btn" id="edit-name"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="detail-item">
-                            <label>ইমেইল:</label>
-                            <div class="detail-value" id="profile-email">${userData.email}</div>
-                            <button class="edit-btn" id="edit-email"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="detail-item">
-                            <label>ফোন:</label>
-                            <div class="detail-value" id="profile-phone">${userData.phone}</div>
-                            <button class="edit-btn" id="edit-phone"><i class="fas fa-edit"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="professional">
-                        <div class="detail-item">
-                            <label>পেশা:</label>
-                            <div class="detail-value" id="profile-profession">${userData.profession}</div>
-                            <button class="edit-btn" id="edit-profession"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="detail-item">
-                            <label>অভিজ্ঞতা:</label>
-                            <div class="detail-value" id="profile-experience">${userData.experience}</div>
-                            <button class="edit-btn" id="edit-experience"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="detail-item">
-                            <label>সার্ভিস এরিয়া:</label>
-                            <div class="detail-value" id="profile-areas">${userData.areas}</div>
-                            <button class="edit-btn" id="edit-areas"><i class="fas fa-edit"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="about">
-                        <div class="about-content">
-                            <div class="detail-value" id="profile-about">${userData.about}</div>
-                            <button class="edit-btn" id="edit-about"><i class="fas fa-edit"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           <div class="profile-section">
+  <div class="profile-header">
+    <div class="profile-image-container">
+      <div class="profile-image">
+        <img src="${userData.profileImage}" alt="প্রোফাইল ছবি">
+        <button class="edit-icon" id="change-profile-pic">
+          <i class="fas fa-camera"></i>
+        </button>
+      </div>
+    </div>
+
+    <h2 class="user-name">${userData.name}</h2>
+
+    <div class="rating">
+      <i class="fas fa-star"></i>
+      <i class="fas fa-star"></i>
+      <i class="fas fa-star"></i>
+      <i class="fas fa-star"></i>
+      <i class="fas fa-star-half-alt"></i>
+      <span>৪.৭ (১২৩ রিভিউ)</span>
+    </div>
+
+    <p class="expert-type">${userData.profession}</p>
+
+    <div class="profile-tabs">
+      <div class="tab active" data-tab="personal">ব্যক্তিগত তথ্য</div>
+      <div class="tab" data-tab="professional">পেশাগত তথ্য</div>
+      <div class="tab" data-tab="about">সম্পর্কে</div>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <div class="tab-content active" id="personal">
+      <div class="detail-item">
+        <label>নাম:</label>
+        <div class="detail-value" id="profile-name">${userData.name}</div>
+        <button class="edit-btn" id="edit-name"><i class="fas fa-edit"></i></button>
+      </div>
+      <div class="detail-item">
+        <label>ইমেইল:</label>
+        <div class="detail-value" id="profile-email">${userData.email}</div>
+        <button class="edit-btn" id="edit-email"><i class="fas fa-edit"></i></button>
+      </div>
+      <div class="detail-item">
+        <label>ফোন:</label>
+        <div class="detail-value" id="profile-phone">${userData.phone}</div>
+        <button class="edit-btn" id="edit-phone"><i class="fas fa-edit"></i></button>
+      </div>
+    </div>
+
+    <div class="tab-content" id="professional">
+      <div class="detail-item">
+        <label>পেশা:</label>
+        <div class="detail-value" id="profile-profession">${userData.profession}</div>
+        <button class="edit-btn" id="edit-profession"><i class="fas fa-edit"></i></button>
+      </div>
+      <div class="detail-item">
+        <label>অভিজ্ঞতা:</label>
+        <div class="detail-value" id="profile-experience">${userData.experience}</div>
+        <button class="edit-btn" id="edit-experience"><i class="fas fa-edit"></i></button>
+      </div>
+      <div class="detail-item">
+        <label>সার্ভিস এরিয়া:</label>
+        <div class="detail-value" id="profile-areas">${userData.areas}</div>
+        <button class="edit-btn" id="edit-areas"><i class="fas fa-edit"></i></button>
+      </div>
+    </div>
+
+    <div class="tab-content" id="about">
+      <div class="about-content">
+        <div class="detail-value" id="profile-about">${userData.about}</div>
+        <button class="edit-btn" id="edit-about"><i class="fas fa-edit"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
         `;
         
         // Initialize profile tabs

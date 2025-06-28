@@ -1837,27 +1837,49 @@ body {
 
 
 /* for profile  */
-
-/* Profile Section Styles */
+/* Profile Section Styles - Clean & Spaced Design */
 .profile-section {
-    padding: 20px;
+    padding: 35px;
     background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    max-width: 920px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }
 
+/* Header */
 .profile-header {
     text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    margin-bottom: 50px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
 }
 
+.profile-header:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #0010c3, #0066ff);
+    border-radius: 2px;
+}
+
+/* Profile Image */
 .profile-image-container {
     position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 15px;
+    width: 170px;
+    height: 170px;
+    margin: 0 auto 25px;
+    transition: transform 0.3s ease;
+}
+
+.profile-image-container:hover {
+    transform: scale(1.05);
 }
 
 .profile-image {
@@ -1865,115 +1887,181 @@ body {
     height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid #f5f5f5;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border: 6px solid #f1f4f9;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.profile-image:hover {
+    border-color: #e0e7ff;
+    box-shadow: 0 8px 22px rgba(0, 16, 195, 0.12);
 }
 
 .profile-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-image:hover img {
+    transform: scale(1.06);
 }
 
 .edit-icon {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background: #0010c3;
+    background: linear-gradient(135deg, #0010c3, #0066ff);
     color: white;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 16, 195, 0.3);
+    transition: transform 0.2s ease;
 }
 
+.edit-icon:hover {
+    transform: scale(1.12);
+}
+
+/* Name */
 .profile-header h2 {
-    margin: 10px 0 5px;
-    color: #333;
-    font-size: 24px;
+    margin: 20px 0 12px;
+    color: #1a202c;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
 }
 
+/* Rating and Type */
 .rating {
     color: #FFC107;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin: 10px 0 15px;
 }
 
 .rating span {
-    color: #666;
+    color: #6b7280;
     font-size: 14px;
-    margin-left: 5px;
+    margin-left: 8px;
+    font-weight: 500;
 }
 
 .expert-type {
+    display: inline-block;
+    background: rgba(0, 16, 195, 0.08);
     color: #0010c3;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-top: 10px;
 }
 
 /* Profile Tabs */
 .profile-tabs {
     display: flex;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 20px;
+    justify-content: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    margin: 30px 0 40px;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 15px;
 }
 
 .profile-tabs .tab {
-    padding: 10px 20px;
+    padding: 12px 25px;
     cursor: pointer;
-    color: #666;
-    font-weight: 500;
-    position: relative;
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.3s ease;
+}
+
+.profile-tabs .tab:hover {
+    color: #0010c3;
+    background: rgba(0, 16, 195, 0.06);
 }
 
 .profile-tabs .tab.active {
     color: #0010c3;
+    background: rgba(0, 16, 195, 0.08);
+    position: relative;
 }
 
 .profile-tabs .tab.active:after {
     content: '';
     position: absolute;
-    bottom: -1px;
+    bottom: -2px;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: #0010c3;
+    height: 3px;
+    background: linear-gradient(90deg, #0010c3, #0066ff);
+    border-radius: 3px;
 }
 
 /* Profile Content */
 .profile-content {
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 .tab-content {
     display: none;
+    animation: fadeIn 0.3s ease;
 }
 
 .tab-content.active {
     display: block;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Detail Items */
 .detail-item {
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #f5f5f5;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .detail-item label {
-    width: 120px;
-    font-weight: 500;
-    color: #555;
+    width: 160px;
+    font-weight: 600;
+    color: #4b5563;
+    font-size: 15px;
+    padding-top: 8px;
 }
 
 .detail-item .detail-value {
     flex: 1;
-    color: #333;
+    color: #1f2937;
+    font-size: 15px;
+    line-height: 1.6;
+    padding-top: 5px;
+}
+
+/* Buttons */
+.edit-btn,
+.save-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-left: 15px;
 }
 
 .edit-btn {
@@ -1981,51 +2069,119 @@ body {
     border: none;
     color: #0010c3;
     cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.edit-btn:hover {
+    background: rgba(0, 16, 195, 0.08);
 }
 
 .save-btn {
-    background: #0010c3;
-    color: white;
+    background: linear-gradient(135deg, #0010c3, #0066ff);
+    color: #fff;
     border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
+    border-radius: 6px;
+    padding: 8px 18px;
+    box-shadow: 0 2px 10px rgba(0, 16, 195, 0.2);
     cursor: pointer;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
 }
 
+.save-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 16, 195, 0.3);
+}
+
+.edit-btn i,
+.save-btn i {
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+/* Input Fields */
 .detail-item input,
 .detail-item select,
 .detail-item textarea {
     flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 10px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    max-width: 500px;
+}
+
+.detail-item input:focus,
+.detail-item select:focus,
+.detail-item textarea:focus {
+    border-color: #0010c3;
+    box-shadow: 0 0 0 3px rgba(0, 16, 195, 0.1);
+    outline: none;
 }
 
 .detail-item textarea {
-    min-height: 100px;
+    min-height: 120px;
     resize: vertical;
+    line-height: 1.6;
 }
 
+/* About Content */
 .about-content {
     position: relative;
+    padding: 20px;
+    background: #f9fafc;
+    border-radius: 8px;
+    border-left: 4px solid #0010c3;
+    box-shadow: inset 0 0 0 1px #e2e8f0;
+    margin-bottom: 30px;
 }
 
 .about-content #edit-about {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 15px;
+    right: 15px;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-section {
+        padding: 20px;
+    }
 
+    .detail-item {
+        flex-direction: column;
+        gap: 5px;
+    }
 
+    .detail-item label {
+        width: 100%;
+        margin-bottom: 6px;
+    }
 
+    .profile-tabs .tab {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
 
+    .profile-tabs {
+        justify-content: flex-start;
+        padding-left: 10px;
+    }
+}
+.user-name {
+  margin: 20px 0 10px;
+  font-size: 26px;
+  color: #1a202c;
+  font-weight: bold;
+}
+
+.rating {
+  margin-bottom: 12px;
+}
+
+.expert-type {
+  margin-bottom: 25px;
+}
 
 
 
@@ -2280,4 +2436,245 @@ input:checked + .slider:before {
     color: #333;
     font-size: 16px;
     margin-bottom: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Appointment Details Modal - Professional Dark Blue Theme */
+#appointment-detail-modal {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#appointment-detail-modal .modal-content {
+    background: #f8f9fa;
+    border: none;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    max-width: 700px;
+}
+
+#appointment-detail-modal .modal-header {
+    background: #0a2463; /* Dark blue */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px 8px 0 0;
+    border-bottom: none;
+}
+
+#appointment-detail-modal .modal-header h3 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+#appointment-detail-modal .close-modal {
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+#appointment-detail-modal .close-modal:hover {
+    opacity: 1;
+}
+
+#appointment-detail-modal .modal-body {
+    padding: 0;
+}
+
+/* Client Detail Section */
+.client-detail {
+    display: flex;
+    padding: 25px;
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    align-items: center;
+}
+
+.client-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+    border: 3px solid #e9ecef;
+}
+
+.client-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.client-info h4 {
+    margin: 0 0 5px 0;
+    color: #212529;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.client-info p {
+    margin: 5px 0;
+    color: #495057;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.client-info i {
+    margin-right: 8px;
+    color: #0a2463;
+    width: 16px;
+    text-align: center;
+}
+
+/* Appointment Details Section */
+.appointment-details {
+    padding: 25px;
+    background: white;
+}
+
+.detail-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.detail-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.detail-section h4 {
+    color: #0a2463;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.detail-section h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #3e92cc; /* Lighter blue */
+}
+
+.detail-section p {
+    color: #495057;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.detail-section strong {
+    color: #212529;
+    font-weight: 600;
+}
+
+/* Review Section */
+.review-detail {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.rating {
+    color: #FFC107; /* Gold color for stars */
+    margin-bottom: 10px;
+}
+
+.rating span {
+    color: #495057;
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 25px;
+    background: #f8f9fa;
+    border-radius: 0 0 8px 8px;
+    gap: 10px;
+}
+
+.modal-actions .btn {
+    padding: 10px 20px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.modal-actions .secondary-btn {
+    background: #e9ecef;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+.modal-actions .secondary-btn:hover {
+    background: #dee2e6;
+}
+
+.modal-actions .primary-btn {
+    background: #0a2463;
+    color: white;
+    border: 1px solid #0a2463;
+}
+
+.modal-actions .primary-btn:hover {
+    background: #071a4d;
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .client-detail {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .client-image {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Animation for modal appearance */
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#appointment-detail-modal .modal-content {
+    animation: modalAppear 0.3s ease-out;
 }
