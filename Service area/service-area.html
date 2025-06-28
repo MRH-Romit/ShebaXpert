@@ -1,185 +1,253 @@
 <!DOCTYPE html>
 <html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>সার্ভিস এলাকা - সেবাXpert</title>
     <!-- Load Leaflet CSS and FontAwesome -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
-          crossorigin=""/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../Dashboard/styles.css">
-    <link rel="stylesheet" href="service-area.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../Dashboard/styles.css" />
+    <link rel="stylesheet" href="service-area.css" />
+  </head>
+  <body>
     <!-- Header (unchanged as requested) -->
     <header class="main-header">
-        <div class="header-container">
-            <div class="logo-title">
-                <img class="logo-container" src="../Resources/images/justlogo.png" alt="Sheba Expert Logo">
-                <h2>সেবাXpert</h2>
-            </div>
-
-            <div class="nav-profile-container">
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
-                        <li><a href="../Service area/service-area.html"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
-                        <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
-                        <li><a href="#" id="help-btn"><i class="fas fa-headset"></i> সহায়তা</a></li>
-                        <li><a href="../Profile/profile.html" id="profile-btn"><i class="fas fa-user-circle"></i> প্রোফাইল</a></li>
-                    </ul>
-                </nav>
-            </div>
+      <div class="header-container">
+        <div class="logo-title">
+          <img
+            class="logo-container"
+            src="../Resources/images/justlogo.png"
+            alt="Sheba Expert Logo"
+          />
+          <h2>সেবাXpert</h2>
         </div>
+
+        <div class="nav-profile-container">
+          <nav class="main-nav">
+            <ul>
+              <ul>
+                <li>
+                  <a href="../Dashboard/dash.html"
+                    ><i class="fas fa-home"></i> হোম</a
+                  >
+                </li>
+                <li>
+                  <a href="../Service area/service-area.html"
+                    ><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a
+                  >
+                </li>
+                <li>
+                  <a href="..\ProviderList\providerlist.html" id="provider-btn">
+                    <i class="fas fa-users"></i> প্রোভাইডার
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="help-btn"
+                    ><i class="fas fa-headset"></i> সহায়তা</a
+                  >
+                </li>
+                <li>
+                  <a href="../Profile/profile.html"
+                    ><i class="fas fa-user-circle"></i> প্রোফাইল</a
+                  >
+                </li>
+              </ul>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </header>
 
     <!-- Main Content -->
     <div class="service-area-container">
-        <!-- Breadcrumb Navigation -->
-        <div class="breadcrumb-nav">
-            <a href="../Dashboard/dash.html"><i class="fas fa-home"></i> হোম</a>
-            <i class="fas fa-chevron-right"></i>
-            <span class="current-page">সার্ভিস এলাকা</span>
-        </div>
+      <!-- Breadcrumb Navigation -->
+      <div class="breadcrumb-nav">
+        <a href="../Dashboard/dash.html"><i class="fas fa-home"></i> হোম</a>
+        <i class="fas fa-chevron-right"></i>
+        <span class="current-page">সার্ভিস এলাকা</span>
+      </div>
 
-        <!-- Page Header -->
-        <div class="page-header">
-            <div class="header-content">
-                <h1><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</h1>
-                <p>ঢাকার বিভিন্ন এলাকায় আমাদের সেবা উপলব্ধ। আপনার এলাকা নির্বাচন করুন এবং পছন্দের সেবা খুঁজুন।</p>
-            </div>
-            <div class="header-actions">
-                <div class="search-container">
-                    <input type="text" id="area-search" placeholder="এলাকার নাম খুঁজুন..." aria-label="এলাকার নাম খুঁজুন">
-                    <button class="search-btn" title="খুঁজুন" aria-label="এলাকা খুঁজুন"><i class="fas fa-search"></i></button>
-                </div>
-                <div class="view-toggle">
-                    <button class="view-btn active" data-view="grid" title="গ্রিড ভিউ" aria-label="গ্রিড ভিউ"><i class="fas fa-th-large"></i></button>
-                    <button class="view-btn" data-view="list" title="লিস্ট ভিউ" aria-label="লিস্ট ভিউ"><i class="fas fa-list"></i></button>
-                </div>
-            </div>
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="header-content">
+          <h1><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</h1>
+          <p>
+            ঢাকার বিভিন্ন এলাকায় আমাদের সেবা উপলব্ধ। আপনার এলাকা নির্বাচন করুন
+            এবং পছন্দের সেবা খুঁজুন।
+          </p>
         </div>
+        <div class="header-actions">
+          <div class="search-container">
+            <input
+              type="text"
+              id="area-search"
+              placeholder="এলাকার নাম খুঁজুন..."
+              aria-label="এলাকার নাম খুঁজুন"
+            />
+            <button class="search-btn" title="খুঁজুন" aria-label="এলাকা খুঁজুন">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="view-toggle">
+            <button
+              class="view-btn active"
+              data-view="grid"
+              title="গ্রিড ভিউ"
+              aria-label="গ্রিড ভিউ"
+            >
+              <i class="fas fa-th-large"></i>
+            </button>
+            <button
+              class="view-btn"
+              data-view="list"
+              title="লিস্ট ভিউ"
+              aria-label="লিস্ট ভিউ"
+            >
+              <i class="fas fa-list"></i>
+            </button>
+          </div>
+        </div>
+      </div>
 
-        <!-- Filters -->
-        <div class="filter-section">
-            <div class="filter-group">
-                <label for="district-filter">জেলা নির্বাচন করুন:</label>
-                <select id="district-filter" title="জেলা নির্বাচন করুন" aria-label="জেলা নির্বাচন করুন">
-                    <option value="all">সব জেলা</option>
-                    <option value="dhaka" selected>ঢাকা</option>
-                    <option value="chittagong">চট্টগ্রাম</option>
-                    <option value="sylhet">সিলেট</option>
-                    <option value="rajshahi">রাজশাহী</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="service-filter">সার্ভিস ধরন:</label>
-                <select id="service-filter" title="সার্ভিস ধরন নির্বাচন করুন" aria-label="সার্ভিস ধরন নির্বাচন করুন">
-                    <option value="all">সব সার্ভিস</option>
-                    <option value="electrician">ইলেকট্রিশিয়ান</option>
-                    <option value="plumber">প্লাম্বার</option>
-                    <option value="ac">এসি সার্ভিস</option>
-                    <option value="carpenter">কাঠমিস্ত্রি</option>
-                    <option value="painting">রং করা</option>
-                    <option value="repair">সাধারণ মেরামত</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="availability-filter">সার্ভিস এভেইলেবিলিটি:</label>
-                <select id="availability-filter" title="সার্ভিস এভেইলেবিলিটি নির্বাচন করুন" aria-label="সার্ভিস এভেইলেবিলিটি নির্বাচন করুন">
-                    <option value="all">সব সময়</option>
-                    <option value="24h">২৪/৭ উপলব্ধ</option>
-                    <option value="emergency">জরুরি সেবা</option>
-                    <option value="regular">নিয়মিত সেবা</option>
-                </select>
-            </div>
+      <!-- Filters -->
+      <div class="filter-section">
+        <div class="filter-group">
+          <label for="district-filter">জেলা নির্বাচন করুন:</label>
+          <select
+            id="district-filter"
+            title="জেলা নির্বাচন করুন"
+            aria-label="জেলা নির্বাচন করুন"
+          >
+            <option value="all">সব জেলা</option>
+            <option value="dhaka" selected>ঢাকা</option>
+            <option value="chittagong">চট্টগ্রাম</option>
+            <option value="sylhet">সিলেট</option>
+            <option value="rajshahi">রাজশাহী</option>
+          </select>
         </div>
+        <div class="filter-group">
+          <label for="service-filter">সার্ভিস ধরন:</label>
+          <select
+            id="service-filter"
+            title="সার্ভিস ধরন নির্বাচন করুন"
+            aria-label="সার্ভিস ধরন নির্বাচন করুন"
+          >
+            <option value="all">সব সার্ভিস</option>
+            <option value="electrician">ইলেকট্রিশিয়ান</option>
+            <option value="plumber">প্লাম্বার</option>
+            <option value="ac">এসি সার্ভিস</option>
+            <option value="carpenter">কাঠমিস্ত্রি</option>
+            <option value="painting">রং করা</option>
+            <option value="repair">সাধারণ মেরামত</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="availability-filter">সার্ভিস এভেইলেবিলিটি:</label>
+          <select
+            id="availability-filter"
+            title="সার্ভিস এভেইলেবিলিটি নির্বাচন করুন"
+            aria-label="সার্ভিস এভেইলেবিলিটি নির্বাচন করুন"
+          >
+            <option value="all">সব সময়</option>
+            <option value="24h">২৪/৭ উপলব্ধ</option>
+            <option value="emergency">জরুরি সেবা</option>
+            <option value="regular">নিয়মিত সেবা</option>
+          </select>
+        </div>
+      </div>
 
-        <!-- Service Areas Grid -->
-        <div class="service-areas-grid" id="areas-container">
-            <!-- Areas will be populated by JavaScript -->
-        </div>
+      <!-- Service Areas Grid -->
+      <div class="service-areas-grid" id="areas-container">
+        <!-- Areas will be populated by JavaScript -->
+      </div>
 
-        <!-- Statistics Section -->
-        <div class="stats-section">
-            <h2><i class="fas fa-chart-bar"></i> সার্ভিস পরিসংখ্যান</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>৪৫+</h3>
-                        <p>সার্ভিস এলাকা</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>৫০০+</h3>
-                        <p>সেবা প্রদানকারী</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>২০+</h3>
-                        <p>ধরনের সেবা</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>২৪/৭</h3>
-                        <p>জরুরি সেবা</p>
-                    </div>
-                </div>
+      <!-- Statistics Section -->
+      <div class="stats-section">
+        <h2><i class="fas fa-chart-bar"></i> সার্ভিস পরিসংখ্যান</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-map-marker-alt"></i>
             </div>
+            <div class="stat-info">
+              <h3>৪৫+</h3>
+              <p>সার্ভিস এলাকা</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <h3>৫০০+</h3>
+              <p>সেবা প্রদানকারী</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <div class="stat-info">
+              <h3>২০+</h3>
+              <p>ধরনের সেবা</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-info">
+              <h3>২৪/৭</h3>
+              <p>জরুরি সেবা</p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>Sheba Expert</h4>
-                <p>আপনার ঘরের সব সমস্যার একমাত্র সমাধান</p>
-                <div class="social-links">
-                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>লিংক</h4>
-                <ul>
-                    <li><a href="../Dashboard/dash.html">হোম</a></li>
-                    <li><a href="service-area.html">সার্ভিস এলাকা</a></li>
-                    <li><a href="#">প্রোভাইডার</a></li>
-                    <li><a href="#">যোগাযোগ</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>যোগাযোগ</h4>
-                <p><i class="fas fa-map-marker-alt"></i> ১২৩ রোড, ঢাকা, বাংলাদেশ</p>
-                <p><i class="fas fa-phone"></i> +৮৮০ ১২৩৪ ৫৬৭৮৯</p>
-                <p><i class="fas fa-envelope"></i> info@shebaexpert.com</p>
-            </div>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h4>Sheba Expert</h4>
+          <p>আপনার ঘরের সব সমস্যার একমাত্র সমাধান</p>
+          <div class="social-links">
+            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; ২০২৫ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
+        <div class="footer-section">
+          <h4>লিংক</h4>
+          <ul>
+            <li><a href="../Dashboard/dash.html">হোম</a></li>
+            <li><a href="service-area.html">সার্ভিস এলাকা</a></li>
+            <li><a href="#">প্রোভাইডার</a></li>
+            <li><a href="#">যোগাযোগ</a></li>
+          </ul>
         </div>
+        <div class="footer-section">
+          <h4>যোগাযোগ</h4>
+          <p><i class="fas fa-map-marker-alt"></i> ১২৩ রোড, ঢাকা, বাংলাদেশ</p>
+          <p><i class="fas fa-phone"></i> +৮৮০ ১২৩৪ ৫৬৭৮৯</p>
+          <p><i class="fas fa-envelope"></i> info@shebaexpert.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; ২০২৫ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
+      </div>
     </footer>
 
     <script src="service-area.js"></script>
-</body>
+  </body>
 </html>
