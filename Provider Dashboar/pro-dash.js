@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="reviews">
                     <div class="review-item">
                         <div class="reviewer">
-                            <img src="user1.jpg" alt="ব্যবহারকারী">
+                            <img src="/ShebaXpert/Resources/images/man2.png" alt="ব্যবহারকারী">
                             <div class="reviewer-info">
                                 <h4>আব্দুল্লাহ আল মামুন</h4>
                                 <div class="rating">
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="review-item">
                         <div class="reviewer">
-                            <img src="user2.jpg" alt="ব্যবহারকারী">
+                            <img src="/ShebaXpert/Resources/images/man2.png" alt="ব্যবহারকারী">
                             <div class="reviewer-info">
                                 <h4>ফারহানা ইয়াসমিন</h4>
                                 <div class="rating">
