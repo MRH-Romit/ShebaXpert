@@ -24,15 +24,45 @@
         </div>
 
         <div class="nav-profile-container"> <!-- New wrapper -->
-            <nav class="main-nav"><ul>
-                    <li><a href="dash.html"><i class="fas fa-home"></i> হোম</a></li>
-                    <li><a href="../Service area/service-area.html"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
-                    <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
-                    <li><a href="#" id="help-btn"><i class="fas fa-headset"></i> সহায়তা</a></li>
-                    <li><a href="../Profile/profile.html" id="profile-btn"><i class="fas fa-user-circle"></i> প্রোফাইল</a></li>
-                </ul>
-            </nav>
+            <nav class="main-nav">
+  <ul>
+    <li><a href="../Dashboard/dash.html"><i class="fas fa-home"></i> হোম</a></li>
+   <li><a href="../Service area/service-area.html"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
+ <li><a href="#" id="provider-btn"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
+    <li><a href="#" id="help-btn"><i class="fas fa-headset"></i> সহায়তা</a></li>
+    <li><a href="../Profile/profile.html"><i class="fas fa-user-circle"></i> প্রোফাইল</a></li>
+  </ul>
 
+<!-- Provider Modal -->
+<div id="provider-modal" class="provider-modal">
+  <div class="provider-modal-content">
+    <div class="provider-header">
+      <h2><i class="fas fa-users"></i> প্রোভাইডার তালিকা</h2>
+      <button class="close-provider-modal" id="close-provider-modal" title="বন্ধ করুন">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="provider-list">
+      <div class="provider-item">
+        <i class="fas fa-user-circle"></i>
+        <div>
+          <strong>মো. রফিকুল ইসলাম</strong><br>
+          <small>ইলেকট্রিশিয়ান • ঢাকা</small>
+        </div>
+      </div>
+      <div class="provider-item">
+        <i class="fas fa-user-circle"></i>
+        <div>
+          <strong>সাবরিনা আহমেদ</strong><br>
+          <small>প্লাম্বার • গাজীপুর</small>
+        </div>
+      </div>
+      <!-- Add more provider cards -->
+    </div>
+  </div>
+</div>
+
+</nav>
             <!-- Support Modal -->
             <div id="support-modal" class="support-modal">
                 <div class="support-modal-content">
