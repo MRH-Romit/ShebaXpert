@@ -1,335 +1,464 @@
 <!DOCTYPE html>
 <html lang="bn">
-<head>  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Sheba Expert - সার্ভিস প্রোভাইডার ড্যাশবোর্ড</title>    <!-- Load Leaflet CSS first from multiple sources for reliability -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
-          crossorigin=""/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sheba Expert - সার্ভিস প্রোভাইডার ড্যাশবোর্ড</title>
+    <!-- Load Leaflet CSS first from multiple sources for reliability -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <script>
-        // Cache busting for custom CSS - load after Leaflet CSS
-        const cssTimestamp = new Date().getTime();
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = `styles.css?v=${cssTimestamp}`;
-        document.head.appendChild(link);
+      // Cache busting for custom CSS - load after Leaflet CSS
+      const cssTimestamp = new Date().getTime();
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = `styles.css?v=${cssTimestamp}`;
+      document.head.appendChild(link);
     </script>
-</head>
-<body>
-<header class="main-header">
-    <div class="header-container">
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-container">
         <div class="logo-title">
-            <img class="logo-container" src="../Resources/images/justlogo.png" alt="Sheba Expert Logo">
-            <h2>সেবাXpert</h2>
+          <img
+            class="logo-container"
+            src="../Resources/images/justlogo.png"
+            alt="Sheba Expert Logo"
+          />
+          <h2>সেবাXpert</h2>
         </div>
 
-        <div class="nav-profile-container"> <!-- New wrapper -->
-            <nav class="main-nav">                <ul>
-                    <li><a href="#"><i class="fas fa-home"></i> হোম</a></li>
-                    <li><a href="../Service area/service-area.html"><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a></li>
-                    <li><a href="#"><i class="fas fa-users"></i> প্রোভাইডার</a></li>
-                    <li><a href="#" id="help-btn"><i class="fas fa-headset"></i> সহায়তা</a></li>
-                    <li><a href="../Profile/profile.html" id="profile-btn"><i class="fas fa-user-circle"></i> প্রোফাইল</a></li>
-                </ul>
-            </nav>
+        <div class="nav-profile-container">
+          <!-- New wrapper -->
+          <nav class="main-nav">
+            <ul>
+              <li>
+                <a href="../Dashboard/dash.html"
+                  ><i class="fas fa-home"></i> হোম</a
+                >
+              </li>
+              <li>
+                <a href="../Service area/service-area.html"
+                  ><i class="fas fa-map-marked-alt"></i> সার্ভিস এলাকা</a
+                >
+              </li>
+              <li>
+                <a href="#" id="provider-btn"
+                  ><i class="fas fa-users"></i> প্রোভাইডার</a
+                >
+              </li>
+              <li>
+                <a href="#" id="help-btn"
+                  ><i class="fas fa-headset"></i> সহায়তা</a
+                >
+              </li>
+              <li>
+                <a href="../Profile/profile.html"
+                  ><i class="fas fa-user-circle"></i> প্রোফাইল</a
+                >
+              </li>
+            </ul>
 
-            <!-- Support Modal -->
-            <div id="support-modal" class="support-modal">
-                <div class="support-modal-content">
-                    <div class="support-header">
-                        <h2><i class="fas fa-headset"></i> সহায়তা কেন্দ্র</h2>                        <button class="close-modal" id="close-support-modal" title="বন্ধ করুন">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="support-content">
-                        <!-- Emergency Contact Section -->
-                        <div class="support-section emergency-section">
-                            <h3><i class="fas fa-exclamation-triangle"></i> জরুরি যোগাযোগ</h3>
-                            <div class="emergency-buttons">
-                                <button class="emergency-btn fire" onclick="makeEmergencyCall('999')">
-                                    <i class="fas fa-fire"></i>
-                                    <span>ফায়ার সার্ভিস</span>
-                                    <small>999</small>
-                                </button>
-                                <button class="emergency-btn police" onclick="makeEmergencyCall('999')">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>পুলিশ</span>
-                                    <small>999</small>
-                                </button>
-                                <button class="emergency-btn ambulance" onclick="makeEmergencyCall('999')">
-                                    <i class="fas fa-ambulance"></i>
-                                    <span>অ্যাম্বুলেন্স</span>
-                                    <small>999</small>
-                                </button>
-                                <button class="emergency-btn electric" onclick="makeEmergencyCall('16123')">
-                                    <i class="fas fa-bolt"></i>
-                                    <span>বিদ্যুৎ জরুরি</span>
-                                    <small>16123</small>
-                                </button>
-                                <button class="emergency-btn gas" onclick="makeEmergencyCall('16580')">
-                                    <i class="fas fa-fire-flame-curved"></i>
-                                    <span>গ্যাস জরুরি</span>
-                                    <small>16580</small>
-                                </button>
-                                <button class="emergency-btn water" onclick="makeEmergencyCall('16162')">
-                                    <i class="fas fa-faucet"></i>
-                                    <span>পানি জরুরি</span>
-                                    <small>16162</small>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Quick Support Options -->
-                        <div class="support-section quick-support">
-                            <h3><i class="fas fa-rocket"></i> দ্রুত সহায়তা</h3>
-                            <div class="quick-support-grid">
-                                <button class="support-option" id="talk-with-agent">
-                                    <i class="fas fa-comments"></i>
-                                    <span>এজেন্টের সাথে কথা বলুন</span>
-                                    <small>২৪/৭ সেবা</small>
-                                </button>
-                                <button class="support-option" id="call-support">
-                                    <i class="fas fa-phone"></i>
-                                    <span>কল করুন</span>
-                                    <small>+8801700000000</small>
-                                </button>
-                                <button class="support-option" id="whatsapp-support">
-                                    <i class="fab fa-whatsapp"></i>
-                                    <span>হোয়াটসঅ্যাপ</span>
-                                    <small>তাৎক্ষণিক উত্তর</small>
-                                </button>
-                                <button class="support-option" id="email-support">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>ইমেইল করুন</span>
-                                    <small>support@shebaexpert.com</small>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- FAQ Section -->
-                        <div class="support-section faq-section">
-                            <h3><i class="fas fa-question-circle"></i> সচরাচর জিজ্ঞাসা</h3>
-                            <div class="faq-list">
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>কিভাবে সার্ভিস বুক করবো?</span>
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                    <div class="faq-answer">
-                                        ম্যাপে আপনার পছন্দের সেবা প্রদানকারী খুঁজুন, তাদের প্রোফাইলে ক্লিক করুন এবং "যোগাযোগ করুন" বাটনে চাপুন。
-                                    </div>
-                                </div>
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>পেমেন্ট কিভাবে করবো?</span>
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                    <div class="faq-answer">
-                                        আমরা বিকাশ, নগদ, রকেট এবং ক্যাশ অন ডেলিভারি সুবিধা প্রদান করি。
-                                    </div>
-                                </div>
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>সার্ভিস ক্যান্সেল করতে চাইলে?</span>
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                    <div class="faq-answer">
-                                        সার্ভিস শুরুর ২ ঘন্টা আগে পর্যন্ত বিনামূল্যে ক্যান্সেল করতে পারবেন。
-                                    </div>
-                                </div>
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>সার্ভিস কোয়ালিটি নিয়ে অভিযোগ?</span>
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                    <div class="faq-answer">
-                                        আমাদের কাস্টমার সাপোর্টে যোগাযোগ করুন। আমরা ৭২ ঘন্টার মধ্যে সমাধান নিশ্চিত করি。
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Report Issues -->
-                        <div class="support-section report-section">
-                            <h3><i class="fas fa-flag"></i> সমস্যা রিপোর্ট করুন</h3>
-                            <div class="report-buttons">
-                                <button class="report-btn service-issue">
-                                    <i class="fas fa-tools"></i>
-                                    <span>সার্ভিস সমস্যা</span>
-                                </button>
-                                <button class="report-btn payment-issue">
-                                    <i class="fas fa-credit-card"></i>
-                                    <span>পেমেন্ট সমস্যা</span>
-                                </button>
-                                <button class="report-btn provider-issue">
-                                    <i class="fas fa-user-times"></i>
-                                    <span>প্রদানকারী অভিযোগ</span>
-                                </button>
-                                <button class="report-btn app-issue">
-                                    <i class="fas fa-bug"></i>
-                                    <span>অ্যাপ সমস্যা</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Help Resources -->
-                        <div class="support-section resources-section">
-                            <h3><i class="fas fa-book"></i> সহায়ক তথ্য</h3>
-                            <div class="resource-links">
-                                <a href="#" class="resource-link">
-                                    <i class="fas fa-file-alt"></i>
-                                    <span>ব্যবহারের নিয়মাবলী</span>
-                                </a>
-                                <a href="#" class="resource-link">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>গোপনীয়তা নীতি</span>
-                                </a>
-                                <a href="#" class="resource-link">
-                                    <i class="fas fa-star"></i>
-                                    <span>রেটিং গাইড</span>
-                                </a>
-                                <a href="#" class="resource-link">
-                                    <i class="fas fa-graduation-cap"></i>
-                                    <span>টিউটোরিয়াল</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Provider Modal -->
+            <div id="provider-modal" class="provider-modal">
+              <div class="provider-modal-content">
+                <div class="provider-header">
+                  <h2><i class="fas fa-users"></i> প্রোভাইডার তালিকা</h2>
+                  <button
+                    class="close-provider-modal"
+                    id="close-provider-modal"
+                    title="বন্ধ করুন"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
+                <div class="provider-list">
+                  <div class="provider-item">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                      <strong>মো. রফিকুল ইসলাম</strong><br />
+                      <small>ইলেকট্রিশিয়ান • ঢাকা</small>
+                    </div>
+                  </div>
+                  <div class="provider-item">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                      <strong>সাবরিনা আহমেদ</strong><br />
+                      <small>প্লাম্বার • গাজীপুর</small>
+                    </div>
+                  </div>
+                  <!-- Add more provider cards -->
+                </div>
+              </div>
             </div>
+          </nav>
+          <!-- Support Modal -->
+          <div id="support-modal" class="support-modal">
+            <div class="support-modal-content">
+              <div class="support-header">
+                <h2><i class="fas fa-headset"></i> সহায়তা কেন্দ্র</h2>
+                <button
+                  class="close-modal"
+                  id="close-support-modal"
+                  title="বন্ধ করুন"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
 
-            <!-- Chat Widget (for Talk with Agent) -->
-            <div id="chat-widget" class="chat-widget">
-                <div class="chat-header">
-                    <div class="agent-info">
-                        <div class="agent-avatar">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="agent-details">
-                            <span class="agent-name">সাপোর্ট এজেন্ট</span>
-                            <span class="agent-status">অনলাইন</span>
-                        </div>
-                    </div>                    <button class="close-chat" id="close-chat" title="চ্যাট বন্ধ করুন">
-                        <i class="fas fa-times"></i>
+              <div class="support-content">
+                <!-- Emergency Contact Section -->
+                <div class="support-section emergency-section">
+                  <h3>
+                    <i class="fas fa-exclamation-triangle"></i> জরুরি যোগাযোগ
+                  </h3>
+                  <div class="emergency-buttons">
+                    <button
+                      class="emergency-btn fire"
+                      onclick="makeEmergencyCall('999')"
+                    >
+                      <i class="fas fa-fire"></i>
+                      <span>ফায়ার সার্ভিস</span>
+                      <small>999</small>
                     </button>
+                    <button
+                      class="emergency-btn police"
+                      onclick="makeEmergencyCall('999')"
+                    >
+                      <i class="fas fa-shield-alt"></i>
+                      <span>পুলিশ</span>
+                      <small>999</small>
+                    </button>
+                    <button
+                      class="emergency-btn ambulance"
+                      onclick="makeEmergencyCall('999')"
+                    >
+                      <i class="fas fa-ambulance"></i>
+                      <span>অ্যাম্বুলেন্স</span>
+                      <small>999</small>
+                    </button>
+                    <button
+                      class="emergency-btn electric"
+                      onclick="makeEmergencyCall('16123')"
+                    >
+                      <i class="fas fa-bolt"></i>
+                      <span>বিদ্যুৎ জরুরি</span>
+                      <small>16123</small>
+                    </button>
+                    <button
+                      class="emergency-btn gas"
+                      onclick="makeEmergencyCall('16580')"
+                    >
+                      <i class="fas fa-fire-flame-curved"></i>
+                      <span>গ্যাস জরুরি</span>
+                      <small>16580</small>
+                    </button>
+                    <button
+                      class="emergency-btn water"
+                      onclick="makeEmergencyCall('16162')"
+                    >
+                      <i class="fas fa-faucet"></i>
+                      <span>পানি জরুরি</span>
+                      <small>16162</small>
+                    </button>
+                  </div>
                 </div>
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message agent-message">
-                        <div class="message-content">
-                            আস্সালামু আলাইকুম! আমি আপনাকে কিভাবে সাহায্য করতে পারি?
-                        </div>
-                        <div class="message-time">এখনই</div>
+
+                <!-- Quick Support Options -->
+                <div class="support-section quick-support">
+                  <h3><i class="fas fa-rocket"></i> দ্রুত সহায়তা</h3>
+                  <div class="quick-support-grid">
+                    <button class="support-option" id="talk-with-agent">
+                      <i class="fas fa-comments"></i>
+                      <span>এজেন্টের সাথে কথা বলুন</span>
+                      <small>২৪/৭ সেবা</small>
+                    </button>
+                    <button class="support-option" id="call-support">
+                      <i class="fas fa-phone"></i>
+                      <span>কল করুন</span>
+                      <small>+8801700000000</small>
+                    </button>
+                    <button class="support-option" id="whatsapp-support">
+                      <i class="fab fa-whatsapp"></i>
+                      <span>হোয়াটসঅ্যাপ</span>
+                      <small>তাৎক্ষণিক উত্তর</small>
+                    </button>
+                    <button class="support-option" id="email-support">
+                      <i class="fas fa-envelope"></i>
+                      <span>ইমেইল করুন</span>
+                      <small>support@shebaexpert.com</small>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="section">
+                  <div class="section-header">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>সচরাচর জিজ্ঞাসা</h3>
+                  </div>
+                  <div class="section-body">
+                    <div class="faq-item">
+                      <div class="faq-question">
+                        <span>কিভাবে সার্ভিস বুক করবো?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                      </div>
+                      <div class="faq-answer">
+                        ম্যাপে আপনার পছন্দের সেবা প্রদানকারী খুঁজুন, তাদের
+                        প্রোফাইলে ক্লিক করুন এবং "যোগাযোগ করুন" বাটনে চাপুন।
+                        সরাসরি কল বা মেসেজের মাধ্যমে সেবা বুকিং সম্পন্ন করুন।
+                      </div>
                     </div>
+                    <div class="faq-item">
+                      <div class="faq-question">
+                        <span>পেমেন্ট কিভাবে করবো?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                      </div>
+                      <div class="faq-answer">
+                        আমরা বিকাশ, নগদ, রকেট এবং ক্যাশ অন ডেলিভারি সুবিধা
+                        প্রদান করি। সেবা প্রদানকারীর সাথে সরাসরি পেমেন্ট পদ্ধতি
+                        নিয়ে আলোচনা করতে পারেন।
+                      </div>
+                    </div>
+                    <div class="faq-item">
+                      <div class="faq-question">
+                        <span>সার্ভিস ক্যান্সেল করতে চাইলে?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                      </div>
+                      <div class="faq-answer">
+                        সার্ভিস শুরুর ২ ঘন্টা আগে পর্যন্ত বিনামূল্যে ক্যান্সেল
+                        করতে পারবেন। সরাসরি সেবা প্রদানকারীকে কল করে ক্যান্সেল
+                        করতে হবে।
+                      </div>
+                    </div>
+                    <div class="faq-item">
+                      <div class="faq-question">
+                        <span>সার্ভিস কোয়ালিটি নিয়ে অভিযোগ?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                      </div>
+                      <div class="faq-answer">
+                        আমাদের কাস্টমার সাপোর্টে যোগাযোগ করুন। আমরা ৭২ ঘন্টার
+                        মধ্যে সমাধান নিশ্চিত করি। অভিযোগের প্রমাণস্বরূপ ছবি বা
+                        ভিডিও জমা দিতে পারেন।
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="chat-input-container">
-                    <input type="text" id="chat-input" placeholder="আপনার প্রশ্ন লিখুন..." />                    <button id="send-message" title="বার্তা পাঠান">
-                        <i class="fas fa-paper-plane"></i>
+
+                <!-- Report Issues -->
+                <div class="support-section report-section">
+                  <h3><i class="fas fa-flag"></i> সমস্যা রিপোর্ট করুন</h3>
+                  <div class="report-buttons">
+                    <button class="report-btn service-issue">
+                      <i class="fas fa-tools"></i>
+                      <span>সার্ভিস সমস্যা</span>
                     </button>
+                    <button class="report-btn payment-issue">
+                      <i class="fas fa-credit-card"></i>
+                      <span>পেমেন্ট সমস্যা</span>
+                    </button>
+                    <button class="report-btn provider-issue">
+                      <i class="fas fa-user-times"></i>
+                      <span>প্রদানকারী অভিযোগ</span>
+                    </button>
+                    <button class="report-btn app-issue">
+                      <i class="fas fa-bug"></i>
+                      <span>অ্যাপ সমস্যা</span>
+                    </button>
+                  </div>
                 </div>
+
+                <!-- Help Resources -->
+                <div class="support-section resources-section">
+                  <h3><i class="fas fa-book"></i> সহায়ক তথ্য</h3>
+                  <div class="resource-links">
+                    <a href="#" class="resource-link">
+                      <i class="fas fa-file-alt"></i>
+                      <span>ব্যবহারের নিয়মাবলী</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                      <i class="fas fa-shield-alt"></i>
+                      <span>গোপনীয়তা নীতি</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                      <i class="fas fa-star"></i>
+                      <span>রেটিং গাইড</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                      <i class="fas fa-graduation-cap"></i>
+                      <span>টিউটোরিয়াল</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div> <!-- End nav-profile-container -->
+          </div>
 
-    </div>
-</header>
-
+          <!-- Chat Widget (for Talk with Agent) -->
+          <div id="chat-widget" class="chat-widget">
+            <div class="chat-header">
+              <div class="agent-info">
+                <div class="agent-avatar">
+                  <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="agent-details">
+                  <span class="agent-name">সাপোর্ট এজেন্ট</span>
+                  <span class="agent-status">অনলাইন</span>
+                </div>
+              </div>
+              <button
+                class="close-chat"
+                id="close-chat"
+                title="চ্যাট বন্ধ করুন"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+              <div class="message agent-message">
+                <div class="message-content">
+                  আস্সালামু আলাইকুম! আমি আপনাকে কিভাবে সাহায্য করতে পারি?
+                </div>
+                <div class="message-time">এখনই</div>
+              </div>
+            </div>
+            <div class="chat-input-container">
+              <input
+                type="text"
+                id="chat-input"
+                placeholder="আপনার প্রশ্ন লিখুন..."
+              />
+              <button id="send-message" title="বার্তা পাঠান">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- End nav-profile-container -->
+      </div>
+    </header>
 
     <!-- Main Content -->
     <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="dashboard-sidebar">
-            <div class="search-panel">
-                <h3><i class="fas fa-search-location"></i> এলাকা অনুসন্ধান করুন</h3>
-                <input type="text" class="input-field" placeholder="স্থানের নাম লিখুন">
-                <button class="search-button"><i class="fas fa-search"></i> অনুসন্ধান করুন</button>
+      <!-- Sidebar -->
+      <aside class="dashboard-sidebar">
+        <div class="search-panel">
+          <h3><i class="fas fa-search-location"></i> এলাকা অনুসন্ধান করুন</h3>
+          <input
+            type="text"
+            class="input-field"
+            placeholder="স্থানের নাম লিখুন"
+          />
+          <button class="search-button">
+            <i class="fas fa-search"></i> অনুসন্ধান করুন
+          </button>
+        </div>
+
+        <div class="service-categories">
+          <h3><i class="fas fa-list-ul"></i> সেবার ধরণ নির্বাচন করুন</h3>
+          <div class="category-list">
+            <div class="category-item active">
+              <i class="fas fa-bolt"></i>
+              <span>ইলেকট্রিশিয়ান</span>
             </div>
-            
-            <div class="service-categories">
-                <h3><i class="fas fa-list-ul"></i> সেবার ধরণ নির্বাচন করুন</h3>
-                <div class="category-list">
-                    <div class="category-item active">
-                        <i class="fas fa-bolt"></i>
-                        <span>ইলেকট্রিশিয়ান</span>
-                    </div>
-                    <div class="category-item">
-                        <i class="fas fa-faucet"></i>
-                        <span>প্লাম্বার</span>
-                    </div>
-                    <div class="category-item">
-                        <i class="fas fa-wind"></i>
-                        <span>এসি সার্ভিস</span>
-                    </div>
-                    <div class="category-item">
-                        <i class="fas fa-hammer"></i>
-                        <span>গৃহস্থালি মেরামত</span>
-                    </div>
-                    <div class="category-item">
-                        <i class="fas fa-paint-roller"></i>
-                        <span>পেইন্টিং</span>
-                    </div>
-                    <div class="category-item">
-                        <i class="fas fa-people-carry"></i>
-                        <span>কার্পেন্টার</span>
-                    </div>
-                </div>
+            <div class="category-item">
+              <i class="fas fa-faucet"></i>
+              <span>প্লাম্বার</span>
             </div>
-        </aside>
-          <!-- Map Area -->
-        <main class="dashboard-main">
-            <div class="map-container">
-                <button id="show-my-location" class="location-btn">
-                    <i class="fas fa-location-arrow"></i>
-                    <span>আমার অবস্থান</span>
-                </button>
-                <div class="map-info-overlay">
-                    <h4><i class="fas fa-map-marker-alt"></i> সেবা প্রদানকারী</h4>
-                    <p>আপনার আশেপাশের সেবা প্রদানকারীদের খুঁজুন</p>
-                </div>
-                <div id="mapid"></div>
+            <div class="category-item">
+              <i class="fas fa-wind"></i>
+              <span>এসি সার্ভিস</span>
             </div>
-        </main>
+            <div class="category-item">
+              <i class="fas fa-hammer"></i>
+              <span>গৃহস্থালি মেরামত</span>
+            </div>
+            <div class="category-item">
+              <i class="fas fa-paint-roller"></i>
+              <span>পেইন্টিং</span>
+            </div>
+            <div class="category-item">
+              <i class="fas fa-people-carry"></i>
+              <span>কার্পেন্টার</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <!-- Map Area -->
+      <main class="dashboard-main">
+        <div class="map-container">
+          <button id="show-my-location" class="location-btn">
+            <i class="fas fa-location-arrow"></i>
+            <span>আমার অবস্থান</span>
+          </button>
+          <div class="map-info-overlay">
+            <h4><i class="fas fa-map-marker-alt"></i> সেবা প্রদানকারী</h4>
+            <p>আপনার আশেপাশের সেবা প্রদানকারীদের খুঁজুন</p>
+          </div>
+          <div id="mapid"></div>
+        </div>
+      </main>
     </div>
 
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>Sheba Expert</h4>
-                <p>আপনার ঘরের সব সমস্যার একমাত্র সমাধান</p>                <div class="social-links">
-                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>লিংক</h4>
-                <ul>
-                    <li><a href="#">হোম</a></li>
-                    <li><a href="#">সার্ভিস সমূহ</a></li>
-                    <li><a href="#">প্রোভাইডার</a></li>
-                    <li><a href="#">যোগাযোগ</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>যোগাযোগ</h4>
-                <p><i class="fas fa-map-marker-alt"></i> ১২৩ রোড, ঢাকা, বাংলাদেশ</p>
-                <p><i class="fas fa-phone"></i> +৮৮০ ১২৩৪ ৫৬৭৮৯</p>
-                <p><i class="fas fa-envelope"></i> info@shebaexpert.com</p>
-            </div>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h4>Sheba Expert</h4>
+          <p>আপনার ঘরের সব সমস্যার একমাত্র সমাধান</p>
+          <div class="social-links">
+            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; ২০২৩ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
+        <div class="footer-section">
+          <h4>লিংক</h4>
+          <ul>
+            <li><a href="#">হোম</a></li>
+            <li><a href="#">সার্ভিস সমূহ</a></li>
+            <li><a href="#">প্রোভাইডার</a></li>
+            <li><a href="#">যোগাযোগ</a></li>
+          </ul>
         </div>
-    </footer>    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
+        <div class="footer-section">
+          <h4>যোগাযোগ</h4>
+          <p><i class="fas fa-map-marker-alt"></i> ১২৩ রোড, ঢাকা, বাংলাদেশ</p>
+          <p><i class="fas fa-phone"></i> +৮৮০ ১২৩৪ ৫৬৭৮৯</p>
+          <p><i class="fas fa-envelope"></i> info@shebaexpert.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; ২০২৩ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
+      </div>
+    </footer>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script>
-        // Cache busting for development
-        const jsTimestamp = new Date().getTime();
-        const scriptTag = document.createElement('script');
-        scriptTag.src = `script.js?v=${jsTimestamp}`;
-        document.head.appendChild(scriptTag);
+      // FAQ toggle functionality
+      document.querySelectorAll(".faq-question").forEach((question) => {
+        question.addEventListener("click", () => {
+          const item = question.closest(".faq-item");
+          item.classList.toggle("active");
+        });
+      });
+      // Cache busting for development
+      const jsTimestamp = new Date().getTime();
+      const scriptTag = document.createElement("script");
+      scriptTag.src = `script.js?v=${jsTimestamp}`;
+      document.head.appendChild(scriptTag);
     </script>
-</body>
+  </body>
 </html>
