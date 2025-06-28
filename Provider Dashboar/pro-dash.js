@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // User data object to keep information synchronized
+    const userData = {
+        name: 'আপনার নাম',
+        email: 'yourname@example.com',
+        phone: '০১৭১২৩৪৫৬৭৮',
+        profession: 'ইলেকট্রিশিয়ান',
+        experience: '৫ বছর',
+        areas: 'ঢাকা, নারায়ণগঞ্জ, গাজীপুর',
+        about: 'আমি একজন দক্ষ ও প্রশিক্ষিত ইলেকট্রিশিয়ান। ৫ বছরের বেশি অভিজ্ঞতা রয়েছে ঘরোয়া ও বাণিজ্যিক ইলেকট্রিক্যাল কাজে। সৎ ও বিশ্বস্তভাবে কাজ করাই আমার নীতি।',
+        profileImage: '/ShebaXpert/Resources/images/default-profile.png'
+    };
+
     // Mobile menu toggle
     const mobileMenuBtn = document.createElement('div');
     mobileMenuBtn.className = 'mobile-menu-btn';
@@ -80,6 +92,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 headerTitle.textContent = 'ড্যাশবোর্ড';
                 showDashboard();
         }
+        
+        // Update user name in header
+        updateUserName();
+    }
+
+    // Update user name in header
+    function updateUserName() {
+        const userNameElements = document.querySelectorAll('.user-name');
+        userNameElements.forEach(element => {
+            element.textContent = userData.name;
+        });
+        
+        const profileImageElements = document.querySelectorAll('.profile-image img, .user-profile img');
+        profileImageElements.forEach(element => {
+            element.src = userData.profileImage;
+            element.alt = userData.name;
+        });
     }
 
     // Dashboard content
@@ -245,18 +274,20 @@ document.addEventListener('DOMContentLoaded', function() {
         initDashboard();
     }
 
-    // Profile content
+    // Profile content - Redesigned
     function showProfile() {
         const dashboardContent = document.querySelector('.dashboard-content');
         dashboardContent.innerHTML = `
             <div class="profile-section">
                 <div class="profile-header">
-                    <div class="profile-image">
-                        <img src="profile.jpg" alt="প্রোফাইল ছবি">
-                        <button class="edit-btn" id="change-profile-pic"><i class="fas fa-camera"></i> ছবি পরিবর্তন</button>
-                    </div>
-                    <div class="profile-info">
-                        <h2>আপনার নাম</h2>
+                    <div class="profile-image-container">
+                        <div class="profile-image">
+                            <img src="${userData.profileImage}" alt="প্রোফাইল ছবি">
+                            <button class="edit-icon" id="change-profile-pic">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2 class="user-name">${userData.name}</h2>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -265,55 +296,79 @@ document.addEventListener('DOMContentLoaded', function() {
                             <i class="fas fa-star-half-alt"></i>
                             <span>৪.৭ (১২৩ রিভিউ)</span>
                         </div>
-                        <p class="expert-type">ইলেকট্রিশিয়ান</p>
+                        <p class="expert-type">${userData.profession}</p>
                     </div>
                 </div>
                 
-                <div class="profile-details">
-                    <div class="detail-card">
-                        <h3><i class="fas fa-user"></i> ব্যক্তিগত তথ্য</h3>
+                <div class="profile-tabs">
+                    <div class="tab active" data-tab="personal">ব্যক্তিগত তথ্য</div>
+                    <div class="tab" data-tab="professional">পেশাগত তথ্য</div>
+                    <div class="tab" data-tab="about">সম্পর্কে</div>
+                </div>
+                
+                <div class="profile-content">
+                    <div class="tab-content active" id="personal">
                         <div class="detail-item">
-                            <span class="detail-label">নাম:</span>
-                            <span class="detail-value" id="profile-name">আপনার নাম</span>
+                            <label>নাম:</label>
+                            <div class="detail-value" id="profile-name">${userData.name}</div>
+                            <button class="edit-btn" id="edit-name"><i class="fas fa-edit"></i></button>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">ইমেইল:</span>
-                            <span class="detail-value" id="profile-email">yourname@example.com</span>
+                            <label>ইমেইল:</label>
+                            <div class="detail-value" id="profile-email">${userData.email}</div>
+                            <button class="edit-btn" id="edit-email"><i class="fas fa-edit"></i></button>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">ফোন:</span>
-                            <span class="detail-value" id="profile-phone">০১৭১২৩৪৫৬৭৮</span>
+                            <label>ফোন:</label>
+                            <div class="detail-value" id="profile-phone">${userData.phone}</div>
+                            <button class="edit-btn" id="edit-phone"><i class="fas fa-edit"></i></button>
                         </div>
-                        <button class="edit-btn" id="edit-personal-info"><i class="fas fa-edit"></i> সম্পাদনা</button>
                     </div>
                     
-                    <div class="detail-card">
-                        <h3><i class="fas fa-briefcase"></i> পেশাগত তথ্য</h3>
+                    <div class="tab-content" id="professional">
                         <div class="detail-item">
-                            <span class="detail-label">পেশা:</span>
-                            <span class="detail-value" id="profile-profession">ইলেকট্রিশিয়ান</span>
+                            <label>পেশা:</label>
+                            <div class="detail-value" id="profile-profession">${userData.profession}</div>
+                            <button class="edit-btn" id="edit-profession"><i class="fas fa-edit"></i></button>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">অভিজ্ঞতা:</span>
-                            <span class="detail-value" id="profile-experience">৫ বছর</span>
+                            <label>অভিজ্ঞতা:</label>
+                            <div class="detail-value" id="profile-experience">${userData.experience}</div>
+                            <button class="edit-btn" id="edit-experience"><i class="fas fa-edit"></i></button>
                         </div>
                         <div class="detail-item">
-                            <span class="detail-label">সার্ভিস এরিয়া:</span>
-                            <span class="detail-value" id="profile-areas">ঢাকা, নারায়ণগঞ্জ, গাজীপুর</span>
+                            <label>সার্ভিস এরিয়া:</label>
+                            <div class="detail-value" id="profile-areas">${userData.areas}</div>
+                            <button class="edit-btn" id="edit-areas"><i class="fas fa-edit"></i></button>
                         </div>
-                        <button class="edit-btn" id="edit-professional-info"><i class="fas fa-edit"></i> সম্পাদনা</button>
                     </div>
                     
-                    <div class="detail-card full-width">
-                        <h3><i class="fas fa-info-circle"></i> সম্পর্কে</h3>
-                        <p id="profile-about">আমি একজন দক্ষ ও প্রশিক্ষিত ইলেকট্রিশিয়ান। ৫ বছরের বেশি অভিজ্ঞতা রয়েছে ঘরোয়া ও বাণিজ্যিক ইলেকট্রিক্যাল কাজে। সৎ ও বিশ্বস্তভাবে কাজ করাই আমার নীতি।</p>
-                        <button class="edit-btn" id="edit-about"><i class="fas fa-edit"></i> সম্পাদনা</button>
+                    <div class="tab-content" id="about">
+                        <div class="about-content">
+                            <div class="detail-value" id="profile-about">${userData.about}</div>
+                            <button class="edit-btn" id="edit-about"><i class="fas fa-edit"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
         `;
         
-        // Profile edit functionality
+        // Initialize profile tabs
+        const profileTabs = document.querySelectorAll('.profile-tabs .tab');
+        profileTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                profileTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const tabId = this.getAttribute('data-tab');
+                document.querySelectorAll('.profile-content .tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Change profile picture
         document.getElementById('change-profile-pic').addEventListener('click', function() {
             const input = document.createElement('input');
             input.type = 'file';
@@ -323,7 +378,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (event) => {
+                        userData.profileImage = event.target.result;
                         document.querySelector('.profile-image img').src = event.target.result;
+                        updateUserName();
                     };
                     reader.readAsDataURL(file);
                 }
@@ -331,71 +388,145 @@ document.addEventListener('DOMContentLoaded', function() {
             input.click();
         });
         
-        // Edit personal info
-        document.getElementById('edit-personal-info').addEventListener('click', function() {
-            const name = document.getElementById('profile-name');
-            const email = document.getElementById('profile-email');
-            const phone = document.getElementById('profile-phone');
+        // Edit name
+        document.getElementById('edit-name').addEventListener('click', function() {
+            const nameElement = document.getElementById('profile-name');
+            const currentName = nameElement.textContent;
             
-            const currentName = name.textContent;
-            const currentEmail = email.textContent;
-            const currentPhone = phone.textContent;
-            
-            name.innerHTML = `<input type="text" id="edit-name" value="${currentName}">`;
-            email.innerHTML = `<input type="email" id="edit-email" value="${currentEmail}">`;
-            phone.innerHTML = `<input type="tel" id="edit-phone" value="${currentPhone}">`;
+            nameElement.innerHTML = `<input type="text" id="edit-name-input" value="${currentName}">`;
             
             const saveBtn = document.createElement('button');
             saveBtn.className = 'save-btn';
-            saveBtn.innerHTML = '<i class="fas fa-save"></i> সেভ করুন';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i>';
             saveBtn.onclick = function() {
-                name.textContent = document.getElementById('edit-name').value;
-                email.textContent = document.getElementById('edit-email').value;
-                phone.textContent = document.getElementById('edit-phone').value;
+                const newName = document.getElementById('edit-name-input').value;
+                nameElement.textContent = newName;
+                userData.name = newName;
+                updateUserName();
                 this.remove();
-                document.getElementById('edit-personal-info').style.display = 'inline-block';
+                document.getElementById('edit-name').style.display = 'inline-block';
             };
             
             this.style.display = 'none';
             this.parentNode.appendChild(saveBtn);
         });
         
-        // Edit professional info
-        document.getElementById('edit-professional-info').addEventListener('click', function() {
-            const profession = document.getElementById('profile-profession');
-            const experience = document.getElementById('profile-experience');
-            const areas = document.getElementById('profile-areas');
+        // Edit email
+        document.getElementById('edit-email').addEventListener('click', function() {
+            const emailElement = document.getElementById('profile-email');
+            const currentEmail = emailElement.textContent;
             
-            const currentProfession = profession.textContent;
-            const currentExperience = experience.textContent;
-            const currentAreas = areas.textContent;
+            emailElement.innerHTML = `<input type="email" id="edit-email-input" value="${currentEmail}">`;
             
-            // Create profession dropdown
-            const professionSelect = document.createElement('select');
-            professionSelect.id = 'edit-profession';
+            const saveBtn = document.createElement('button');
+            saveBtn.className = 'save-btn';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+            saveBtn.onclick = function() {
+                const newEmail = document.getElementById('edit-email-input').value;
+                emailElement.textContent = newEmail;
+                userData.email = newEmail;
+                this.remove();
+                document.getElementById('edit-email').style.display = 'inline-block';
+            };
+            
+            this.style.display = 'none';
+            this.parentNode.appendChild(saveBtn);
+        });
+        
+        // Edit phone
+        document.getElementById('edit-phone').addEventListener('click', function() {
+            const phoneElement = document.getElementById('profile-phone');
+            const currentPhone = phoneElement.textContent;
+            
+            phoneElement.innerHTML = `<input type="tel" id="edit-phone-input" value="${currentPhone}">`;
+            
+            const saveBtn = document.createElement('button');
+            saveBtn.className = 'save-btn';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+            saveBtn.onclick = function() {
+                const newPhone = document.getElementById('edit-phone-input').value;
+                phoneElement.textContent = newPhone;
+                userData.phone = newPhone;
+                this.remove();
+                document.getElementById('edit-phone').style.display = 'inline-block';
+            };
+            
+            this.style.display = 'none';
+            this.parentNode.appendChild(saveBtn);
+        });
+        
+        // Edit profession
+        document.getElementById('edit-profession').addEventListener('click', function() {
+            const professionElement = document.getElementById('profile-profession');
+            const currentProfession = professionElement.textContent;
+            
+            const select = document.createElement('select');
+            select.id = 'edit-profession-select';
             ['ইলেকট্রিশিয়ান', 'প্লাম্বার', 'এসি টেকনিশিয়ান', 'ক্লিনার'].forEach(opt => {
                 const option = document.createElement('option');
                 option.value = opt;
                 option.textContent = opt;
                 if (opt === currentProfession) option.selected = true;
-                professionSelect.appendChild(option);
+                select.appendChild(option);
             });
             
-            profession.innerHTML = '';
-            profession.appendChild(professionSelect);
-            
-            experience.innerHTML = `<input type="text" id="edit-experience" value="${currentExperience}">`;
-            areas.innerHTML = `<input type="text" id="edit-areas" value="${currentAreas}">`;
+            professionElement.innerHTML = '';
+            professionElement.appendChild(select);
             
             const saveBtn = document.createElement('button');
             saveBtn.className = 'save-btn';
-            saveBtn.innerHTML = '<i class="fas fa-save"></i> সেভ করুন';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i>';
             saveBtn.onclick = function() {
-                profession.textContent = document.getElementById('edit-profession').value;
-                experience.textContent = document.getElementById('edit-experience').value;
-                areas.textContent = document.getElementById('edit-areas').value;
+                const newProfession = document.getElementById('edit-profession-select').value;
+                professionElement.textContent = newProfession;
+                userData.profession = newProfession;
+                document.querySelector('.expert-type').textContent = newProfession;
                 this.remove();
-                document.getElementById('edit-professional-info').style.display = 'inline-block';
+                document.getElementById('edit-profession').style.display = 'inline-block';
+            };
+            
+            this.style.display = 'none';
+            this.parentNode.appendChild(saveBtn);
+        });
+        
+        // Edit experience
+        document.getElementById('edit-experience').addEventListener('click', function() {
+            const experienceElement = document.getElementById('profile-experience');
+            const currentExperience = experienceElement.textContent;
+            
+            experienceElement.innerHTML = `<input type="text" id="edit-experience-input" value="${currentExperience}">`;
+            
+            const saveBtn = document.createElement('button');
+            saveBtn.className = 'save-btn';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+            saveBtn.onclick = function() {
+                const newExperience = document.getElementById('edit-experience-input').value;
+                experienceElement.textContent = newExperience;
+                userData.experience = newExperience;
+                this.remove();
+                document.getElementById('edit-experience').style.display = 'inline-block';
+            };
+            
+            this.style.display = 'none';
+            this.parentNode.appendChild(saveBtn);
+        });
+        
+        // Edit service areas
+        document.getElementById('edit-areas').addEventListener('click', function() {
+            const areasElement = document.getElementById('profile-areas');
+            const currentAreas = areasElement.textContent;
+            
+            areasElement.innerHTML = `<input type="text" id="edit-areas-input" value="${currentAreas}">`;
+            
+            const saveBtn = document.createElement('button');
+            saveBtn.className = 'save-btn';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i>';
+            saveBtn.onclick = function() {
+                const newAreas = document.getElementById('edit-areas-input').value;
+                areasElement.textContent = newAreas;
+                userData.areas = newAreas;
+                this.remove();
+                document.getElementById('edit-areas').style.display = 'inline-block';
             };
             
             this.style.display = 'none';
@@ -404,16 +535,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Edit about section
         document.getElementById('edit-about').addEventListener('click', function() {
-            const about = document.getElementById('profile-about');
-            const currentAbout = about.textContent;
+            const aboutElement = document.getElementById('profile-about');
+            const currentAbout = aboutElement.textContent;
             
-            about.innerHTML = `<textarea id="edit-about-text" rows="4">${currentAbout}</textarea>`;
+            aboutElement.innerHTML = `<textarea id="edit-about-text" rows="4">${currentAbout}</textarea>`;
             
             const saveBtn = document.createElement('button');
             saveBtn.className = 'save-btn';
-            saveBtn.innerHTML = '<i class="fas fa-save"></i> সেভ করুন';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i>';
             saveBtn.onclick = function() {
-                about.textContent = document.getElementById('edit-about-text').value;
+                const newAbout = document.getElementById('edit-about-text').value;
+                aboutElement.textContent = newAbout;
+                userData.about = newAbout;
                 this.remove();
                 document.getElementById('edit-about').style.display = 'inline-block';
             };
@@ -423,7 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Appointments content
+    // Appointments content with detailed view
     function showAppointments() {
         const dashboardContent = document.querySelector('.dashboard-content');
         dashboardContent.innerHTML = `
@@ -497,9 +630,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="header-item">অ্যাকশন</div>
                         </div>
                         
-                        <div class="appointment-item confirmed">
+                        <div class="appointment-item confirmed" data-id="1">
                             <div class="client-info">
-                                <img src="/ShebaXpert/Resources/images/man1.png" alt="ক্লায়েন্ট">
+                                <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ক্লায়েন্ট">
                                 <div>
                                     <h4>আব্দুল্লাহ আল মামুন</h4>
                                     <p><i class="fas fa-map-marker-alt"></i> মিরপুর, ঢাকা</p>
@@ -525,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         
-                        <div class="appointment-item pending">
+                        <div class="appointment-item pending" data-id="2">
                             <div class="client-info">
                                 <img src="/ShebaXpert/Resources/images/woman1.jpeg" alt="ক্লায়েন্ট">
                                 <div>
@@ -552,7 +685,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         
-                        <div class="appointment-item completed">
+                        <div class="appointment-item completed" data-id="3">
                             <div class="client-info">
                                 <img src="/ShebaXpert/Resources/images/man2.png" alt="ক্লায়েন্ট">
                                 <div>
@@ -579,9 +712,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         
-                        <div class="appointment-item cancelled">
+                        <div class="appointment-item cancelled" data-id="4">
                             <div class="client-info">
-                                <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ক্লায়েন্ট">
+                                <img src="/ShebaXpert/Resources/images/man4.jpeg" alt="ক্লায়েন্ট">
                                 <div>
                                     <h4>করিম উদ্দিন</h4>
                                     <p><i class="fas fa-map-marker-alt"></i> মোহাম্মদপুর, ঢাকা</p>
@@ -615,6 +748,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             </div>
+            
+            <!-- Appointment Detail Modal -->
+            <div class="modal" id="appointment-detail-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>অ্যাপয়েন্টমেন্ট বিস্তারিত</h3>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="appointment-detail-content">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
         `;
         
         // Appointment filter functionality
@@ -638,17 +784,211 @@ document.addEventListener('DOMContentLoaded', function() {
         // New appointment button
         document.getElementById('new-appointment-btn').addEventListener('click', function() {
             alert('নতুন অ্যাপয়েন্টমেন্ট ফর্ম খুলবে।');
-            // In a real app, you would show a modal or redirect to a form page
         });
         
-        // Appointment action buttons
+        // View appointment details
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const clientName = this.closest('.appointment-item').querySelector('.client-info h4').textContent;
-                alert(`${clientName}-এর অ্যাপয়েন্টমেন্ট বিস্তারিত দেখানো হচ্ছে।`);
+                const appointmentItem = this.closest('.appointment-item');
+                const appointmentId = appointmentItem.getAttribute('data-id');
+                showAppointmentDetails(appointmentId);
             });
         });
         
+        // Function to show appointment details
+        function showAppointmentDetails(appointmentId) {
+            const modal = document.getElementById('appointment-detail-modal');
+            const content = document.getElementById('appointment-detail-content');
+            
+            // Sample data - in a real app this would come from a database
+            const appointments = {
+                '1': {
+                    client: {
+                        name: 'আব্দুল্লাহ আল মামুন',
+                        image: '/ShebaXpert/Resources/images/man3.jpg',
+                        phone: '০১৭১২৩৪৫৬৭৮',
+                        address: 'মিরপুর ১০, রোড ৮, বাড়ি ১২, ঢাকা',
+                        email: 'abdullah@example.com'
+                    },
+                    service: 'ইলেকট্রিক্যাল মেরামত',
+                    date: 'আগামীকাল, ১০:০০ AM',
+                    duration: '২ ঘন্টা',
+                    status: 'নিশ্চিতকৃত',
+                    problem: 'বাসার মেইন লাইন থেকে বিদ্যুৎ আসছে না। কিছুদিন ধরে সমস্যা ছিল, আজ একদম চলে গেছে।',
+                    notes: 'ক্লায়েন্ট বলেছেন সকাল ১০টার পরে বাসায় থাকবেন। গেটের বেলটা কাজ করে না, তাই ফোন দিতে বলেছেন।'
+                },
+                '2': {
+                    client: {
+                        name: 'ফারহানা ইয়াসমিন',
+                        image: '/ShebaXpert/Resources/images/woman1.jpeg',
+                        phone: '০১৭৮৭৬৫৪৩২১',
+                        address: 'উত্তরা সেক্টর ৭, রোড ১২, বাড়ি ৫, ঢাকা',
+                        email: 'farhana@example.com'
+                    },
+                    service: 'লাইট ফিক্সিং',
+                    date: '১৫ই জুন, ২:০০ PM',
+                    duration: '১ ঘন্টা',
+                    status: 'পেন্ডিং',
+                    problem: 'বাসার একটি রুমের লাইট কাজ করছে না। নতুন বাল্ব লাগিয়েও কাজ হয়নি।',
+                    notes: 'ক্লায়েন্ট শুধু বিকালে সময় দিতে পারবেন। আগে ফোন করে নিশ্চিত হয়ে আসতে হবে।'
+                },
+                '3': {
+                    client: {
+                        name: 'রহিম উদ্দিন',
+                        image: '/ShebaXpert/Resources/images/man2.png',
+                        phone: '০১৯১২৩৪৫৬৭৮',
+                        address: 'ধানমন্ডি ৩২, রোড ৫, বাড়ি ১০, ঢাকা',
+                        email: 'rahim@example.com'
+                    },
+                    service: 'ফ্যান ইনস্টলেশন',
+                    date: '১০ই জুন, ১১:০০ AM',
+                    duration: '১.৫ ঘন্টা',
+                    status: 'সম্পন্ন',
+                    problem: 'নতুন ফ্যান কিনেছেন, ইনস্টলেশন প্রয়োজন। পুরাতন ফ্যানটি খুলে ফেলতে হবে।',
+                    notes: 'কাজ সম্পন্ন হয়েছে। ক্লায়েন্ট সন্তুষ্ট। পেমেন্ট নগদ নেওয়া হয়েছে।',
+                    review: {
+                        rating: 4.5,
+                        comment: 'খুব ভালো সার্ভিস পেয়েছি। সময়মতো কাজ শেষ করেছেন এবং দামও যুক্তিসঙ্গত। পরবর্তীতেও আপনার সেবা নিবো ইনশাআল্লাহ।'
+                    }
+                },
+                '4': {
+                    client: {
+                        name: 'করিম উদ্দিন',
+                        image: '/ShebaXpert/Resources/images/man4.jpeg',
+                        phone: '০১৮১২৩৪৫৬৭৮',
+                        address: 'মোহাম্মদপুর, রোড ১০, বাড়ি ২৫, ঢাকা',
+                        email: 'karim@example.com'
+                    },
+                    service: 'সকেট ইনস্টলেশন',
+                    date: '৫ই জুন, ৩:০০ PM',
+                    duration: '২ ঘন্টা',
+                    status: 'বাতিল',
+                    problem: 'নতুন সকেট লাগানো প্রয়োজন। ওয়াল মাউন্ট টাইপ চাচ্ছেন।',
+                    notes: 'ক্লায়েন্ট নিজেই সমস্যা সমাধান করে ফেলেছেন বলে বাতিল করেছেন।',
+                    cancelReason: 'আমি নিজেই সমস্যা সমাধান করে ফেলেছি।'
+                }
+            };
+            
+            const appointment = appointments[appointmentId];
+            
+            let reviewHTML = '';
+            if (appointment.review) {
+                reviewHTML = `
+                    <div class="detail-section">
+                        <h4>রিভিউ</h4>
+                        <div class="review-detail">
+                            <div class="rating">
+                                ${Array(5).fill().map((_, i) => 
+                                    `<i class="fas fa-star${i < Math.floor(appointment.review.rating) ? '' : (i < appointment.review.rating ? '-half-alt' : '')}"></i>`
+                                ).join('')}
+                                <span>${appointment.review.rating}</span>
+                            </div>
+                            <p>${appointment.review.comment}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            let cancelHTML = '';
+            if (appointment.cancelReason) {
+                cancelHTML = `
+                    <div class="detail-section">
+                        <h4>বাতিলের কারণ</h4>
+                        <p>${appointment.cancelReason}</p>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = `
+                <div class="client-detail">
+                    <div class="client-image">
+                        <img src="${appointment.client.image}" alt="${appointment.client.name}">
+                    </div>
+                    <div class="client-info">
+                        <h4>${appointment.client.name}</h4>
+                        <p><i class="fas fa-phone"></i> ${appointment.client.phone}</p>
+                        <p><i class="fas fa-envelope"></i> ${appointment.client.email}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${appointment.client.address}</p>
+                    </div>
+                </div>
+                
+                <div class="appointment-details">
+                    <div class="detail-section">
+                        <h4>সেবার বিবরণ</h4>
+                        <p><strong>সেবা:</strong> ${appointment.service}</p>
+                        <p><strong>তারিখ ও সময়:</strong> ${appointment.date}</p>
+                        <p><strong>সময়কাল:</strong> ${appointment.duration}</p>
+                        <p><strong>অবস্থা:</strong> ${appointment.status}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>সমস্যার বিবরণ</h4>
+                        <p>${appointment.problem}</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>নোটস</h4>
+                        <p>${appointment.notes}</p>
+                    </div>
+                    
+                    ${reviewHTML}
+                    ${cancelHTML}
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn secondary-btn close-modal-btn">বন্ধ করুন</button>
+                    ${appointment.status === 'পেন্ডিং' ? 
+                        '<button class="btn primary-btn confirm-appointment-btn">নিশ্চিত করুন</button>' : ''}
+                    ${appointment.status === 'নিশ্চিতকৃত' ? 
+                        '<button class="btn primary-btn complete-appointment-btn">সম্পন্ন করুন</button>' : ''}
+                </div>
+            `;
+            
+            // Show modal
+            modal.style.display = 'block';
+            
+            // Close modal handlers
+            document.querySelector('.close-modal').addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            document.querySelector('.close-modal-btn').addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            // Confirm appointment button
+            if (document.querySelector('.confirm-appointment-btn')) {
+                document.querySelector('.confirm-appointment-btn').addEventListener('click', () => {
+                    const appointmentItem = document.querySelector(`.appointment-item[data-id="${appointmentId}"]`);
+                    appointmentItem.classList.remove('pending');
+                    appointmentItem.classList.add('confirmed');
+                    appointmentItem.querySelector('.status-badge').innerHTML = '<i class="fas fa-check-circle"></i><span>নিশ্চিতকৃত</span>';
+                    alert('অ্যাপয়েন্টমেন্ট নিশ্চিত করা হয়েছে।');
+                    modal.style.display = 'none';
+                });
+            }
+            
+            // Complete appointment button
+            if (document.querySelector('.complete-appointment-btn')) {
+                document.querySelector('.complete-appointment-btn').addEventListener('click', () => {
+                    const appointmentItem = document.querySelector(`.appointment-item[data-id="${appointmentId}"]`);
+                    appointmentItem.classList.remove('confirmed');
+                    appointmentItem.classList.add('completed');
+                    appointmentItem.querySelector('.status-badge').innerHTML = '<i class="fas fa-calendar-check"></i><span>সম্পন্ন</span>';
+                    alert('অ্যাপয়েন্টমেন্ট সম্পন্ন হিসেবে চিহ্নিত করা হয়েছে।');
+                    modal.style.display = 'none';
+                });
+            }
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // Other appointment action buttons
         document.querySelectorAll('.chat-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const clientName = this.closest('.appointment-item').querySelector('.client-info h4').textContent;
@@ -689,8 +1029,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.querySelectorAll('.review-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const clientName = this.closest('.appointment-item').querySelector('.client-info h4').textContent;
-                alert(`${clientName}-এর রিভিউ দেখানো হচ্ছে।`);
+                const appointmentId = this.closest('.appointment-item').getAttribute('data-id');
+                showAppointmentDetails(appointmentId);
             });
         });
         
@@ -730,7 +1070,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Messages content
+    // Messages content with all conversations
     function showMessages() {
         const dashboardContent = document.querySelector('.dashboard-content');
         dashboardContent.innerHTML = `
@@ -827,6 +1167,34 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <p class="last-message">আপনার ফোন নম্বরটি দিতে পারবেন?</p>
                                 </div>
                             </div>
+                            
+                            <div class="conversation-item" data-user="jamil">
+                                <div class="user-avatar">
+                                    <img src="/ShebaXpert/Resources/images/man5.jpg" alt="ব্যবহারকারী">
+                                    <span class="online-status"></span>
+                                </div>
+                                <div class="conversation-info">
+                                    <div class="user-info">
+                                        <h4>জামিল আহমেদ</h4>
+                                        <span class="time">২ সপ্তাহ আগে</span>
+                                    </div>
+                                    <p class="last-message">আপনার সাথে দেখা করতে চাই</p>
+                                </div>
+                            </div>
+                            
+                            <div class="conversation-item" data-user="nazma">
+                                <div class="user-avatar">
+                                    <img src="/ShebaXpert/Resources/images/woman3.jpg" alt="ব্যবহারকারী">
+                                    <span class="online-status"></span>
+                                </div>
+                                <div class="conversation-info">
+                                    <div class="user-info">
+                                        <h4>নাজমা আক্তার</h4>
+                                        <span class="time">৩ সপ্তাহ আগে</span>
+                                    </div>
+                                    <p class="last-message">আপনার সার্ভিস সম্পর্কে জানতে চাই</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -917,67 +1285,120 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Load conversation function
+        // Load conversation function for all users
         function loadConversation(userId) {
-            // In a real app, this would fetch messages from server
             const messageHistory = document.getElementById('message-history');
             const recipientInfo = document.querySelector('.recipient-info h4');
+            const recipientImage = document.querySelector('.recipient-info .user-avatar img');
+            const lastSeen = document.querySelector('.recipient-info .last-seen');
             
             // Clear current messages
             messageHistory.innerHTML = '<div class="date-divider"><span>আজ</span></div>';
             
-            // Simulate loading different conversations
-            if (userId === 'abdullah') {
-                recipientInfo.textContent = 'আব্দুল্লাহ আল মামুন';
-                
-                const messages = [
-                    {type: 'received', text: 'আসসালামু আলাইকুম, আপনি কি আগামীকাল আসবেন?', time: '১০:৩০ AM'},
-                    {type: 'sent', text: 'ওয়ালাইকুম আসসালাম, হ্যাঁ আমি আসতে পারবো ইনশাআল্লাহ', time: '১০:৩২ AM'},
-                    {type: 'received', text: 'ভালো, কখন আসবেন?', time: '১০:৩৩ AM'},
-                    {type: 'sent', text: 'আমি সকাল ১০টায় আসবো। ঠিকানা এবং ফোন নম্বরটি আবার দিবেন?', time: '১০:৩৫ AM'},
-                    {type: 'received', text: 'মিরপুর ১০, রোড ৮, বাড়ি ১২। ফোন: ০১৭১২৩৪৫৬৭৮', time: '১০:৩৬ AM'}
-                ];
-                
-                messages.forEach(msg => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = `message ${msg.type}`;
-                    messageDiv.innerHTML = `
-                        <div class="message-content">
-                            <p>${msg.text}</p>
-                            <span class="time">${msg.time}</span>
-                            ${msg.type === 'sent' ? '<span class="status"><i class="fas fa-check-double"></i></span>' : ''}
-                        </div>
-                    `;
-                    messageHistory.appendChild(messageDiv);
-                });
-                
-                // Mark as read
-                document.querySelector('.conversation-item[data-user="abdullah"] .unread-count').remove();
-                document.querySelector('.conversation-item[data-user="abdullah"]').classList.remove('unread');
-            } 
-            else if (userId === 'farhana') {
-                recipientInfo.textContent = 'ফারহানা ইয়াসমিন';
-                
-                const messages = [
-                    {type: 'received', text: 'আপনার কাজের জন্য ধন্যবাদ।', time: 'গতকাল ২:১৫ PM'},
-                    {type: 'sent', text: 'আপনাকেও ধন্যবাদ। কোনো সমস্যা হলে জানাবেন।', time: 'গতকাল ২:২০ PM'},
-                    {type: 'received', text: 'ধন্যবাদ আপনার সাহায্যের জন্য', time: 'গতকাল ২:২১ PM'}
-                ];
-                
-                messages.forEach(msg => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = `message ${msg.type}`;
-                    messageDiv.innerHTML = `
-                        <div class="message-content">
-                            <p>${msg.text}</p>
-                            <span class="time">${msg.time}</span>
-                            ${msg.type === 'sent' ? '<span class="status"><i class="fas fa-check-double"></i></span>' : ''}
-                        </div>
-                    `;
-                    messageHistory.appendChild(messageDiv);
-                });
+            // Conversation data for all users
+            const conversations = {
+                'abdullah': {
+                    name: 'আব্দুল্লাহ আল মামুন',
+                    image: '/ShebaXpert/Resources/images/man3.jpg',
+                    lastSeen: 'সর্বশেষ দেখা: আজ ১০:১৫ AM',
+                    messages: [
+                        {type: 'received', text: 'আসসালামু আলাইকুম, আপনি কি আগামীকাল আসবেন?', time: '১০:৩০ AM'},
+                        {type: 'sent', text: 'ওয়ালাইকুম আসসালাম, হ্যাঁ আমি আসতে পারবো ইনশাআল্লাহ', time: '১০:৩২ AM'},
+                        {type: 'received', text: 'ভালো, কখন আসবেন?', time: '১০:৩৩ AM'},
+                        {type: 'sent', text: 'আমি সকাল ১০টায় আসবো। ঠিকানা এবং ফোন নম্বরটি আবার দিবেন?', time: '১০:৩৫ AM'},
+                        {type: 'received', text: 'মিরপুর ১০, রোড ৮, বাড়ি ১২। ফোন: ০১৭১২৩৪৫৬৭৮', time: '১০:৩৬ AM'}
+                    ]
+                },
+                'farhana': {
+                    name: 'ফারহানা ইয়াসমিন',
+                    image: '/ShebaXpert/Resources/images/woman1.jpeg',
+                    lastSeen: 'সর্বশেষ দেখা: গতকাল ২:১৫ PM',
+                    messages: [
+                        {type: 'received', text: 'আপনার কাজের জন্য ধন্যবাদ।', time: 'গতকাল ২:১৫ PM'},
+                        {type: 'sent', text: 'আপনাকেও ধন্যবাদ। কোনো সমস্যা হলে জানাবেন।', time: 'গতকাল ২:২০ PM'},
+                        {type: 'received', text: 'ধন্যবাদ আপনার সাহায্যের জন্য', time: 'গতকাল ২:২১ PM'}
+                    ]
+                },
+                'rahim': {
+                    name: 'রহিম উদ্দিন',
+                    image: '/ShebaXpert/Resources/images/man2.png',
+                    lastSeen: 'অনলাইন',
+                    messages: [
+                        {type: 'received', text: 'আসসালামু আলাইকুম, আমার ইলেকট্রিক্যাল সমস্যা আছে', time: '২ দিন আগে'},
+                        {type: 'sent', text: 'ওয়ালাইকুম আসসালাম, বলুন কী সমস্যা?', time: '২ দিন আগে'},
+                        {type: 'received', text: 'বাসার মেইন সুইচ থেকে স্পার্ক হচ্ছে', time: '২ দিন আগে'},
+                        {type: 'sent', text: 'এটা খুবই বিপজ্জনক। আমি আজই আসতে পারি। ঠিকানা দিবেন?', time: '২ দিন আগে'},
+                        {type: 'received', text: 'ধানমন্ডি ৩২, রোড ৫, বাড়ি ১০', time: '২ দিন আগে'}
+                    ]
+                },
+                'karim': {
+                    name: 'করিম উদ্দিন',
+                    image: '/ShebaXpert/Resources/images/man4.jpeg',
+                    lastSeen: 'সর্বশেষ দেখা: ৩ দিন আগে',
+                    messages: [
+                        {type: 'received', text: 'আসসালামু আলাইকুম, আমি আপনার সেবা নিতে চাই', time: '৩ দিন আগে'},
+                        {type: 'sent', text: 'ওয়ালাইকুম আসসালাম, বলুন কী ধরনের সেবা প্রয়োজন?', time: '৩ দিন আগে'},
+                        {type: 'received', text: 'আমার নতুন ফ্ল্যাটে ইলেকট্রিক্যাল ওয়ার্ক প্রয়োজন', time: '৩ দিন আগে'}
+                    ]
+                },
+                'sumaiya': {
+                    name: 'সুমাইয়া আক্তার',
+                    image: '/ShebaXpert/Resources/images/woman2.png',
+                    lastSeen: 'অনলাইন',
+                    messages: [
+                        {type: 'received', text: 'আপনার ফোন নম্বরটি দিতে পারবেন?', time: '১ সপ্তাহ আগে'},
+                        {type: 'sent', text: 'হ্যাঁ, অবশ্যই। আমার নম্বর ০১৭১২৩৪৫৬৭৮', time: '১ সপ্তাহ আগে'}
+                    ]
+                },
+                'jamil': {
+                    name: 'জামিল আহমেদ',
+                    image: '/ShebaXpert/Resources/images/man5.jpg',
+                    lastSeen: 'সর্বশেষ দেখা: ২ সপ্তাহ আগে',
+                    messages: [
+                        {type: 'received', text: 'আপনার সাথে দেখা করতে চাই', time: '২ সপ্তাহ আগে'},
+                        {type: 'sent', text: 'অবশ্যই, আপনি কখন আসতে পারবেন?', time: '২ সপ্তাহ আগে'}
+                    ]
+                },
+                'nazma': {
+                    name: 'নাজমা আক্তার',
+                    image: '/ShebaXpert/Resources/images/woman3.jpg',
+                    lastSeen: 'সর্বশেষ দেখা: ৩ সপ্তাহ আগে',
+                    messages: [
+                        {type: 'received', text: 'আপনার সার্ভিস সম্পর্কে জানতে চাই', time: '৩ সপ্তাহ আগে'},
+                        {type: 'sent', text: 'আমি ইলেকট্রিক্যাল কাজ করি। আপনি কী ধরনের সেবা চান?', time: '৩ সপ্তাহ আগে'}
+                    ]
+                }
+            };
+            
+            const conversation = conversations[userId];
+            
+            // Update recipient info
+            recipientInfo.textContent = conversation.name;
+            recipientImage.src = conversation.image;
+            recipientImage.alt = conversation.name;
+            lastSeen.textContent = conversation.lastSeen;
+            
+            // Add messages to history
+            conversation.messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.type}`;
+                messageDiv.innerHTML = `
+                    <div class="message-content">
+                        <p>${msg.text}</p>
+                        <span class="time">${msg.time}</span>
+                        ${msg.type === 'sent' ? '<span class="status"><i class="fas fa-check-double"></i></span>' : ''}
+                    </div>
+                `;
+                messageHistory.appendChild(messageDiv);
+            });
+            
+            // Mark as read
+            const conversationItem = document.querySelector(`.conversation-item[data-user="${userId}"]`);
+            if (conversationItem) {
+                const unreadCount = conversationItem.querySelector('.unread-count');
+                if (unreadCount) unreadCount.remove();
+                conversationItem.classList.remove('unread');
             }
-            // Add more users as needed
             
             // Scroll to bottom
             messageHistory.scrollTop = messageHistory.scrollHeight;
@@ -1107,121 +1528,223 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Settings content
+    // Settings content - Redesigned
     function showSettings() {
         const dashboardContent = document.querySelector('.dashboard-content');
         dashboardContent.innerHTML = `
             <div class="settings-section">
-                <div class="settings-tabs">
-                    <div class="tab active" data-tab="account">অ্যাকাউন্ট সেটিংস</div>
-                    <div class="tab" data-tab="notification">নোটিফিকেশন</div>
-                    <div class="tab" data-tab="privacy">প্রাইভেসি</div>
+                <div class="settings-header">
+                    <h2><i class="fas fa-cog"></i> সেটিংস</h2>
+                    <p>আপনার অ্যাকাউন্ট এবং অ্যাপ্লিকেশন সেটিংস ম্যানেজ করুন</p>
                 </div>
                 
-                <div class="settings-content">
-                    <div class="tab-content active" id="account">
-                        <form class="settings-form" id="account-form">
-                            <div class="form-group">
-                                <label for="name">নাম</label>
-                                <input type="text" id="name" value="আপনার নাম">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">ইমেইল</label>
-                                <input type="email" id="email" value="yourname@example.com">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">ফোন নম্বর</label>
-                                <input type="tel" id="phone" value="০১৭১২৩৪৫৬৭৮">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="profession">পেশা</label>
-                                <select id="profession">
-                                    <option value="electrician">ইলেকট্রিশিয়ান</option>
-                                    <option value="plumber">প্লাম্বার</option>
-                                    <option value="ac">এসি টেকনিশিয়ান</option>
-                                    <option value="cleaner">ক্লিনার</option>
-                                </select>
-                            </div>
-                            
-                            <button type="submit" class="save-btn">সেভ করুন</button>
-                        </form>
+                <div class="settings-cards">
+                    <div class="settings-card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <h3>অ্যাকাউন্ট সেটিংস</h3>
+                        <p>আপনার ব্যক্তিগত তথ্য এবং প্রোফাইল সেটিংস ম্যানেজ করুন</p>
+                        <button class="btn secondary-btn" id="account-settings-btn">ম্যানেজ করুন</button>
                     </div>
                     
-                    <div class="tab-content" id="notification">
-                        <h3>নোটিফিকেশন সেটিংস</h3>
-                        <div class="notification-settings">
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>মেসেজ নোটিফিকেশন</h4>
-                                    <p>যখন নতুন মেসেজ পাবেন তখন নোটিফিকেশন পাবেন</p>
+                    <div class="settings-card">
+                        <div class="card-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>নোটিফিকেশন</h3>
+                        <p>আপনি কোন নোটিফিকেশন পাবেন তা কাস্টমাইজ করুন</p>
+                        <button class="btn secondary-btn" id="notification-settings-btn">ম্যানেজ করুন</button>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="card-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>প্রাইভেসি ও নিরাপত্তা</h3>
+                        <p>আপনার প্রাইভেসি সেটিংস এবং অ্যাকাউন্ট সুরক্ষা</p>
+                        <button class="btn secondary-btn" id="privacy-settings-btn">ম্যানেজ করুন</button>
+                    </div>
+                </div>
+                
+                <!-- Account Settings Modal -->
+                <div class="modal" id="account-settings-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>অ্যাকাউন্ট সেটিংস</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="settings-form" id="account-form">
+                                <div class="form-group">
+                                    <label for="name">নাম</label>
+                                    <input type="text" id="name" value="${userData.name}">
                                 </div>
-                                <label class="switch">
-                                    <input type="checkbox" id="message-notification" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>কল রিকুয়েস্ট নোটিফিকেশন</h4>
-                                    <p>যখন কেউ কল রিকুয়েস্ট করবে তখন নোটিফিকেশন পাবেন</p>
+                                
+                                <div class="form-group">
+                                    <label for="email">ইমেইল</label>
+                                    <input type="email" id="email" value="${userData.email}">
                                 </div>
-                                <label class="switch">
-                                    <input type="checkbox" id="call-notification" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>রিভিউ নোটিফিকেশন</h4>
-                                    <p>যখন কেউ রিভিউ দিবে তখন নোটিফিকেশন পাবেন</p>
+                                
+                                <div class="form-group">
+                                    <label for="phone">ফোন নম্বর</label>
+                                    <input type="tel" id="phone" value="${userData.phone}">
                                 </div>
-                                <label class="switch">
-                                    <input type="checkbox" id="review-notification" checked>
-                                    <span class="slider round"></span>
-                                </label>
+                                
+                                <div class="form-group">
+                                    <label for="profession">পেশা</label>
+                                    <select id="profession">
+                                        <option value="ইলেকট্রিশিয়ান" ${userData.profession === 'ইলেকট্রিশিয়ান' ? 'selected' : ''}>ইলেকট্রিশিয়ান</option>
+                                        <option value="প্লাম্বার" ${userData.profession === 'প্লাম্বার' ? 'selected' : ''}>প্লাম্বার</option>
+                                        <option value="এসি টেকনিশিয়ান" ${userData.profession === 'এসি টেকনিশিয়ান' ? 'selected' : ''}>এসি টেকনিশিয়ান</option>
+                                        <option value="ক্লিনার" ${userData.profession === 'ক্লিনার' ? 'selected' : ''}>ক্লিনার</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
+                                    <button type="submit" class="btn primary-btn">সেভ করুন</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notification Settings Modal -->
+                <div class="modal" id="notification-settings-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>নোটিফিকেশন সেটিংস</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="notification-settings">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>মেসেজ নোটিফিকেশন</h4>
+                                        <p>যখন নতুন মেসেজ পাবেন তখন নোটিফিকেশন পাবেন</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="message-notification" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>কল রিকুয়েস্ট নোটিফিকেশন</h4>
+                                        <p>যখন কেউ কল রিকুয়েস্ট করবে তখন নোটিফিকেশন পাবেন</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="call-notification" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>রিভিউ নোটিফিকেশন</h4>
+                                        <p>যখন কেউ রিভিউ দিবে তখন নোটিফিকেশন পাবেন</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="review-notification" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>অ্যাপয়েন্টমেন্ট রিমাইন্ডার</h4>
+                                        <p>আপনার আসন্ন অ্যাপয়েন্টমেন্টের জন্য রিমাইন্ডার</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="appointment-notification" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
+                                    <button type="button" class="btn primary-btn save-notification-btn">সেভ করুন</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="tab-content" id="privacy">
-                        <h3>প্রাইভেসি সেটিংস</h3>
-                        <div class="privacy-settings">
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>প্রোফাইল দৃশ্যমানতা</h4>
-                                    <p>আপনার প্রোফাইল সবাই দেখতে পারবে কিনা</p>
+                </div>
+                
+                <!-- Privacy Settings Modal -->
+                <div class="modal" id="privacy-settings-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>প্রাইভেসি সেটিংস</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="privacy-settings">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>প্রোফাইল দৃশ্যমানতা</h4>
+                                        <p>আপনার প্রোফাইল সবাই দেখতে পারবে কিনা</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="profile-visibility" checked>
+                                        <span class="slider round"></span>
+                                    </label>
                                 </div>
-                                <label class="switch">
-                                    <input type="checkbox" id="profile-visibility" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>ফোন নম্বর দেখান</h4>
-                                    <p>আপনার ফোন নম্বর কাস্টমাররা দেখতে পারবে কিনা</p>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>ফোন নম্বর দেখান</h4>
+                                        <p>আপনার ফোন নম্বর কাস্টমাররা দেখতে পারবে কিনা</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="phone-visibility">
+                                        <span class="slider round"></span>
+                                    </label>
                                 </div>
-                                <label class="switch">
-                                    <input type="checkbox" id="phone-visibility">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <h4>ঠিকানা দেখান</h4>
-                                    <p>আপনার ঠিকানা কাস্টমাররা দেখতে পারবে কিনা</p>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>ঠিকানা দেখান</h4>
+                                        <p>আপনার ঠিকানা কাস্টমাররা দেখতে পারবে কিনা</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="address-visibility">
+                                        <span class="slider round"></span>
+                                    </label>
                                 </div>
-                                <label class="switch">
-                                    <input type="checkbox" id="address-visibility">
-                                    <span class="slider round"></span>
-                                </label>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <h4>অ্যাকাউন্ট সুরক্ষা</h4>
+                                        <p>টু-ফ্যাক্টর অথেন্টিকেশন সক্রিয় করুন</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="two-factor-auth">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="password-change">
+                                    <h4>পাসওয়ার্ড পরিবর্তন</h4>
+                                    <div class="form-group">
+                                        <label for="current-password">বর্তমান পাসওয়ার্ড</label>
+                                        <input type="password" id="current-password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-password">নতুন পাসওয়ার্ড</label>
+                                        <input type="password" id="new-password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password">পাসওয়ার্ড নিশ্চিত করুন</label>
+                                        <input type="password" id="confirm-password">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" class="btn secondary-btn close-modal-btn">বাতিল করুন</button>
+                                    <button type="button" class="btn primary-btn save-privacy-btn">সেভ করুন</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1229,41 +1752,73 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         
-        // Initialize tab switching
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                tabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                const tabId = this.getAttribute('data-tab');
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
+        // Open account settings modal
+        document.getElementById('account-settings-btn').addEventListener('click', function() {
+            document.getElementById('account-settings-modal').style.display = 'block';
+        });
+        
+        // Open notification settings modal
+        document.getElementById('notification-settings-btn').addEventListener('click', function() {
+            document.getElementById('notification-settings-modal').style.display = 'block';
+        });
+        
+        // Open privacy settings modal
+        document.getElementById('privacy-settings-btn').addEventListener('click', function() {
+            document.getElementById('privacy-settings-modal').style.display = 'block';
+        });
+        
+        // Close modal handlers
+        document.querySelectorAll('.close-modal, .close-modal-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
                 });
-                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                }
             });
         });
         
         // Account form submission
         document.getElementById('account-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Update user data
+            userData.name = document.getElementById('name').value;
+            userData.email = document.getElementById('email').value;
+            userData.phone = document.getElementById('phone').value;
+            userData.profession = document.getElementById('profession').value;
+            
+            // Update UI
+            updateUserName();
+            
+            // Close modal
+            document.getElementById('account-settings-modal').style.display = 'none';
             alert('অ্যাকাউন্ট তথ্য সফলভাবে আপডেট করা হয়েছে।');
         });
         
-        // Toggle switches
-        document.querySelectorAll('.switch input').forEach(switchInput => {
-            switchInput.addEventListener('change', function() {
-                const settingName = this.id;
-                const isEnabled = this.checked;
-                alert(`${settingName} সেটিং ${isEnabled ? 'সক্রিয়' : 'নিষ্ক্রিয়'} করা হয়েছে।`);
-            });
+        // Save notification settings
+        document.querySelector('.save-notification-btn').addEventListener('click', function() {
+            alert('নোটিফিকেশন সেটিংস সফলভাবে সেভ করা হয়েছে।');
+            document.getElementById('notification-settings-modal').style.display = 'none';
+        });
+        
+        // Save privacy settings
+        document.querySelector('.save-privacy-btn').addEventListener('click', function() {
+            alert('প্রাইভেসি সেটিংস সফলভাবে সেভ করা হয়েছে।');
+            document.getElementById('privacy-settings-modal').style.display = 'none';
         });
     }
 
     // Logout handler
     function handleLogout() {
         if (confirm('আপনি কি নিশ্চিতভাবে লগ আউট করতে চান?')) {
-            // In a real app, you would redirect to logout URL
             alert('আপনি সফলভাবে লগ আউট হয়েছেন।');
             // window.location.href = 'logout.php';
         }
