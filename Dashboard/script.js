@@ -78,6 +78,7 @@ function getNearbyProviders(category, center, radiusKm = 3) {
     });
 }
 
+
 function clearServiceMarkers() {
     serviceMarkers.forEach(m => map.removeLayer(m));
     serviceMarkers = [];
@@ -1010,7 +1011,14 @@ function initializeAll() {
     initializeCategorySelection();
     initializeSearch();
     initializeProfileDropdown();
-    initializeSupportSystem(); // Add support system initialization
+    initializeSupportSystem();
+    initializeFAQ();
+initializeSupportOptions();
+initializeChatWidget();
+initializeReportButtons();
+initializeEmergencyButtons();
+initializeProviderModal();
+    // Add support system initialization
     console.log('✅ All initialization complete - Dashboard ready!');
 }
 
@@ -1300,4 +1308,35 @@ if (navigator.geolocation) {
 } else {
     setUserLocationWithPulse(userLocation[0], userLocation[1]);
     showServiceMarkers(currentCategory);
+}
+function initializeProviderModal() {
+    console.log('👥 Initializing provider modal...');
+
+    const providerBtn = document.getElementById('provider-btn');
+    const providerModal = document.getElementById('provider-modal');
+    const closeProviderModal = document.getElementById('close-provider-modal');
+
+    if (providerBtn && providerModal) {
+        providerBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            providerModal.style.display = 'block';
+        });
+    }
+
+    if (closeProviderModal) {
+        closeProviderModal.addEventListener('click', function () {
+            providerModal.style.display = 'none';
+        });
+    }
+
+    // Close if click outside
+    if (providerModal) {
+        providerModal.addEventListener('click', function (e) {
+            if (e.target === providerModal) {
+                providerModal.style.display = 'none';
+            }
+        });
+    }
+
+    console.log('✅ Provider modal initialized');
 }
