@@ -2448,55 +2448,85 @@ input:checked + .slider:before {
 
 
 
-
-/* Appointment Details Modal - Professional Dark Blue Theme */
+/* Appointment Details Modal - Centered & Professional */
 #appointment-detail-modal {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+#appointment-detail-modal.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 #appointment-detail-modal .modal-content {
-    background: #f8f9fa;
-    border: none;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    width: 90%;
     max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    position: relative;
 }
 
-#appointment-detail-modal .modal-header {
-    background: #0a2463; /* Dark blue */
+#appointment-detail-modal.active .modal-content {
+    transform: translateY(0);
+}
+
+/* Modal Header (Dark Blue) */
+.modal-header {
+    background: #0a2463;
     color: white;
     padding: 15px 25px;
     border-radius: 8px 8px 0 0;
-    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#appointment-detail-modal .modal-header h3 {
+.modal-header h3 {
     margin: 0;
-    font-weight: 600;
     font-size: 1.3rem;
+    font-weight: 600;
 }
 
-#appointment-detail-modal .close-modal {
+.close-modal {
+    background: none;
+    border: none;
     color: white;
     font-size: 1.5rem;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-}
-
-#appointment-detail-modal .close-modal:hover {
-    opacity: 1;
-}
-
-#appointment-detail-modal .modal-body {
+    cursor: pointer;
     padding: 0;
+    line-height: 1;
 }
 
-/* Client Detail Section */
-.client-detail {
-    display: flex;
+/* Modal Body Content */
+.modal-body {
     padding: 25px;
     background: white;
-    border-bottom: 1px solid #e9ecef;
+}
+
+/* Client Info Section */
+.client-detail {
+    display: flex;
     align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .client-image {
@@ -2518,13 +2548,11 @@ input:checked + .slider:before {
     margin: 0 0 5px 0;
     color: #212529;
     font-size: 1.2rem;
-    font-weight: 600;
 }
 
 .client-info p {
     margin: 5px 0;
     color: #495057;
-    font-size: 0.9rem;
     display: flex;
     align-items: center;
 }
@@ -2533,33 +2561,18 @@ input:checked + .slider:before {
     margin-right: 8px;
     color: #0a2463;
     width: 16px;
-    text-align: center;
 }
 
-/* Appointment Details Section */
-.appointment-details {
-    padding: 25px;
-    background: white;
-}
-
+/* Appointment Details Sections */
 .detail-section {
     margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.detail-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
 }
 
 .detail-section h4 {
-    color: #0a2463;
+    color: #ffffff;
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 1.1rem;
-    font-weight: 600;
     position: relative;
     padding-bottom: 8px;
 }
@@ -2569,42 +2582,12 @@ input:checked + .slider:before {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 50px;
+    width: 40px;
     height: 2px;
-    background: #3e92cc; /* Lighter blue */
+    background: #3e92cc;
 }
 
-.detail-section p {
-    color: #495057;
-    margin: 10px 0;
-    line-height: 1.5;
-}
-
-.detail-section strong {
-    color: #212529;
-    font-weight: 600;
-}
-
-/* Review Section */
-.review-detail {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 6px;
-    margin-top: 15px;
-}
-
-.rating {
-    color: #FFC107; /* Gold color for stars */
-    margin-bottom: 10px;
-}
-
-.rating span {
-    color: #495057;
-    margin-left: 8px;
-    font-weight: 600;
-}
-
-/* Modal Actions */
+/* Action Buttons */
 .modal-actions {
     display: flex;
     justify-content: flex-end;
@@ -2614,32 +2597,33 @@ input:checked + .slider:before {
     gap: 10px;
 }
 
-.modal-actions .btn {
+.btn {
     padding: 10px 20px;
-    font-weight: 500;
     border-radius: 6px;
-    transition: all 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.modal-actions .secondary-btn {
+.primary-btn {
+    background: #2353c5;
+    color: white;
+    border: none;
+}
+
+.primary-btn:hover {
+    background: #2550c5;
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
     background: #e9ecef;
     color: #495057;
     border: 1px solid #dee2e6;
 }
 
-.modal-actions .secondary-btn:hover {
+.secondary-btn:hover {
     background: #dee2e6;
-}
-
-.modal-actions .primary-btn {
-    background: #0a2463;
-    color: white;
-    border: 1px solid #0a2463;
-}
-
-.modal-actions .primary-btn:hover {
-    background: #071a4d;
-    transform: translateY(-1px);
 }
 
 /* Responsive Design */
@@ -2661,20 +2645,4 @@ input:checked + .slider:before {
     .modal-actions .btn {
         width: 100%;
     }
-}
-
-/* Animation for modal appearance */
-@keyframes modalAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#appointment-detail-modal .modal-content {
-    animation: modalAppear 0.3s ease-out;
 }

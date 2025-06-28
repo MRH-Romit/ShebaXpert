@@ -831,9 +831,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Function to show appointment details
-    function showAppointmentDetails(appointmentId) {
-      const modal = document.getElementById("appointment-detail-modal");
-      const content = document.getElementById("appointment-detail-content");
+   // Function to show appointment details
+function showAppointmentDetails(appointmentId) {
+    const modal = document.getElementById('appointment-detail-modal');
+    modal.classList.add('active');
 
       // Sample data - in a real app this would come from a database
       const appointments = {
@@ -1013,6 +1014,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
 
+
+
+
+            
       // Show modal
       modal.style.display = "block";
 
@@ -1069,6 +1074,20 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
+    // Function to close modal
+function closeModal() {
+    document.getElementById('appointment-detail-modal').classList.remove('active');
+}
+
+// Close when clicking X button
+document.querySelector('.close-modal').addEventListener('click', closeModal);
+
+// Close when clicking outside modal
+document.getElementById('appointment-detail-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
     // Other appointment action buttons
     document.querySelectorAll(".chat-btn").forEach((btn) => {
       btn.addEventListener("click", function () {
