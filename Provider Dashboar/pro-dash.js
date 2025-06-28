@@ -2028,7 +2028,7 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
                 </div>
             </div>
         `;
-
+ 
     // Open account settings modal
     document
       .getElementById("account-settings-btn")
@@ -2036,6 +2036,36 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
         document.getElementById("account-settings-modal").style.display =
           "block";
       });
+
+// Function to show any modal
+function showModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+// Function to close any modal
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+    document.body.style.overflow = ''; // Re-enable scrolling
+}
+
+// Close when clicking X button
+document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const modalId = this.closest('.modal-overlay').id;
+        closeModal(modalId);
+    });
+});
+
+// Close when clicking outside modal
+document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal(this.id);
+        }
+    });
+});
+
 
     // Open notification settings modal
     document
@@ -2121,6 +2151,9 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
     }
   }
 
+
+
+  
   // Initialize dashboard functionality
   function initDashboard() {
     // Notification dropdown
