@@ -1,14 +1,27 @@
 const { OpenAI } = require('openai');
 require('dotenv').config();
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+// Initialize OpenAI only if API key is provided
+let openai = null;
+if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_api_key') {
+  try {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY
+    });
+  } catch (error) {
+    console.warn('OpenAI initialization failed:', error.message);
+  }
+}
 
 // Generate a summary for a service provider
 exports.generateProviderSummary = async (providerData) => {
   try {
+    // Check if OpenAI is available
+    if (!openai) {
+      console.warn('OpenAI not available, returning basic summary');
+      return `${providerData.name}, ${providerData.service || 'পেশাদার সেবা প্রদানকারী'}, যোগাযোগ: ${providerData.phone}`;
+    }
+
     const prompt = `
       আমি একজন পেশাদার ${providerData.service || 'সেবা প্রদানকারী'}, আমার নাম ${providerData.name}.
       ${providerData.description ? `আমি ${providerData.description}` : ''}
@@ -39,6 +52,12 @@ exports.generateProviderSummary = async (providerData) => {
 // Convert speech to text
 exports.speechToText = async (audioBuffer) => {
   try {
+    // Check if OpenAI is available
+    if (!openai) {
+      console.warn('OpenAI not available, speech-to-text disabled');
+      throw new Error('Speech to text service not available');
+    }
+
     const transcription = await openai.audio.transcriptions.create({
       file: audioBuffer,
       model: "whisper-1",
