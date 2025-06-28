@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="review-item">
                         <div class="reviewer">
-                            <img src="/ShebaXpert/Resources/images/man2.png" alt="ব্যবহারকারী">
+                            <img src="/ShebaXpert/Resources/images/woman1.jpeg" alt="ব্যবহারকারী">
                             <div class="reviewer-info">
                                 <h4>ফারহানা ইয়াসমিন</h4>
                                 <div class="rating">
