@@ -393,8 +393,8 @@ footer a {
     content: "";
     width: 50px;
     height: 40px;
-    left: 0px;
-    top: 0px;
+    left: -1px;
+    bottom: -1px;
     background-color: #004AAD;
     transition: all 0.4s ease 0s;
     border-radius: 20px;
