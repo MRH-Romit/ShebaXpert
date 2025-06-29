@@ -56,7 +56,7 @@
                 >
               </li>
               <li>
-                <a href="#" id="help-btn"
+                <a href="../emergency/emergency.html" 
                   ><i class="fas fa-headset"></i> সহায়তা</a
                 >
               </li>
@@ -472,6 +472,33 @@
         <li style="padding:12px 16px;">আপনার প্রোফাইল আপডেট হয়েছে</li>
       </ul>
     </div>
+    <!-- Messenger Floating Button -->
+<button id="messenger-btn" style="position:fixed;bottom:30px;right:30px;z-index:1200;background:#0078FF;color:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 2px 8px rgba(0,0,0,0.2);font-size:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+  <i class="fab fa-facebook-messenger"></i>
+</button>
+
+<!-- Messenger Panel -->
+<div id="messenger-panel" style="display:none;position:fixed;bottom:100px;right:30px;width:340px;max-width:90vw;height:420px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.18);z-index:1201;overflow:hidden;flex-direction:column;">
+  <div style="background:#0078FF;color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-weight:bold;"><i class="fab fa-facebook-messenger"></i> মেসেজ</span>
+    <button id="close-messenger" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="messenger-messages" style="flex:1;overflow-y:auto;padding:16px;background:#f7f7fa;">
+    <!-- Example messages -->
+    <div style="margin-bottom:12px;display:flex;align-items:flex-end;">
+      <div style="background:#e4e6eb;padding:10px 14px;border-radius:16px 16px 16px 4px;max-width:75%;">হ্যালো! কিভাবে সাহায্য করতে পারি?</div>
+    </div>
+    <div style="margin-bottom:12px;display:flex;justify-content:flex-end;align-items:flex-end;">
+      <div style="background:#0078FF;color:#fff;padding:10px 14px;border-radius:16px 16px 4px 16px;max-width:75%;">আমি একটি সার্ভিস বুক করতে চাই।</div>
+    </div>
+  </div>
+  <div style="padding:12px 16px;border-top:1px solid #eee;display:flex;gap:8px;">
+    <input id="messenger-input" type="text" placeholder="বার্তা লিখুন..." style="flex:1;padding:8px 12px;border-radius:20px;border:1px solid #ddd;outline:none;">
+    <button id="messenger-send" style="background:#0078FF;color:#fff;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -505,6 +532,36 @@
       const scriptTag = document.createElement("script");
       scriptTag.src = `script.js?v=${jsTimestamp}`;
       document.head.appendChild(scriptTag);
+
+      // Messenger panel toggle
+  const messengerBtn = document.getElementById('messenger-btn');
+  const messengerPanel = document.getElementById('messenger-panel');
+  const closeMessenger = document.getElementById('close-messenger');
+  messengerBtn.addEventListener('click', () => {
+    messengerPanel.style.display = 'flex';
+  });
+  closeMessenger.addEventListener('click', () => {
+    messengerPanel.style.display = 'none';
+  });
+
+  // Messenger send message
+  const messengerInput = document.getElementById('messenger-input');
+  const messengerSend = document.getElementById('messenger-send');
+  const messengerMessages = document.getElementById('messenger-messages');
+  messengerSend.addEventListener('click', sendMessengerMessage);
+  messengerInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') sendMessengerMessage();
+  });
+  function sendMessengerMessage() {
+    const text = messengerInput.value.trim();
+    if (!text) return;
+    const msgDiv = document.createElement('div');
+    msgDiv.style = "margin-bottom:12px;display:flex;justify-content:flex-end;align-items:flex-end;";
+    msgDiv.innerHTML = `<div style="background:#0078FF;color:#fff;padding:10px 14px;border-radius:16px 16px 4px 16px;max-width:75%;">${text}</div>`;
+    messengerMessages.appendChild(msgDiv);
+    messengerInput.value = '';
+    messengerMessages.scrollTop = messengerMessages.scrollHeight;
+  }
     </script>
   </body>
 </html>
