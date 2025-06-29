@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>লগইন - শেবাXpert</title>
   <!-- Link to CSS -->
   <link rel="stylesheet" href="LogIn.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -17,57 +17,65 @@
         </label>
     </div>
 
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <a href="../Landing Page/LandingPage.html" class="back-btn" title="মূল পৃষ্ঠায় ফিরে যান">
+            <i class="fas fa-arrow-left"></i>
+            <span>মূল পৃষ্ঠা</span>
+        </a>
+    </div>
+
     <div class="container" id="container">        <div class="form-container sign-up-container">
             <form action="#" method="POST">
-                <h1 id="signup-title">Create Account</h1>
+                <h1 id="signup-title">অ্যাকাউন্ট তৈরি করুন</h1>
                 <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social" title="Google"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <span id="signup-subtitle">or use your email for registration</span>
-                <input type="text" name="firstName" placeholder="First Name" required />
-                <input type="text" name="lastName" placeholder="Last Name" required />
-                <input type="email" name="email" placeholder="Email" required />
-                <input type="tel" name="phone" placeholder="Phone Number" required />
-                <input type="password" name="password" placeholder="Password" required minlength="8" />
-                <button type="submit" id="signup-button">Sign Up</button>
+                <span id="signup-subtitle">অথবা রেজিস্ট্রেশনের জন্য আপনার ইমেইল ব্যবহার করুন</span>
+                <input type="text" name="firstName" placeholder="প্রথম নাম" required />
+                <input type="text" name="lastName" placeholder="শেষ নাম" required />
+                <input type="email" name="email" placeholder="ইমেইল" required />
+                <input type="tel" name="phone" placeholder="ফোন নম্বর" required />
+                <input type="password" name="password" placeholder="পাসওয়ার্ড" required minlength="8" />
+                <button type="submit" id="signup-button">সাইন আপ</button>
             </form>
         </div>
 
         <div class="form-container sign-in-container">
             <form action="#" method="POST">
-                <h1 id="signin-title">Sign in</h1>
+                <h1 id="signin-title">সাইন ইন</h1>
                 <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social" title="Google"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <span id="signin-subtitle">or use your account</span>
-                <input type="email" name="email" placeholder="Email" required />
-                <input type="password" name="password" placeholder="Password" required />
-                <a href="#" id="forgot-password">Forgot your password?</a>
-                <button type="submit" id="signin-button">Sign In</button>
+                <span id="signin-subtitle">অথবা আপনার অ্যাকাউন্ট ব্যবহার করুন</span>
+                <input type="email" name="email" placeholder="ইমেইল" required />
+                <input type="password" name="password" placeholder="পাসওয়ার্ড" required />
+                <a href="#" id="forgot-password">পাসওয়ার্ড ভুলে গেছেন?</a>
+                <button type="submit" id="signin-button">সাইন ইন</button>
             </form>
         </div>
 
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <h1 id="welcome-back">Welcome Back!</h1>
-                    <p id="welcome-back-text">To keep connected with us please login with your personal info</p>
-                    <button class="ghost" id="signIn">Sign In</button>
+                    <h1 id="welcome-back">স্বাগতম!</h1>
+                    <p id="welcome-back-text">আমাদের সাথে যুক্ত থাকতে আপনার ব্যক্তিগত তথ্য দিয়ে লগইন করুন</p>
+                    <button class="ghost" id="signIn">সাইন ইন</button>
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <h1 id="hello-friend">Hello, Friend!</h1>
-                    <p id="hello-friend-text">Enter your personal details and start your journey with us</p>
-                    <button class="ghost" id="signUp">Sign Up</button>
+                    <h1 id="hello-friend">হ্যালো বন্ধু!</h1>
+                    <p id="hello-friend-text">আপনার ব্যক্তিগত তথ্য দিন এবং আমাদের সাথে যাত্রা শুরু করুন</p>
+                    <button class="ghost" id="signUp">সাইন আপ</button>
                 </div>
             </div>
         </div>    </div>
 
     <footer>
-        <p id="footer-text">&copy; 2023 ShebaXpert. All rights reserved</p>
+        <p id="footer-text">&copy; ২০২৩ শেবাXpert। সকল অধিকার সংরক্ষিত</p>
     </footer>    <!-- Link to JavaScript -->
     <script src="LogIn.js"></script>
 </body>

@@ -71,6 +71,24 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize support modal
     initializeSupportModal();
+    
+    // Make sure logout function is available globally
+    window.logout = logout;
+    
+    // Add backup event listener for logout button
+    const logoutButton = document.querySelector('.logout-link');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🚪 Logout button clicked via event listener');
+            logout();
+        });
+        console.log('✅ Logout button event listener added');
+    } else {
+        console.warn('⚠️ Logout button not found');
+    }
+    
+    console.log('✅ Profile page fully initialized with logout functionality');
 });
 
 // Navigation functionality
@@ -739,3 +757,119 @@ function setupHomeNavigation() {
 }
 
 setupHomeNavigation();
+
+// Logout function
+function logout() {
+    console.log('🚪 Logout function called');
+    
+    // Show confirmation dialog in Bengali
+    if (confirm('আপনি কি নিশ্চিত যে লগআউট করতে চান?')) {
+        console.log('🚪 User confirmed logout');
+        
+        // Clear any stored user data
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('userData');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        localStorage.removeItem('shebaXpertPreferences');
+        sessionStorage.clear();
+        
+        // Show logout message
+        console.log('🚪 User logged out successfully');
+        
+        // Show a brief logout message
+        showMessage('আপনি সফলভাবে লগআউট হয়েছেন। লগইন পৃষ্ঠায় নিয়ে যাওয়া হচ্ছে...', 'success');
+        
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+            window.location.href = '../Login/LogIn.html';
+        }, 2000);
+    } else {
+        console.log('🚪 User cancelled logout');
+    }
+}
+
+// Make logout function globally available
+window.logout = logout;
+
+// Utility function to show messages
+function showMessage(message, type = 'info') {
+    // Remove any existing messages
+    const existingMessage = document.querySelector('.profile-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `profile-message ${type}`;
+    messageDiv.innerHTML = `
+        <div class="message-content">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+        <button class="message-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    // Add styles
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        background: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-left: 4px solid ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        max-width: 400px;
+        transform: translateX(420px);
+        transition: transform 0.3s ease;
+    `;
+    
+    // Style the content
+    const content = messageDiv.querySelector('.message-content');
+    content.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+    `;
+    
+    const icon = content.querySelector('i');
+    icon.style.color = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6';
+    
+    const closeBtn = messageDiv.querySelector('.message-close');
+    closeBtn.style.cssText = `
+        background: none;
+        border: none;
+        color: #6b7280;
+        cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 4px;
+    `;
+    
+    // Add to document
+    document.body.appendChild(messageDiv);
+    
+    // Animate in
+    setTimeout(() => {
+        messageDiv.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Auto remove after 5 seconds for success/info, 7 seconds for error
+    const timeout = type === 'error' ? 7000 : 5000;
+    setTimeout(() => {
+        messageDiv.style.transform = 'translateX(420px)';
+        setTimeout(() => {
+            if (messageDiv.parentElement) {
+                messageDiv.remove();
+            }
+        }, 300);
+    }, timeout);
+}
