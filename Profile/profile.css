@@ -102,6 +102,19 @@
     text-align: center;
 }
 
+/* Logout link styling */
+.logout-link {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.logout-link:hover {
+    background: #ff4757 !important;
+    color: white !important;
+    transform: translateX(0) !important;
+}
+
 /* Profile Main Content */
 .profile-main {
     padding: 2rem;

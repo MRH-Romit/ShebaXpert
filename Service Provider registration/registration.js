@@ -122,11 +122,15 @@ function updateProgress() {
 async function handleFormSubmission(e) {
     e.preventDefault();
     
+    console.log('Form submission started');
+    
     const formData = new FormData(e.target);
     
     // Validate password match
     const password = formData.get('password');
     const confirmPassword = formData.get('confirmPassword');
+    
+    console.log('Password validation:', password === confirmPassword);
     
     if (password !== confirmPassword) {
         showMessage('পাসওয়ার্ড মিলছে না', 'error');
@@ -137,6 +141,8 @@ async function handleFormSubmission(e) {
     const requiredFields = ['fullName', 'phone', 'location', 'serviceCategory', 'gender', 'workDescription', 'password'];
     const missingFields = requiredFields.filter(field => !formData.get(field));
     
+    console.log('Missing fields:', missingFields);
+    
     if (missingFields.length > 0) {
         showMessage('সকল প্রয়োজনীয় তথ্য পূরণ করুন', 'error');
         return;
@@ -144,6 +150,8 @@ async function handleFormSubmission(e) {
 
     // Validate phone number (11 digits for Bangladesh)
     const phone = formData.get('phone');
+    console.log('Phone validation:', phone, /^[0-9]{11}$/.test(phone));
+    
     if (!/^[0-9]{11}$/.test(phone)) {
         showMessage('সঠিক ফোন নম্বর দিন (১১ সংখ্যার)', 'error');
         return;
@@ -152,6 +160,11 @@ async function handleFormSubmission(e) {
     // Validate files
     const nidDocument = formData.get('nidDocument');
     const photo = formData.get('photo');
+    
+    console.log('File validation:', {
+        nidDocument: nidDocument ? nidDocument.name : 'missing',
+        photo: photo ? photo.name : 'missing'
+    });
     
     if (!nidDocument || nidDocument.size === 0) {
         showMessage('জাতীয় পরিচয়পত্র/জন্ম সনদ আপলোড করুন', 'error');
@@ -163,7 +176,10 @@ async function handleFormSubmission(e) {
         return;
     }
 
-    try {        // Show loading state
+    try {        
+        console.log('Starting API call...');
+        
+        // Show loading state
         const submitBtn = document.querySelector('.submit-btn');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> নিবন্ধন করা হচ্ছে...';
@@ -178,8 +194,11 @@ async function handleFormSubmission(e) {
             serviceCategory: formData.get('serviceCategory'),
             gender: formData.get('gender'),
             workDescription: formData.get('workDescription'),
-            password: formData.get('password')
+            password: formData.get('password'),
+            role: 'service_provider' // Ensure role is set
         };
+
+        console.log('Sending data:', serviceProviderData);
 
         // Send registration data
         const response = await fetch(`${API_BASE_URL}/auth/register-service-provider`, {
@@ -190,27 +209,31 @@ async function handleFormSubmission(e) {
             body: JSON.stringify(serviceProviderData)
         });
 
+        console.log('Response status:', response.status);
         const result = await response.json();
+        console.log('Response data:', result);
 
         if (response.ok) {
             // If user creation successful, upload files
             if (result.user && result.user.id) {
+                console.log('User created, uploading files...');
                 await uploadFiles(result.user.id, nidDocument, photo);
             }
             
             showMessage('সফলভাবে নিবন্ধন সম্পন্ন হয়েছে! আপনি এখন লগইন করতে পারেন।', 'success');
             
-            // Redirect to login page after 3 seconds
+            // Redirect to login page after 3 seconds with service provider parameter
             setTimeout(() => {
-                window.location.href = '../Login/LogIn.html';
+                window.location.href = '../Login/LogIn.html?from=service-provider';
             }, 3000);
         } else {
+            console.error('Registration failed:', result);
             showMessage(result.message || 'নিবন্ধনে সমস্যা হয়েছে', 'error');
         }
 
     } catch (error) {
         console.error('Registration error:', error);
-        showMessage('সার্ভার সংযোগে সমস্যা হয়েছে', 'error');    } finally {
+        showMessage('সার্ভার সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।', 'error');    } finally {
         // Reset button state
         const submitBtn = document.querySelector('.submit-btn');
         submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> নিবন্ধন সম্পন্ন করুন';

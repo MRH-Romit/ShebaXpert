@@ -10,6 +10,7 @@ router.get('/nearby', profileController.findNearbyProviders);
 
 // Protected routes
 router.get('/', authenticateToken, profileController.getProfile); // Get own profile
+router.get('/service-provider', authenticateToken, profileController.getServiceProviderProfile); // Get service provider profile
 router.post('/update', authenticateToken, profileController.updateProfile);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // User data object to keep information synchronized
-  const userData = {
+  // Initialize user data from localStorage and backend
+  let userData = {
     name: "আপনার নাম",
     email: "yourname@example.com",
     phone: "০১৭১২৩৪৫৬৭৮",
@@ -9,8 +9,101 @@ document.addEventListener("DOMContentLoaded", function () {
     areas: "ঢাকা, নারায়ণগঞ্জ, গাজীপুর",
     about:
       "আমি একজন দক্ষ ও প্রশিক্ষিত ইলেকট্রিশিয়ান। ৫ বছরের বেশি অভিজ্ঞতা রয়েছে ঘরোয়া ও বাণিজ্যিক ইলেকট্রিক্যাল কাজে। সৎ ও বিশ্বস্তভাবে কাজ করাই আমার নীতি।",
-    profileImage: "/ShebaXpert/Resources/images/default-profile.png",
+    profileImage: "/ShebaXpert/Resources/images/user.jpg",
   };
+
+  // Load user data from localStorage if available
+  loadUserData();
+
+  async function loadUserData() {
+    try {
+      const storedUser = localStorage.getItem('user');
+      const authToken = localStorage.getItem('authToken');
+      
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        
+        // Check if user is service provider
+        if (user.role !== 'service_provider') {
+          // Redirect non-service providers
+          window.location.href = '../Dashboard/dash.html';
+          return;
+        }
+        
+        // Update basic user data from stored info
+        userData.name = user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : userData.name;
+        userData.email = user.email || userData.email;
+        
+        // Try to fetch complete service provider profile from backend
+        if (authToken) {
+          try {
+            const response = await fetch('http://localhost:5000/api/profile/service-provider', {
+              headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            
+            if (response.ok) {
+              const profileData = await response.json();
+              
+              // Update userData with profile information
+              if (profileData.fullName) userData.name = profileData.fullName;
+              if (profileData.phone) userData.phone = profileData.phone;
+              if (profileData.email) userData.email = profileData.email;
+              if (profileData.location) userData.areas = profileData.location;
+              if (profileData.serviceCategory) {
+                // Map service categories to Bengali
+                const categoryMap = {
+                  'electrician': 'ইলেকট্রিশিয়ান',
+                  'plumber': 'প্লাম্বার',
+                  'ac_repair': 'এসি মেরামত',
+                  'home_repair': 'গৃহস্থালি মেরামত',
+                  'painting': 'পেইন্টিং',
+                  'carpenter': 'কার্পেন্টার',
+                  'other': 'অন্যান্য'
+                };
+                userData.profession = categoryMap[profileData.serviceCategory] || profileData.serviceCategory;
+              }
+              if (profileData.workDescription) userData.about = profileData.workDescription;
+              if (profileData.experience) userData.experience = profileData.experience + ' বছর';
+              if (profileData.profileImage) userData.profileImage = profileData.profileImage;
+            }
+          } catch (error) {
+            console.error('Error fetching profile data:', error);
+          }
+        }
+        
+        // Update UI with loaded data
+        updateUserName();
+        updateUserProfile();
+      } else {
+        // No user data found, redirect to login
+        window.location.href = '../Login/LogIn.html';
+      }
+    } catch (error) {
+      console.error('Error loading user data:', error);
+      // If there's an error, redirect to login
+      window.location.href = '../Login/LogIn.html';
+    }
+  }
+
+  function updateUserProfile() {
+    // Update profile image in header
+    const headerProfileImg = document.querySelector('.user-profile img');
+    if (headerProfileImg) {
+      headerProfileImg.src = userData.profileImage;
+    }
+    
+    // Update user name in header
+    const headerUserName = document.querySelector('.user-profile span');
+    if (headerUserName) {
+      headerUserName.textContent = userData.name;
+    }
+    
+    // Update all other user name elements
+    updateUserName();
+  }
 
   // Mobile menu toggle
   const mobileMenuBtn = document.createElement("div");
@@ -1826,8 +1919,7 @@ function showSettings() {
                 <div class="modal-container">
                     <div class="modal-header">
                         <h3>অ্যাকাউন্ট সেটিংস</h3>
-                        <button class="close-modal">&times;</button>
-                    </div>
+                        <button class="close-modal">&times;</button                    </div>
                     <div class="modal-body">
                         <form class="settings-form" id="account-form">
                             <div class="form-group">
@@ -2081,6 +2173,90 @@ function closeModal(modalId) {
 }
 
 
+
+  // Handle logout functionality
+  function handleLogout() {
+    // Clear stored user data
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    
+    // Show logout message
+    showMessage('সফলভাবে লগ আউট হয়েছে', 'success');
+    
+    // Redirect to login page after a short delay
+    setTimeout(() => {
+      window.location.href = '../Login/LogIn.html';
+    }, 1500);
+  }
+
+  // Show message function for notifications
+  function showMessage(message, type) {
+    // Remove existing messages
+    const existingMessages = document.querySelectorAll('.dashboard-message');
+    existingMessages.forEach(msg => msg.remove());
+    
+    // Create new message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `dashboard-message ${type}`;
+    messageDiv.textContent = message;
+    
+    // Style the message
+    messageDiv.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      z-index: 10000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: slideIn 0.3s ease-out;
+      max-width: 400px;
+      word-wrap: break-word;
+    `;
+
+    if (type === 'success') {
+      messageDiv.style.background = 'linear-gradient(to right, #4CAF50, #45a049)';
+    } else if (type === 'error') {
+      messageDiv.style.background = 'linear-gradient(to right, #f44336, #da190b)';
+    } else {
+      messageDiv.style.background = 'linear-gradient(to right, #2196F3, #0b7dda)';
+    }
+
+    // Add animation keyframes if not already added
+    if (!document.querySelector('#message-animations')) {
+      const style = document.createElement('style');
+      style.id = 'message-animations';
+      style.textContent = `
+        @keyframes slideIn {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    document.body.appendChild(messageDiv);
+
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+      if (messageDiv.parentNode) {
+        messageDiv.style.animation = 'slideIn 0.3s ease-out reverse';
+        setTimeout(() => {
+          if (messageDiv.parentNode) {
+            messageDiv.remove();
+          }
+        }, 300);
+      }
+    }, 4000);
+  }
 
   // Initialize dashboard functionality
   function initDashboard() {
