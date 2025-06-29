@@ -121,8 +121,3 @@ tmp/
 dist/
 build/
 
-# MySQL connection test files
-testConnection.js
-mysql-password-help.bat
-MYSQL_SETUP_GUIDE.md
-setupSQLite.js
