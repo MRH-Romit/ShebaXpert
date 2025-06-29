@@ -73,6 +73,7 @@ const profileRoutes = require('./routes/profileRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const providerListRoutes = require('./routes/providerListRoutes');
 
 // Use routes
 app.use('/api/auth', authRoutes);
@@ -80,6 +81,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api', providerListRoutes);
 
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
