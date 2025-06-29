@@ -1,3 +1,36 @@
+// Function to add error handlers to all images in a container
+function addImageErrorHandlers(container = document) {
+  const images = container.querySelectorAll('img');
+  images.forEach(img => {
+    if (!img.onerror) {
+      img.onerror = function() { handleImageError(this); };
+    }
+  });
+}
+
+// Global function to handle image loading errors
+function handleImageError(img) {
+  if (img.src.includes('user.jpg') || img.alt.includes('প্রোফাইল') || img.alt.includes('ব্যবহারকারী')) {
+    // Default user image
+    img.src = '../Resources/images/user.jpg';
+    img.onerror = null; // Prevent infinite loop
+  } else if (img.alt.includes('ক্লায়েন্ট')) {
+    // Default client images - cycle through available options
+    const clientImages = ['man1.png', 'man2.png', 'woman1.jpeg', 'woman2.png'];
+    const randomImage = clientImages[Math.floor(Math.random() * clientImages.length)];
+    img.src = '../Resources/images/' + randomImage;
+    img.onerror = null;
+  } else if (img.alt.includes('লোগো')) {
+    // Default logo
+    img.src = '../Resources/images/logo.png';
+    img.onerror = null;
+  } else {
+    // Fallback to user image
+    img.src = '../Resources/images/user.jpg';
+    img.onerror = null;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize user data from localStorage and backend
   let userData = {
@@ -9,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     areas: "ঢাকা, নারায়ণগঞ্জ, গাজীপুর",
     about:
       "আমি একজন দক্ষ ও প্রশিক্ষিত ইলেকট্রিশিয়ান। ৫ বছরের বেশি অভিজ্ঞতা রয়েছে ঘরোয়া ও বাণিজ্যিক ইলেকট্রিক্যাল কাজে। সৎ ও বিশ্বস্তভাবে কাজ করাই আমার নীতি।",
-    profileImage: "/ShebaXpert/Resources/images/user.jpg",
+    profileImage: "../Resources/images/user.jpg",
   };
 
   // Load user data from localStorage if available
@@ -204,6 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
     profileImageElements.forEach((element) => {
       element.src = userData.profileImage;
       element.alt = userData.name;
+      element.onerror = function() { handleImageError(this); };
     });
   }
 
@@ -319,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="reviews">
                     <div class="review-item">
                         <div class="reviewer">
-                            <img src="/ShebaXpert/Resources/images/man2.png" alt="ব্যবহারকারী">
+                            <img src="../Resources/images/man2.png" alt="ব্যবহারকারী" onerror="handleImageError(this)">
                             <div class="reviewer-info">
                                 <h4>আব্দুল্লাহ আল মামুন</h4>
                                 <div class="rating">
@@ -342,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     
                     <div class="review-item">
                         <div class="reviewer">
-                            <img src="/ShebaXpert/Resources/images/woman1.jpeg" alt="ব্যবহারকারী">
+                            <img src="../Resources/images/woman1.jpeg" alt="ব্যবহারকারী" onerror="handleImageError(this)">
                             <div class="reviewer-info">
                                 <h4>ফারহানা ইয়াসমিন</h4>
                                 <div class="rating">
@@ -366,6 +400,9 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
 
+    // Add error handlers to all images
+    addImageErrorHandlers();
+    
     // Initialize dashboard functionality
     initDashboard();
   }
@@ -378,7 +415,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="profile-header">
     <div class="profile-image-container">
       <div class="profile-image">
-        <img src="${userData.profileImage}" alt="প্রোফাইল ছবি">
+        <img src="${userData.profileImage}" alt="প্রোফাইল ছবি" onerror="handleImageError(this)">
         <button class="edit-icon" id="change-profile-pic">
           <i class="fas fa-camera"></i>
         </button>
@@ -451,6 +488,9 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 </div>
         `;
+
+    // Add error handlers to all images
+    addImageErrorHandlers();
 
     // Initialize profile tabs
     const profileTabs = document.querySelectorAll(".profile-tabs .tab");
@@ -756,7 +796,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         
                         <div class="appointment-item confirmed" data-id="1">
                             <div class="client-info">
-                                <img src="/ShebaXpert/Resources/images/man3.jpg" alt="ক্লায়েন্ট">
+                                <img src="../Resources/images/man3.jpg" alt="ক্লায়েন্ট" onerror="handleImageError(this)">
                                 <div>
                                     <h4>আব্দুল্লাহ আল মামুন</h4>
                                     <p><i class="fas fa-map-marker-alt"></i> মিরপুর, ঢাকা</p>
@@ -784,7 +824,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         
                         <div class="appointment-item pending" data-id="2">
                             <div class="client-info">
-                                <img src="/ShebaXpert/Resources/images/woman1.jpeg" alt="ক্লায়েন্ট">
+                                <img src="../Resources/images/woman1.jpeg" alt="ক্লায়েন্ট" onerror="handleImageError(this)">
                                 <div>
                                     <h4>ফারহানা ইয়াসমিন</h4>
                                     <p><i class="fas fa-map-marker-alt"></i> উত্তরা, ঢাকা</p>
@@ -811,7 +851,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         
                         <div class="appointment-item completed" data-id="3">
                             <div class="client-info">
-                                <img src="/ShebaXpert/Resources/images/man2.png" alt="ক্লায়েন্ট">
+                                <img src="../Resources/images/man2.png" alt="ক্লায়েন্ট" onerror="handleImageError(this)">
                                 <div>
                                     <h4>রহিম উদ্দিন</h4>
                                     <p><i class="fas fa-map-marker-alt"></i> ধানমন্ডি, ঢাকা</p>
@@ -934,7 +974,7 @@ function showAppointmentDetails(appointmentId) {
         1: {
           client: {
             name: "আব্দুল্লাহ আল মামুন",
-            image: "/ShebaXpert/Resources/images/man3.jpg",
+            image: "../Resources/images/man3.jpg",
             phone: "০১৭১২৩৪৫৬৭৮",
             address: "মিরপুর ১০, রোড ৮, বাড়ি ১২, ঢাকা",
             email: "abdullah@example.com",
@@ -951,7 +991,7 @@ function showAppointmentDetails(appointmentId) {
         2: {
           client: {
             name: "ফারহানা ইয়াসমিন",
-            image: "/ShebaXpert/Resources/images/woman1.jpeg",
+            image: "../Resources/images/woman1.jpeg",
             phone: "০১৭৮৭৬৫৪৩২১",
             address: "উত্তরা সেক্টর ৭, রোড ১২, বাড়ি ৫, ঢাকা",
             email: "farhana@example.com",
@@ -968,7 +1008,7 @@ function showAppointmentDetails(appointmentId) {
         3: {
           client: {
             name: "রহিম উদ্দিন",
-            image: "/ShebaXpert/Resources/images/man2.png",
+            image: "../Resources/images/man2.png",
             phone: "০১৯১২৩৪৫৬৭৮",
             address: "ধানমন্ডি ৩২, রোড ৫, বাড়ি ১০, ঢাকা",
             email: "rahim@example.com",
@@ -990,7 +1030,7 @@ function showAppointmentDetails(appointmentId) {
         4: {
           client: {
             name: "করিম উদ্দিন",
-            image: "/ShebaXpert/Resources/images/man4.jpeg",
+            image: "../Resources/images/man4.jpeg",
             phone: "০১৮১২৩৪৫৬৭৮",
             address: "মোহাম্মদপুর, রোড ১০, বাড়ি ২৫, ঢাকা",
             email: "karim@example.com",
@@ -1282,6 +1322,9 @@ function showAppointmentDetails(appointmentId) {
         });
       }
     });
+    
+    // Add error handlers to all images
+    addImageErrorHandlers();
   }
 
   // Messages content with all conversations
@@ -1341,7 +1384,7 @@ function showAppointmentDetails(appointmentId) {
                             
                             <div class="conversation-item unread" data-user="rahim">
                                 <div class="user-avatar">
-                                    <img src="/ShebaXpert/Resources/images/man2.png" alt="ব্যবহারকারী">
+                                    <img src="../Resources/images/man2.png" alt="ব্যবহারকারী" onerror="handleImageError(this)">
                                     <span class="online-status online"></span>
                                 </div>
                                 <div class="conversation-info">
@@ -1370,7 +1413,7 @@ function showAppointmentDetails(appointmentId) {
                             
                             <div class="conversation-item" data-user="sumaiya">
                                 <div class="user-avatar">
-                                    <img src="/ShebaXpert/Resources/images/woman2.png" alt="ব্যবহারকারী">
+                                    <img src="../Resources/images/woman2.png" alt="ব্যবহারকারী" onerror="handleImageError(this)">
                                     <span class="online-status online"></span>
                                 </div>
                                 <div class="conversation-info">
@@ -1398,7 +1441,7 @@ function showAppointmentDetails(appointmentId) {
                             
                             <div class="conversation-item" data-user="nazma">
                                 <div class="user-avatar">
-                                    <img src="/ShebaXpert/Resources/images/woman2.png" alt="ব্যবহারকারী">
+                                    <img src="../Resources/images/woman2.png" alt="ব্যবহারকারী" onerror="handleImageError(this)">
                                     <span class="online-status"></span>
                                 </div>
                                 <div class="conversation-info">
@@ -1518,7 +1561,7 @@ function showAppointmentDetails(appointmentId) {
       const conversations = {
         abdullah: {
           name: "আব্দুল্লাহ আল মামুন",
-          image: "/ShebaXpert/Resources/images/man3.jpg",
+          image: "../Resources/images/man3.jpg",
           lastSeen: "সর্বশেষ দেখা: আজ ১০:১৫ AM",
           messages: [
             {
@@ -1546,7 +1589,7 @@ function showAppointmentDetails(appointmentId) {
         },
         farhana: {
           name: "ফারহানা ইয়াসমিন",
-          image: "/ShebaXpert/Resources/images/woman1.jpeg",
+          image: "../Resources/images/woman1.jpeg",
           lastSeen: "সর্বশেষ দেখা: গতকাল ২:১৫ PM",
           messages: [
             {
@@ -1568,7 +1611,7 @@ function showAppointmentDetails(appointmentId) {
         },
         rahim: {
           name: "রহিম উদ্দিন",
-          image: "/ShebaXpert/Resources/images/man2.png",
+          image: "../Resources/images/man2.png",
           lastSeen: "অনলাইন",
           messages: [
             {
@@ -1600,7 +1643,7 @@ function showAppointmentDetails(appointmentId) {
         },
         karim: {
           name: "করিম উদ্দিন",
-          image: "/ShebaXpert/Resources/images/man4.jpeg",
+          image: "../Resources/images/man4.jpeg",
           lastSeen: "সর্বশেষ দেখা: ৩ দিন আগে",
           messages: [
             {
@@ -1622,7 +1665,7 @@ function showAppointmentDetails(appointmentId) {
         },
         sumaiya: {
           name: "সুমাইয়া আক্তার",
-          image: "/ShebaXpert/Resources/images/woman2.png",
+          image: "../Resources/images/woman2.png",
           lastSeen: "অনলাইন",
           messages: [
             {
@@ -1639,7 +1682,7 @@ function showAppointmentDetails(appointmentId) {
         },
         jamil: {
           name: "জামিল আহমেদ",
-          image: "/ShebaXpert/Resources/images/man1.png",
+          image: "../Resources/images/man1.png",
           lastSeen: "সর্বশেষ দেখা: ২ সপ্তাহ আগে",
           messages: [
             {
@@ -1656,7 +1699,7 @@ function showAppointmentDetails(appointmentId) {
         },
         nazma: {
           name: "নাজমা আক্তার",
-          image: "/ShebaXpert/Resources/images/woman2.png",
+          image: "../Resources/images/woman2.png",
           lastSeen: "সর্বশেষ দেখা: ৩ সপ্তাহ আগে",
           messages: [
             {
@@ -1857,6 +1900,9 @@ function showAppointmentDetails(appointmentId) {
     document.querySelector(".emoji-btn").addEventListener("click", function () {
       alert("ইমোজি পিকার খুলবে।");
     });
+    
+    // Add error handlers to all images
+    addImageErrorHandlers();
   }
 
 
@@ -2139,10 +2185,13 @@ function initModalSystem() {
     document.querySelectorAll('.modal-overlay').forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
-                closeModal(this.id);
+                closeModal(modal.id);
             }
         });
     });
+    
+    // Add error handlers to all images
+    addImageErrorHandlers();
 }
 
 // Show modal function
@@ -2384,9 +2433,12 @@ function closeModal(modalId) {
             totalNotifications > 99 ? "99+" : totalNotifications;
         }
       }
-    }, 5000);
-  }
-
+  // Initialize with dashboard view
+  loadContent("dashboard");
+  
+  // Add error handlers to all existing images
+  addImageErrorHandlers();
+});
   // Initialize with dashboard view
   loadContent("dashboard");
 });
