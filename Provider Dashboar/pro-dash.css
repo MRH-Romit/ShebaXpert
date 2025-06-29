@@ -1945,6 +1945,10 @@ body {
     color: #FFC107;
     font-size: 18px;
     margin: 10px 0 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .rating span {
