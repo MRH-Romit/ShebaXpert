@@ -65,6 +65,27 @@
                   ><i class="fas fa-user-circle"></i> প্রোফাইল</a
                 >
               </li>
+              <li>
+                <a href="#" id="notification-btn" title="নোটিফিকেশন">
+                  <i class="fas fa-bell"></i>
+                  <span
+                    id="notification-badge"
+                    style="
+                      display: inline-block;
+                      min-width: 16px;
+                      background: #e74c3c;
+                      color: #fff;
+                      border-radius: 8px;
+                      font-size: 12px;
+                      padding: 2px 6px;
+                      position: relative;
+                      top: -10px;
+                      left: -8px;
+                    "
+                    >3</span
+                  >
+                </a>
+              </li>
             </ul>
 
             <!-- Provider Modal -->
@@ -441,6 +462,16 @@
         <p>&copy; ২০২৩ Sheba Expert. সকল স্বত্ব সংরক্ষিত</p>
       </div>
     </footer>
+    <div id="notification-modal" class="notification-modal" style="display:none;position:absolute;right:20px;top:60px;z-index:1000;background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);width:300px;">
+      <div style="padding:16px;border-bottom:1px solid #eee;font-weight:bold;">
+        <i class="fas fa-bell"></i> নোটিফিকেশন
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;">
+        <li style="padding:12px 16px;border-bottom:1px solid #f5f5f5;">নতুন সার্ভিস অনুরোধ এসেছে</li>
+        <li style="padding:12px 16px;border-bottom:1px solid #f5f5f5;">পেমেন্ট সফল হয়েছে</li>
+        <li style="padding:12px 16px;">আপনার প্রোফাইল আপডেট হয়েছে</li>
+      </ul>
+    </div>
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -454,6 +485,21 @@
           item.classList.toggle("active");
         });
       });
+
+      // Notification modal toggle
+      document.getElementById("notification-btn").addEventListener("click", function (e) {
+        e.preventDefault();
+        const modal = document.getElementById("notification-modal");
+        modal.style.display = modal.style.display === "none" ? "block" : "none";
+      });
+      document.addEventListener("click", function (e) {
+        const btn = document.getElementById("notification-btn");
+        const modal = document.getElementById("notification-modal");
+        if (!btn.contains(e.target) && !modal.contains(e.target)) {
+          modal.style.display = "none";
+        }
+      });
+
       // Cache busting for development
       const jsTimestamp = new Date().getTime();
       const scriptTag = document.createElement("script");
