@@ -5,321 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>সহায়তা কেন্দ্র | সেবাXpert</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #004AAD;
-            --secondary-color: #00C6FF;
-            --accent-color: #FF6B6B;
-            --light-color: #F8FAFC;
-            --dark-color: #333333;
-            --gray-color: #6B7280;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: #f5f7fa;
-            color: var(--dark-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 74, 173, 0.1);
-            overflow: hidden;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .header {
-            padding: 20px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            color: white;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-        .header .back-arrow {
-            font-size: 24px;
-            margin-right: 15px;
-            cursor: pointer;
-        }
-
-        .header .title {
-            flex-grow: 1;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .help-content {
-            padding: 20px;
-        }
-
-        .section {
-            margin-bottom: 25px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .section-header {
-            background: #f8fafc;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .section-header i {
-            font-size: 20px;
-            color: var(--primary-color);
-        }
-
-        .section-header h3 {
-            margin: 0;
-            font-size: 16px;
-            color: var(--primary-color);
-        }
-
-        .section-body {
-            background: white;
-            padding: 15px;
-        }
-
-        .emergency-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .emergency-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .emergency-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .emergency-card.fire {
-            border-top: 3px solid #ef4444;
-        }
-
-        .emergency-card.police {
-            border-top: 3px solid #3b82f6;
-        }
-
-        .emergency-card.ambulance {
-            border-top: 3px solid #10b981;
-        }
-
-        .emergency-card.electric {
-            border-top: 3px solid #f59e0b;
-        }
-
-        .emergency-card.gas {
-            border-top: 3px solid #d97706;
-        }
-
-        .emergency-card.water {
-            border-top: 3px solid #06b6d4;
-        }
-
-        .emergency-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .emergency-card.fire .emergency-icon {
-            color: #ef4444;
-        }
-
-        .emergency-card.police .emergency-icon {
-            color: #3b82f6;
-        }
-
-        .emergency-card.ambulance .emergency-icon {
-            color: #10b981;
-        }
-
-        .emergency-card.electric .emergency-icon {
-            color: #f59e0b;
-        }
-
-        .emergency-card.gas .emergency-icon {
-            color: #d97706;
-        }
-
-        .emergency-card.water .emergency-icon {
-            color: #06b6d4;
-        }
-
-        .emergency-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .emergency-number {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--dark-color);
-        }
-
-        .support-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .support-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .support-card:hover {
-            background: #f8fafc;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .support-icon {
-            font-size: 24px;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-        }
-
-        .support-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .support-desc {
-            font-size: 12px;
-            color: var(--gray-color);
-        }
-
-        .faq-item {
-            border-bottom: 1px solid #e5e7eb;
-            padding: 15px 0;
-        }
-
-        .faq-item:last-child {
-            border-bottom: none;
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            color: var(--gray-color);
-            font-size: 14px;
-            margin-top: 0;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            margin-top: 10px;
-        }
-
-        .faq-toggle {
-            transition: transform 0.3s;
-        }
-
-        .faq-item.active .faq-toggle {
-            transform: rotate(180deg);
-        }
-
-        .resource-list {
-            display: grid;
-            gap: 10px;
-        }
-
-        .resource-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 8px;
-            background: #f8fafc;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .resource-item:hover {
-            background: #f0f4f8;
-            transform: translateX(5px);
-        }
-
-        .resource-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: rgba(0, 74, 173, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-        }
-
-        .resource-text {
-            flex: 1;
-        }
-
-        .resource-title {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .container {
-                margin: 0;
-                border-radius: 0;
-                min-height: 100vh;
-            }
-            
-            .emergency-grid,
-            .support-options {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="emergency.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <span class="back-arrow" onclick="window.history.back()"><i class="fas fa-arrow-left"></i></span>
+            <span class="back-arrow"><i class="fas fa-arrow-left"></i></span>
             <div class="title">সহায়তা কেন্দ্র</div>
         </div>
 
@@ -332,32 +23,32 @@
                 </div>
                 <div class="section-body">
                     <div class="emergency-grid">
-                        <div class="emergency-card fire" onclick="window.open('tel:999')">
+                        <div class="emergency-card fire">
                             <div class="emergency-icon"><i class="fas fa-fire"></i></div>
                             <div class="emergency-title">ফায়ার সার্ভিস</div>
                             <div class="emergency-number">৯৯৯</div>
                         </div>
-                        <div class="emergency-card police" onclick="window.open('tel:999')">
+                        <div class="emergency-card police">
                             <div class="emergency-icon"><i class="fas fa-shield-alt"></i></div>
                             <div class="emergency-title">পুলিশ</div>
                             <div class="emergency-number">৯৯৯</div>
                         </div>
-                        <div class="emergency-card ambulance" onclick="window.open('tel:999')">
+                        <div class="emergency-card ambulance">
                             <div class="emergency-icon"><i class="fas fa-ambulance"></i></div>
                             <div class="emergency-title">অ্যাম্বুলেন্স</div>
                             <div class="emergency-number">৯৯৯</div>
                         </div>
-                        <div class="emergency-card electric" onclick="window.open('tel:16123')">
+                        <div class="emergency-card electric">
                             <div class="emergency-icon"><i class="fas fa-bolt"></i></div>
                             <div class="emergency-title">বিদ্যুৎ জরুরি</div>
                             <div class="emergency-number">১৬১২৩</div>
                         </div>
-                        <div class="emergency-card gas" onclick="window.open('tel:16580')">
+                        <div class="emergency-card gas">
                             <div class="emergency-icon"><i class="fas fa-fire-flame-curved"></i></div>
                             <div class="emergency-title">গ্যাস জরুরি</div>
                             <div class="emergency-number">১৬৫৮০</div>
                         </div>
-                        <div class="emergency-card water" onclick="window.open('tel:16162')">
+                        <div class="emergency-card water">
                             <div class="emergency-icon"><i class="fas fa-faucet"></i></div>
                             <div class="emergency-title">পানি জরুরি</div>
                             <div class="emergency-number">১৬১৬২</div>
@@ -374,22 +65,22 @@
                 </div>
                 <div class="section-body">
                     <div class="support-options">
-                        <div class="support-card" onclick="window.open('tel:+8801700000000')">
+                        <div class="support-card" data-action="call">
                             <div class="support-icon"><i class="fas fa-phone"></i></div>
                             <div class="support-title">কল করুন</div>
                             <div class="support-desc">+৮৮০১৭০০০০০০০০</div>
                         </div>
-                        <div class="support-card" onclick="window.open('https://wa.me/8801700000000', '_blank')">
+                        <div class="support-card" data-action="whatsapp">
                             <div class="support-icon"><i class="fab fa-whatsapp"></i></div>
                             <div class="support-title">হোয়াটসঅ্যাপ</div>
                             <div class="support-desc">তাৎক্ষণিক উত্তর</div>
                         </div>
-                        <div class="support-card" onclick="window.open('mailto:support@shebaexpert.com')">
+                        <div class="support-card" data-action="email">
                             <div class="support-icon"><i class="fas fa-envelope"></i></div>
                             <div class="support-title">ইমেইল করুন</div>
                             <div class="support-desc">support@shebaexpert.com</div>
                         </div>
-                        <div class="support-card" onclick="alert('চ্যাট সেবা শীঘ্রই আসছে!')">
+                        <div class="support-card" data-action="chat">
                             <div class="support-icon"><i class="fas fa-comments"></i></div>
                             <div class="support-title">লাইভ চ্যাট</div>
                             <div class="support-desc">২৪/৭ সেবা</div>
@@ -486,36 +177,6 @@
         </div>
     </div>
 
-    <script>
-        // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.closest('.faq-item');
-                item.classList.toggle('active');
-            });
-        });
-
-        // Emergency call with confirmation
-        document.querySelectorAll('.emergency-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (e.target.tagName !== 'A') {
-                    const number = this.querySelector('.emergency-number').textContent.replace(/\D/g, '');
-                    const service = this.querySelector('.emergency-title').textContent;
-                    
-                    if (confirm(`${service} নম্বরে কল করতে চান? ${number}`)) {
-                        window.open(`tel:${number}`);
-                    }
-                }
-            });
-        });
-
-        // Resource item click
-        document.querySelectorAll('.resource-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const title = item.querySelector('.resource-title').textContent;
-                alert(`${title} পেজটি শীঘ্রই আসছে!`);
-            });
-        });
-    </script>
+    <script src="emergency.js"></script>
 </body>
 </html>

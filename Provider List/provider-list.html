@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শেবা এক্সপার্ট - সেবা প্রোভাইডার তালিকা</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="provider-list.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="../Resources/images/justlogo.png" alt="শেবা এক্সপার্ট লোগো" class="nav-logo">
+                    <h2>সেবাXpert</h2>
+                </div>
+                
+                <div class="nav-buttons">
+                    <a href="../Dashboard/dash.html" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>হোম</span>
+                    </a>
+                    <a href="../Service area/service-area.html" class="nav-btn">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>সার্ভিস এলাকা</span>
+                    </a>
+                    <a href="#providers" class="nav-btn active">
+                        <i class="fas fa-users"></i>
+                        <span>প্রোভাইডার</span>
+                    </a>
+                    <a href="../emergency/emergency.html" class="nav-btn">
+                        <i class="fas fa-headset"></i>
+                        <span>সহায়তা</span>
+                    </a>
+                    <a href="../Profile/profile.html" class="nav-btn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>প্রোফাইল</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="page-header">
+                <div class="header-content">
+                    <h1>সেবা প্রোভাইডার তালিকা</h1>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="খুঁজুন...">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="categoryFilter">ক্যাটেগরি:</label>
+                        <select id="categoryFilter">
+                            <option value="">সব ক্যাটেগরি</option>
+                            <option value="ইলেকট্রিশিয়ান">ইলেকট্রিশিয়ান</option>
+                            <option value="প্লাম্বার">প্লাম্বার</option>
+                            <option value="কাঠমিস্ত্রি">কাঠমিস্ত্রি</option>
+                            <option value="রঙমিস্ত্রি">রঙমিস্ত্রি</option>
+                            <option value="পরিচ্ছন্নতাকারী">পরিচ্ছন্নতাকারী</option>
+                            <option value="মেকানিক">মেকানিক</option>
+                            <option value="মালী">মালী</option>
+                            <option value="এসি মেরামত">এসি মেরামত</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="locationFilter">এলাকা:</label>
+                        <select id="locationFilter">
+                            <option value="">সব এলাকা</option>
+                            <option value="ঢাকা">ঢাকা</option>
+                            <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                            <option value="সিলেট">সিলেট</option>
+                            <option value="রাজশাহী">রাজশাহী</option>
+                            <option value="খুলনা">খুলনা</option>
+                            <option value="বরিশাল">বরিশাল</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="ratingFilter">রেটিং:</label>
+                        <select id="ratingFilter">
+                            <option value="">সব রেটিং</option>
+                            <option value="5">৫ স্টার</option>
+                            <option value="4">৪+ স্টার</option>
+                            <option value="3">৩+ স্টার</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button id="clearFilter" class="clear-btn">ফিল্টার পরিষ্কার</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Provider Grid -->
+            <div class="providers-grid" id="providersGrid">
+                <!-- Providers will be loaded dynamically -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn" id="prevBtn" title="আগের পৃষ্ঠা"><i class="fas fa-chevron-left"></i></button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-btn" id="nextBtn" title="পরবর্তী পৃষ্ঠা"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Provider Detail Modal -->
+    <div class="modal" id="providerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">প্রোভাইডার বিস্তারিত</h3>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Provider details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal" id="messageModal">
+        <div class="modal-content message-modal">
+            <div class="modal-header">
+                <h3>মেসেজ পাঠান</h3>
+                <span class="close" id="closeMessageModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="message-form">
+                    <div class="form-group">
+                        <label for="messageSubject">বিষয়:</label>
+                        <input type="text" id="messageSubject" placeholder="মেসেজের বিষয় লিখুন">
+                    </div>
+                    <div class="form-group">
+                        <label for="messageText">মেসেজ:</label>
+                        <textarea id="messageText" rows="5" placeholder="আপনার মেসেজ লিখুন..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="send-btn" id="sendMessage">
+                            <i class="fas fa-paper-plane"></i> পাঠান
+                        </button>
+                        <button class="cancel-btn" id="cancelMessage">বাতিল</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>লোড হচ্ছে...</p>
+    </div>
+
+    <script src="provider-list.js"></script>
+</body>
+</html>

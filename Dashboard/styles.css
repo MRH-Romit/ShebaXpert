@@ -276,6 +276,39 @@ body {
     color: var(--accent-color);
 }
 
+/* Enhanced Home Link Styles */
+#home-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+#home-link:hover {
+    color: var(--accent-color) !important;
+    transform: translateY(-2px);
+}
+
+#home-link:active {
+    transform: translateY(0);
+    color: var(--secondary-color) !important;
+}
+
+#home-link:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Pulsing animation for home icon when active */
+#home-link.active,
+#home-link:focus {
+    animation: homePulse 2s infinite;
+}
+
+@keyframes homePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
 .user-actions {
     display: flex;
     gap: 1rem;
@@ -2036,6 +2069,13 @@ body {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.provider-modal.show {
+  display: block !important;
+  opacity: 1;
 }
 
 .provider-modal-content {
@@ -2045,19 +2085,76 @@ body {
   width: 90%;
   max-width: 500px;
   border-radius: 10px;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.provider-modal.show .provider-modal-content {
+  transform: translateY(0);
 }
 
 .provider-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 10px;
+}
+
+.provider-header h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.close-provider-modal {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gray-color);
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-provider-modal:hover {
+  background-color: var(--accent-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.provider-list {
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .provider-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 15px;
+  margin: 15px 0;
   border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.provider-item:hover {
+  background-color: var(--light-color);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.provider-item i {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.provider-item strong {
+  color: var(--dark-color);
+  font-size: 1.1rem;
+}
+
+.provider-item small {
+  color: var(--gray-color);
 }

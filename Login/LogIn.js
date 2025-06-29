@@ -71,8 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 password: formData.get('password')
             };
 
+            // Check if this came from a service provider registration
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromServiceProvider = urlParams.get('from') === 'service-provider';
+            
+            if (fromServiceProvider) {
+                credentials.role = 'service_provider';
+            }
+
             if (!credentials.email || !credentials.password) {
-                showMessage('Email and password are required', 'error');
+                showMessage('ইমেইল এবং পাসওয়ার্ড প্রয়োজন', 'error');
                 return;
             }
 
@@ -88,13 +96,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
-                    showMessage('Login successful! Redirecting...', 'success');
-                    setTimeout(() => { window.location.href = '../Dashboard/dash.html'; }, 1000);
+                    showMessage('সফলভাবে লগইন হয়েছে! রিডিরেক্ট করা হচ্ছে...', 'success');
+                    
+                    // Redirect based on user role
+                    setTimeout(() => {
+                        if (data.user.role === 'service_provider') {
+                            window.location.href = '../Provider Dashboar/pro-dash.html';
+                        } else {
+                            window.location.href = '../Dashboard/dash.html';
+                        }
+                    }, 1000);
                 } else {
-                    showMessage(data.message || 'Login failed', 'error');
+                    showMessage(data.message || 'লগইন ব্যর্থ হয়েছে', 'error');
                 }
             } catch (error) {
-                showMessage('Network error. Please try again.', 'error');
+                showMessage('নেটওয়ার্ক ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।', 'error');
             }
         });
     }
@@ -149,3 +165,120 @@ function showMessage(message, type) {
     document.body.appendChild(div);
     setTimeout(() => { div.remove(); }, 3000);
 }
+
+// Language switching functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.getElementById('languageToggle');
+    
+    // Language content object
+    const languageContent = {
+        en: {
+            'signup-title': 'Create Account',
+            'signup-subtitle': 'or use your email for registration',
+            'signup-button': 'Sign Up',
+            'signin-title': 'Sign in',
+            'signin-subtitle': 'or use your account',
+            'signin-button': 'Sign In',
+            'welcome-back': 'Welcome Back!',
+            'welcome-back-text': 'To keep connected with us please login with your personal info',
+            'hello-friend': 'Hello, Friend!',
+            'hello-friend-text': 'Enter your personal details and start your journey with us',
+            'forgot-password': 'Forgot your password?',
+            'footer-text': '© 2023 ShebaXpert. All rights reserved',
+            'back-btn-text': 'Home Page'
+        },
+        bn: {
+            'signup-title': 'অ্যাকাউন্ট তৈরি করুন',
+            'signup-subtitle': 'অথবা রেজিস্ট্রেশনের জন্য আপনার ইমেইল ব্যবহার করুন',
+            'signup-button': 'সাইন আপ',
+            'signin-title': 'সাইন ইন',
+            'signin-subtitle': 'অথবা আপনার অ্যাকাউন্ট ব্যবহার করুন',
+            'signin-button': 'সাইন ইন',
+            'welcome-back': 'স্বাগতম!',
+            'welcome-back-text': 'আমাদের সাথে যুক্ত থাকতে আপনার ব্যক্তিগত তথ্য দিয়ে লগইন করুন',
+            'hello-friend': 'হ্যালো বন্ধু!',
+            'hello-friend-text': 'আপনার ব্যক্তিগত তথ্য দিন এবং আমাদের সাথে যাত্রা শুরু করুন',
+            'forgot-password': 'পাসওয়ার্ড ভুলে গেছেন?',
+            'footer-text': '© ২০২৩ শেবাXpert। সকল অধিকার সংরক্ষিত',
+            'back-btn-text': 'মূল পৃষ্ঠা'
+        }
+    };
+    
+    // Placeholder translations
+    const placeholderTranslations = {
+        en: {
+            'firstName': 'First Name',
+            'lastName': 'Last Name',
+            'email': 'Email',
+            'phone': 'Phone Number',
+            'password': 'Password'
+        },
+        bn: {
+            'firstName': 'প্রথম নাম',
+            'lastName': 'শেষ নাম',
+            'email': 'ইমেইল',
+            'phone': 'ফোন নম্বর',
+            'password': 'পাসওয়ার্ড'
+        }
+    };
+    
+    // Initialize with current state (default is Bengali)
+    let currentLanguage = languageToggle && languageToggle.checked ? 'en' : 'bn';
+    
+    // Apply language on page load
+    applyLanguage(currentLanguage);
+    
+    // Language toggle event listener
+    if (languageToggle) {
+        languageToggle.addEventListener('change', function() {
+            currentLanguage = this.checked ? 'en' : 'bn';
+            applyLanguage(currentLanguage);
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', currentLanguage);
+        });
+    }
+    
+    // Function to apply language changes
+    function applyLanguage(lang) {
+        // Update text content
+        Object.keys(languageContent[lang]).forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                if (id === 'back-btn-text') {
+                    // Update back button text
+                    const backBtnSpan = document.querySelector('.back-btn span');
+                    if (backBtnSpan) {
+                        backBtnSpan.textContent = languageContent[lang][id];
+                    }
+                } else {
+                    element.textContent = languageContent[lang][id];
+                }
+            }
+        });
+        
+        // Update placeholders
+        Object.keys(placeholderTranslations[lang]).forEach(name => {
+            const inputs = document.querySelectorAll(`input[name="${name}"]`);
+            inputs.forEach(input => {
+                input.placeholder = placeholderTranslations[lang][name];
+            });
+        });
+        
+        // Update document language attribute
+        document.documentElement.lang = lang === 'bn' ? 'bn' : 'en';
+        
+        // Update page title
+        document.title = lang === 'bn' ? 'লগইন - শেবাXpert' : 'Login - ShebaXpert';
+    }
+    
+    // Check for stored language preference
+    const storedLanguage = localStorage.getItem('preferredLanguage');
+    if (storedLanguage && storedLanguage !== currentLanguage) {
+        if (languageToggle) {
+            languageToggle.checked = storedLanguage === 'en';
+            currentLanguage = storedLanguage;
+            applyLanguage(currentLanguage);
+        }
+    }
+});
