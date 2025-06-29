@@ -238,6 +238,7 @@ window.viewProviderDetails = viewProviderDetails;
 // Service Area JavaScript File
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
+    setupHomeNavigation();
     initializeServiceAreas();
     initializeFilters();
     initializeSearch();
@@ -715,16 +716,54 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Handle ESC key to close modal
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const supportModal = document.getElementById('support-modal');
-        if (supportModal && supportModal.style.display === 'flex') {
-            supportModal.style.display = 'none';
-            document.body.classList.remove('modal-open');
-        }
+// Ensure Home Link Always Works (same as dashboard)
+function setupHomeNavigation() {
+    const homeLink = document.getElementById('home-link');
+    if (homeLink) {
+        // Add multiple event handlers to ensure reliability
+        homeLink.addEventListener('click', function(e) {
+            console.log('🏠 Home link clicked from Service Area page');
+            
+            // Always prevent default and force navigation to dashboard
+            e.preventDefault();
+            
+            console.log('🔄 Navigating to dashboard from Service Area page');
+            
+            // Use multiple fallback methods
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            
+            window.location.href = dashboardUrl;
+        });
+        
+        // Add backup handler for double-click
+        homeLink.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            console.log('🏠 Home link double-clicked from Service Area - forcing navigation');
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            window.location.href = dashboardUrl;
+        });
+        
+        console.log('✅ Service Area Home navigation handler added');
+    } else {
+        console.warn('⚠️ Home link not found in Service Area page');
     }
-});
+    
+    // Add keyboard shortcut for home navigation (Ctrl+Home or Alt+H)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey && e.key === 'Home') || (e.altKey && e.key.toLowerCase() === 'h')) {
+            e.preventDefault();
+            console.log('⌨️ Home keyboard shortcut pressed from Service Area');
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            window.location.href = dashboardUrl;
+        }
+    });
+}
 
 // Make functions available globally
 window.bookService = bookService;

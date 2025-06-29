@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize navigation
     initializeNavigation();
     
+    // Initialize home navigation
+    setupHomeNavigation();
+    
     // Initialize photo upload
     initializePhotoUpload();
     
@@ -685,3 +688,54 @@ function showNotification(message, type = 'info') {
         setTimeout(() => notification.remove(), 300);
     }, 3000);
 }
+
+// Ensure Home Link Always Works (same as dashboard)
+function setupHomeNavigation() {
+    const homeLink = document.getElementById('home-link');
+    if (homeLink) {
+        // Add multiple event handlers to ensure reliability
+        homeLink.addEventListener('click', function(e) {
+            console.log('🏠 Home link clicked from Profile page');
+            
+            // Always prevent default and force navigation to dashboard
+            e.preventDefault();
+            
+            console.log('🔄 Navigating to dashboard from Profile page');
+            
+            // Use multiple fallback methods
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            
+            window.location.href = dashboardUrl;
+        });
+        
+        // Add backup handler for double-click
+        homeLink.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            console.log('🏠 Home link double-clicked from Profile - forcing navigation');
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            window.location.href = dashboardUrl;
+        });
+        
+        console.log('✅ Profile Home navigation handler added');
+    } else {
+        console.warn('⚠️ Home link not found in Profile page');
+    }
+    
+    // Add keyboard shortcut for home navigation (Ctrl+Home or Alt+H)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey && e.key === 'Home') || (e.altKey && e.key.toLowerCase() === 'h')) {
+            e.preventDefault();
+            console.log('⌨️ Home keyboard shortcut pressed from Profile');
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            window.location.href = dashboardUrl;
+        }
+    });
+}
+
+setupHomeNavigation();

@@ -1007,6 +1007,7 @@ function initializeAll() {
     checkAuthentication();
     loadUserInfo();
     setupLogout();
+    setupHomeNavigation();
     initializeLocationButton();
     initializeCategorySelection();
     initializeSearch();
@@ -1339,4 +1340,89 @@ function initializeProviderModal() {
     }
 
     console.log('✅ Provider modal initialized');
+}
+
+// Ensure Home Link Always Works
+function setupHomeNavigation() {
+    const homeLink = document.getElementById('home-link');
+    if (homeLink) {
+        // Add multiple event handlers to ensure reliability
+        homeLink.addEventListener('click', function(e) {
+            console.log('🏠 Home link clicked');
+            
+            // Check if we're already on dashboard
+            const currentPath = window.location.pathname;
+            const currentUrl = window.location.href;
+            
+            console.log('Current URL:', currentUrl);
+            console.log('Current Path:', currentPath);
+            
+            // If we're not on the dashboard, force navigation
+            if (!currentPath.includes('dash.html') && !currentPath.includes('Dashboard')) {
+                e.preventDefault(); // Prevent default navigation
+                console.log('🔄 Forcing navigation to dashboard from different directory');
+                
+                // Use multiple fallback methods
+                const dashboardUrl = currentUrl.includes('localhost') 
+                    ? 'http://localhost:8080/Dashboard/dash.html'
+                    : '/Dashboard/dash.html';
+                
+                window.location.href = dashboardUrl;
+                return;
+            }
+            
+            // Add visual feedback
+            homeLink.classList.add('active');
+            
+            // Add a fallback check after a short delay for same-directory navigation
+            setTimeout(() => {
+                const newPath = window.location.pathname;
+                const isOnDashboard = newPath.includes('dash.html') || newPath.includes('Dashboard');
+                
+                if (!isOnDashboard) {
+                    console.log('🔄 Fallback: Redirecting to dashboard');
+                    const fallbackUrl = window.location.href.includes('localhost') 
+                        ? 'http://localhost:8080/Dashboard/dash.html'
+                        : '/Dashboard/dash.html';
+                    window.location.href = fallbackUrl;
+                }
+                
+                // Remove active class after a delay
+                setTimeout(() => homeLink.classList.remove('active'), 1000);
+            }, 100);
+        });
+        
+        // Add backup handler for double-click
+        homeLink.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            console.log('🏠 Home link double-clicked - forcing navigation');
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            window.location.href = dashboardUrl;
+        });
+        
+        console.log('✅ Home navigation handler added');
+    } else {
+        console.warn('⚠️ Home link not found');
+    }
+    
+    // Add keyboard shortcut for home navigation (Ctrl+Home or Alt+H)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey && e.key === 'Home') || (e.altKey && e.key.toLowerCase() === 'h')) {
+            e.preventDefault();
+            console.log('⌨️ Home keyboard shortcut pressed');
+            const dashboardUrl = window.location.href.includes('localhost') 
+                ? 'http://localhost:8080/Dashboard/dash.html'
+                : '/Dashboard/dash.html';
+            window.location.href = dashboardUrl;
+        }
+    });
+}
+
+// Initialize home navigation when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHomeNavigation);
+} else {
+    setupHomeNavigation();
 }

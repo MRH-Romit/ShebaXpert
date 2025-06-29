@@ -276,6 +276,39 @@ body {
     color: var(--accent-color);
 }
 
+/* Enhanced Home Link Styles */
+#home-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+#home-link:hover {
+    color: var(--accent-color) !important;
+    transform: translateY(-2px);
+}
+
+#home-link:active {
+    transform: translateY(0);
+    color: var(--secondary-color) !important;
+}
+
+#home-link:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Pulsing animation for home icon when active */
+#home-link.active,
+#home-link:focus {
+    animation: homePulse 2s infinite;
+}
+
+@keyframes homePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
 .user-actions {
     display: flex;
     gap: 1rem;
