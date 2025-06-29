@@ -178,7 +178,8 @@ async function handleFormSubmission(e) {
             serviceCategory: formData.get('serviceCategory'),
             gender: formData.get('gender'),
             workDescription: formData.get('workDescription'),
-            password: formData.get('password')
+            password: formData.get('password'),
+            role: 'service_provider' // Ensure role is set
         };
 
         // Send registration data
@@ -200,9 +201,9 @@ async function handleFormSubmission(e) {
             
             showMessage('সফলভাবে নিবন্ধন সম্পন্ন হয়েছে! আপনি এখন লগইন করতে পারেন।', 'success');
             
-            // Redirect to login page after 3 seconds
+            // Redirect to login page after 3 seconds with service provider parameter
             setTimeout(() => {
-                window.location.href = '../Login/LogIn.html';
+                window.location.href = '../Login/LogIn.html?from=service-provider';
             }, 3000);
         } else {
             showMessage(result.message || 'নিবন্ধনে সমস্যা হয়েছে', 'error');

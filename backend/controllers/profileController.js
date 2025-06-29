@@ -1,5 +1,6 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
+const ServiceProvider = require('../models/ServiceProvider');
 
 // Get profile by user ID
 exports.getProfile = async (req, res) => {
@@ -91,6 +92,57 @@ exports.findNearbyProviders = async (req, res) => {
     res.status(200).json({ providers });
   } catch (error) {
     console.error('Find nearby providers error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Get service provider profile
+exports.getServiceProviderProfile = async (req, res) => {
+  try {
+    const userId = req.userId;
+    
+    // Get user info
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Check if user is service provider
+    if (user.role !== 'service_provider') {
+      return res.status(403).json({ message: 'Access denied. User is not a service provider.' });
+    }
+    
+    // Get service provider specific info
+    const serviceProvider = await ServiceProvider.findByUserId(userId);
+    
+    if (!serviceProvider) {
+      return res.status(404).json({ message: 'Service provider profile not found' });
+    }
+    
+    // Remove sensitive data and format response
+    const { password_hash, ...userData } = user;
+    
+    res.status(200).json({
+      id: userData.id,
+      fullName: serviceProvider.full_name,
+      email: userData.email,
+      phone: userData.phone,
+      location: serviceProvider.location,
+      serviceCategory: serviceProvider.service_category,
+      gender: serviceProvider.gender,
+      workDescription: serviceProvider.work_description,
+      profileImage: serviceProvider.photo_path,
+      nidDocument: serviceProvider.nid_document_path,
+      experience: serviceProvider.experience_years || '১',
+      emailVerified: userData.email_verified,
+      phoneVerified: userData.phone_verified,
+      status: serviceProvider.status,
+      rating: serviceProvider.rating,
+      totalJobs: serviceProvider.total_jobs,
+      createdAt: serviceProvider.created_at
+    });
+  } catch (error) {
+    console.error('Get service provider profile error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

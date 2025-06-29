@@ -71,8 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 password: formData.get('password')
             };
 
+            // Check if this came from a service provider registration
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromServiceProvider = urlParams.get('from') === 'service-provider';
+            
+            if (fromServiceProvider) {
+                credentials.role = 'service_provider';
+            }
+
             if (!credentials.email || !credentials.password) {
-                showMessage('Email and password are required', 'error');
+                showMessage('ইমেইল এবং পাসওয়ার্ড প্রয়োজন', 'error');
                 return;
             }
 
@@ -88,13 +96,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
-                    showMessage('Login successful! Redirecting...', 'success');
-                    setTimeout(() => { window.location.href = '../Dashboard/dash.html'; }, 1000);
+                    showMessage('সফলভাবে লগইন হয়েছে! রিডিরেক্ট করা হচ্ছে...', 'success');
+                    
+                    // Redirect based on user role
+                    setTimeout(() => {
+                        if (data.user.role === 'service_provider') {
+                            window.location.href = '../Provider Dashboar/pro-dash.html';
+                        } else {
+                            window.location.href = '../Dashboard/dash.html';
+                        }
+                    }, 1000);
                 } else {
-                    showMessage(data.message || 'Login failed', 'error');
+                    showMessage(data.message || 'লগইন ব্যর্থ হয়েছে', 'error');
                 }
             } catch (error) {
-                showMessage('Network error. Please try again.', 'error');
+                showMessage('নেটওয়ার্ক ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।', 'error');
             }
         });
     }
