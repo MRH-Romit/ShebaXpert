@@ -6,6 +6,10 @@
   <title>সেবা প্রদানকারী নিবন্ধন - ShebaXpert</title>
   <link rel="stylesheet" href="registration.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
     
@@ -369,6 +373,14 @@
         <input type="file" name="photo" accept=".jpg,.jpeg,.png" required>
       </div>
 
+      <div class="form-group">
+        <label>আপনার সঠিক অবস্থান ম্যাপে নির্বাচন করুন:</label>
+        <div id="mapid" style="height: 300px; border-radius: 10px; margin-bottom: 10px;"></div>
+        <input type="hidden" name="latitude" id="latitude" required>
+        <input type="hidden" name="longitude" id="longitude" required>
+        <small style="color:#888;">ম্যাপে ক্লিক করে আপনার অবস্থান নির্বাচন করুন</small>
+      </div>
+
       <div class="form-row">
         <div class="form-group">
           <label>পাসওয়ার্ড:</label>
@@ -393,6 +405,42 @@
       </a>
     </div>
   </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="registration.js"></script>
+  <script>
+  // Initialize Leaflet map
+  var map = L.map('mapid').setView([23.8103, 90.4125], 7); // Default: Bangladesh
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  var marker;
+
+  map.on('click', function(e) {
+    var lat = e.latlng.lat.toFixed(6);
+    var lng = e.latlng.lng.toFixed(6);
+
+    if (marker) {
+      marker.setLatLng(e.latlng);
+    } else {
+      marker = L.marker(e.latlng).addTo(map);
+    }
+
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
+  });
+
+  // Optionally, set marker if values already exist (for edit forms)
+  window.addEventListener('DOMContentLoaded', function() {
+    var lat = document.getElementById('latitude').value;
+    var lng = document.getElementById('longitude').value;
+    if (lat && lng) {
+      var latlng = L.latLng(lat, lng);
+      marker = L.marker(latlng).addTo(map);
+      map.setView(latlng, 14);
+    }
+  });
+</script>
 </body>
 </html>
