@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f5f5f5;
+        }
+        .test-section { 
+            background: white; 
+            padding: 20px; 
+            margin: 10px 0; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-link { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            background: #004AAD; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            transition: background 0.3s;
+        }
+        .test-link:hover { 
+            background: #003388; 
+        }
+        h2 { 
+            color: #004AAD; 
+            border-bottom: 2px solid #00C6FF; 
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 ShebaXpert Navigation Test</h1>
+    
+    <div class="test-section">
+        <h2>📍 From Dashboard (dash.html)</h2>
+        <p>Testing প্রোভাইডার navigation from the dashboard:</p>
+        <a href="Dashboard/dash.html" class="test-link">Go to Dashboard</a>
+        <p><em>On the dashboard, click প্রোভাইডার - should show modal</em></p>
+    </div>
+
+    <div class="test-section">
+        <h2>👤 From Profile (profile.html)</h2>
+        <p>Testing প্রোভাইডার navigation from profile page:</p>
+        <a href="Profile/profile.html" class="test-link">Go to Profile</a>
+        <p><em>On the profile page, click প্রোভাইডার - should go to provider-list.html</em></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🗺️ From Service Area (service-area.html)</h2>
+        <p>Testing প্রোভাইডার navigation from service area page:</p>
+        <a href="Service area/service-area.html" class="test-link">Go to Service Area</a>
+        <p><em>On the service area page, click প্রোভাইডার - should go to provider-list.html</em></p>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Provider List (provider-list.html)</h2>
+        <p>Direct access to provider list:</p>
+        <a href="Provider List/provider-list.html" class="test-link">Go to Provider List</a>
+        <p><em>This should show the provider list page directly</em></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Testing Summary</h2>
+        <h3>Expected Behavior:</h3>
+        <ul>
+            <li><strong>From Dashboard:</strong> প্রোভাইডার button should show modal overlay</li>
+            <li><strong>From Profile:</strong> প্রোভাইডার link should navigate to provider-list.html</li>
+            <li><strong>From Service Area:</strong> প্রোভাইডার link should navigate to provider-list.html</li>
+            <li><strong>Provider List Page:</strong> Should have working navigation back to other pages</li>
+        </ul>
+        
+        <h3>Fixed Issues:</h3>
+        <ul>
+            <li>✅ Profile page: Changed href from "#" to "../Provider List/provider-list.html"</li>
+            <li>✅ Service Area page: Fixed broken path from "../ProviderList/providerlist.html" to "../Provider List/provider-list.html"</li>
+            <li>✅ Dashboard: Enhanced provider modal with proper CSS and JavaScript</li>
+        </ul>
+    </div>
+</body>
+</html>
