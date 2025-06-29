@@ -2433,12 +2433,12 @@ function closeModal(modalId) {
             totalNotifications > 99 ? "99+" : totalNotifications;
         }
       }
+    }, 5000);
+  }
+
   // Initialize with dashboard view
   loadContent("dashboard");
   
   // Add error handlers to all existing images
   addImageErrorHandlers();
-});
-  // Initialize with dashboard view
-  loadContent("dashboard");
 });

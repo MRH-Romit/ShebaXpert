@@ -56,6 +56,30 @@
         </div>
     </div>
 
-    <script src="pro-dash.js">    </script>
+    <script>
+        // Global function to handle image loading errors
+        function handleImageError(img) {
+            if (img.src.includes('user.jpg') || img.alt.includes('প্রোফাইল') || img.alt.includes('ব্যবহারকারী')) {
+                // Default user image
+                img.src = '../Resources/images/user.jpg';
+                img.onerror = null; // Prevent infinite loop
+            } else if (img.alt.includes('ক্লায়েন্ট')) {
+                // Default client images - cycle through available options
+                const clientImages = ['man1.png', 'man2.png', 'woman1.jpeg', 'woman2.png'];
+                const randomImage = clientImages[Math.floor(Math.random() * clientImages.length)];
+                img.src = '../Resources/images/' + randomImage;
+                img.onerror = null;
+            } else if (img.alt.includes('লোগো')) {
+                // Default logo
+                img.src = '../Resources/images/logo.png';
+                img.onerror = null;
+            } else {
+                // Fallback to user image
+                img.src = '../Resources/images/user.jpg';
+                img.onerror = null;
+            }
+        }
+    </script>
+    <script src="pro-dash.js"></script>
 </body>
 </html>
