@@ -2,13 +2,19 @@
 const API_BASE_URL = 'http://localhost:5000/api';
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded');
     const form = document.getElementById('serviceProviderForm');
+    console.log('Form found:', form ? 'Yes' : 'No');
     
     if (form) {
+        console.log('Adding event listeners to form');
         form.addEventListener('submit', handleFormSubmission);
-        setupFormValidation();
-        setupFileHandlers();
-        updateProgress(); // Initial progress calculation
+        // Temporarily disable other setup functions
+        // setupFormValidation();
+        // setupFileHandlers();
+        // updateProgress(); // Initial progress calculation
+    } else {
+        console.error('Form not found!');
     }
 });
 

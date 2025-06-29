@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const ServiceProvider = require('../models/ServiceProvider');
+const { pool } = require('../config/db');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
@@ -335,11 +336,42 @@ const getLatestRegistration = async (req, res) => {
   }
 };
 
+// Get all service provider registrations (admin function)
+exports.getAllRegistrations = async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT 
+        sp.*,
+        u.email,
+        u.phone,
+        u.first_name,
+        u.last_name,
+        u.created_at as user_created_at
+      FROM service_providers sp
+      JOIN users u ON sp.user_id = u.id
+      ORDER BY sp.created_at DESC
+    `);
+    
+    res.status(200).json({
+      success: true,
+      count: rows.length,
+      data: rows
+    });
+  } catch (error) {
+    console.error('Error getting all registrations:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while fetching registrations'
+    });
+  }
+};
+
 module.exports = {
   register: exports.register,
   login: exports.login,
   registerServiceProvider: exports.registerServiceProvider,
   uploadServiceProviderFiles: exports.uploadServiceProviderFiles,
-  checkRegistrations,
-  getLatestRegistration
+  checkRegistrations: checkRegistrations,
+  getLatestRegistration: getLatestRegistration,
+  getAllRegistrations: exports.getAllRegistrations
 };

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শেবা এক্সপার্ট - ড্যাশবোর্ড</title>
+    <title>শেবা এক্সপার্ট - ড্যাশবোর্ড (টেস্ট)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="pro-dash.css">
 </head>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="user-profile">
                         <img src="/ShebaXpert/Resources/images/user.jpg" alt="প্রোফাইল ছবি">
-                        <span>আপনার নাম</span>
+                        <span>টেস্ট ইউজার</span>
                     </div>
                 </div>
             </header>
@@ -55,6 +55,23 @@
         </div>
     </div>
 
-    <script src="pro-dash.js">    </script>
+    <script>
+        // Set up test authentication data
+        const testUser = {
+            firstName: "টেস্ট",
+            lastName: "ইউজার",
+            email: "test@shebaxpert.com",
+            role: "service_provider"
+        };
+        
+        const testToken = "test-auth-token-12345";
+        
+        // Store test data in localStorage
+        localStorage.setItem('user', JSON.stringify(testUser));
+        localStorage.setItem('authToken', testToken);
+        
+        console.log('Test authentication data set up');
+    </script>
+    <script src="pro-dash.js"></script>
 </body>
 </html>

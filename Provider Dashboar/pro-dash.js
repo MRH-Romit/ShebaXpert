@@ -924,9 +924,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Function to show appointment details
-   // Function to show appointment details
 function showAppointmentDetails(appointmentId) {
     const modal = document.getElementById('appointment-detail-modal');
+    const content = document.getElementById('appointment-detail-content');
     modal.classList.add('active');
 
       // Sample data - in a real app this would come from a database
@@ -1166,21 +1166,6 @@ function showAppointmentDetails(appointmentId) {
         }
       });
     }
-
-    // Function to close modal
-function closeModal() {
-    document.getElementById('appointment-detail-modal').classList.remove('active');
-}
-
-// Close when clicking X button
-document.querySelector('.close-modal').addEventListener('click', closeModal);
-
-// Close when clicking outside modal
-document.getElementById('appointment-detail-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeModal();
-    }
-});
     // Other appointment action buttons
     document.querySelectorAll(".chat-btn").forEach((btn) => {
       btn.addEventListener("click", function () {
@@ -1399,7 +1384,7 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
                             
                             <div class="conversation-item" data-user="jamil">
                                 <div class="user-avatar">
-                                    <img src="/ShebaXpert/Resources/images/man5.jpg" alt="ব্যবহারকারী">
+                                    <img src="/ShebaXpert/Resources/images/man1.png" alt="ব্যবহারকারী">
                                     <span class="online-status"></span>
                                 </div>
                                 <div class="conversation-info">
@@ -1413,7 +1398,7 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
                             
                             <div class="conversation-item" data-user="nazma">
                                 <div class="user-avatar">
-                                    <img src="/ShebaXpert/Resources/images/woman3.jpg" alt="ব্যবহারকারী">
+                                    <img src="/ShebaXpert/Resources/images/woman2.png" alt="ব্যবহারকারী">
                                     <span class="online-status"></span>
                                 </div>
                                 <div class="conversation-info">
@@ -1654,7 +1639,7 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
         },
         jamil: {
           name: "জামিল আহমেদ",
-          image: "/ShebaXpert/Resources/images/man5.jpg",
+          image: "/ShebaXpert/Resources/images/man1.png",
           lastSeen: "সর্বশেষ দেখা: ২ সপ্তাহ আগে",
           messages: [
             {
@@ -1671,7 +1656,7 @@ document.getElementById('appointment-detail-modal').addEventListener('click', fu
         },
         nazma: {
           name: "নাজমা আক্তার",
-          image: "/ShebaXpert/Resources/images/woman3.jpg",
+          image: "/ShebaXpert/Resources/images/woman2.png",
           lastSeen: "সর্বশেষ দেখা: ৩ সপ্তাহ আগে",
           messages: [
             {
