@@ -47,6 +47,14 @@ try {
     # Ignore errors if processes don't exist
 }
 
+# Clear browser cache instruction
+Write-Host "=== IMPORTANT: Clear Browser Cache ===" -ForegroundColor Red
+Write-Host "If you see old/cached content, please:" -ForegroundColor Yellow
+Write-Host "1. Press Ctrl+F5 (force refresh)" -ForegroundColor Yellow  
+Write-Host "2. Or press F12 > Application/Storage > Clear Storage" -ForegroundColor Yellow
+Write-Host "3. Or open in Incognito/Private mode" -ForegroundColor Yellow
+Write-Host "" -ForegroundColor White
+
 Write-Host "Starting services..." -ForegroundColor Green
 
 # 1. Start the static file server for the frontend (port 8080)
