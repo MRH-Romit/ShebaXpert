@@ -2,6 +2,20 @@
 
 ShebaXpert is a comprehensive service provider platform built with Node.js backend and vanilla HTML/CSS/JavaScript frontend, featuring MySQL-based authentication and user management.
 
+## Quick Start
+
+To start the application, simply run:
+
+```powershell
+.\quick-start.ps1
+```
+
+This script will:
+- Install backend dependencies automatically
+- Start the backend server on port 5000
+- Start the frontend server on port 8080
+- Open the application in your browser
+
 ## Project Structure
 
 ```
@@ -15,12 +29,12 @@ ShebaXpert/
 │   ├── utils/             # Utility functions
 │   ├── server.js          # Main server file
 │   ├── schema.sql         # MySQL database schema
-│   └── createMySQLDatabase.js # Database setup script
+│   └── .env               # Environment configuration
 ├── Dashboard/             # User dashboard interface
 ├── Landing Page/          # Main landing page
 ├── Login/                # Authentication interface
 ├── Resources/            # Static assets (images, etc.)
-└── start-all.ps1        # Application startup script
+└── quick-start.ps1      # Application startup script
 ```
 
 ## Features

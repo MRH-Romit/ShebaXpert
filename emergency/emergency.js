@@ -44,7 +44,8 @@ function initializeSupportCards() {
                     alert('চ্যাট সেবা শীঘ্রই আসছে!');
                     break;
                 default:
-                    console.log('Unknown action:', action);
+                    // Unknown action - do nothing
+                    break;
             }
         });
     });
@@ -83,8 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSupportCards();
     initializeResourceItems();
     initializeBackButton();
-
-    console.log('Emergency page initialized successfully');
 });
 
 // Add some utility functions

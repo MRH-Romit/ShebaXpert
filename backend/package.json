@@ -36,8 +36,7 @@
     "multer": "^2.0.0",
     "mysql2": "^3.6.0",
     "node-fetch": "^3.3.2",
-    "openai": "^5.0.1",
-    "shebaxpert-backend": "file:"
+    "openai": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
