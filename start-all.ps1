@@ -26,14 +26,14 @@ try {
 }
 
 # Check if backend dependencies are installed
-if (!(Test-Path "i:\ShebaXpert\backend\node_modules")) {
+if (!(Test-Path "f:\Projects\ShebaXpert\backend\node_modules")) {
     Write-Host "Installing backend dependencies..." -ForegroundColor Yellow
-    Set-Location "i:\ShebaXpert\backend"
+    Set-Location "f:\Projects\ShebaXpert\backend"
     npm install
 }
 
 # Check if .env file exists
-if (!(Test-Path "i:\ShebaXpert\backend\.env")) {
+if (!(Test-Path "f:\Projects\ShebaXpert\backend\.env")) {
     Write-Host "[WARNING] .env file not found in backend directory" -ForegroundColor Yellow
     Write-Host "Please ensure MySQL credentials are configured" -ForegroundColor Yellow
 }
@@ -59,13 +59,13 @@ Write-Host "Starting services..." -ForegroundColor Green
 
 # 1. Start the static file server for the frontend (port 8080)
 Write-Host "Starting frontend server on http://localhost:8080..." -ForegroundColor Cyan
-Start-Process python -ArgumentList '-m', 'http.server', '8080' -WorkingDirectory 'i:\ShebaXpert' -WindowStyle Minimized
+Start-Process python -ArgumentList '-m', 'http.server', '8080' -WorkingDirectory 'f:\Projects\ShebaXpert' -WindowStyle Minimized
 
 Start-Sleep -Seconds 3 # Give the static server time to start
 
 # 2. Start the backend API server (port 5000)
 Write-Host "Starting backend API server on http://localhost:5000..." -ForegroundColor Cyan
-Start-Process node -ArgumentList 'server.js' -WorkingDirectory 'i:\ShebaXpert\backend' -WindowStyle Minimized
+Start-Process node -ArgumentList 'server.js' -WorkingDirectory 'f:\Projects\ShebaXpert\backend' -WindowStyle Minimized
 
 Start-Sleep -Seconds 3 # Give the backend time to start
 
